@@ -111,37 +111,6 @@ int main(int argc, char* argv[])
         servo.set_target(rudder_setting);
         servo.run();
 
-        /*
-        //DEGREES (WE NEED RADIANS)
-        double vec_y = cos(bearing*(M_PI/180));
-        double vec_x = sin(bearing*(M_PI/180));
-        
-        std::cout << "VEC X: " << vec_x << std::endl;
-        std::cout << "VEC Y: " << vec_y << std::endl;
-        std::cout << "------------" << std::endl;
-        
-        
-        std::cout << "VEC X: " << waypoint_vec_x << std::endl;
-        std::cout << "VEC Y: " << waypoint_vec_y << std::endl;
-        std::cout << "------------" << std::endl;
-        std::cout << "DIFFERENCE" << std::endl;
-        
-        double diff_x = waypoint_vec_x - vec_x;
-        double diff_y = waypoint_vec_y - vec_y;
-        std::cout << "DIF X: " << diff_x << std::endl;
-        std::cout << "DIF Y: " << diff_y << std::endl;
-        
-        double combined = (diff_x + diff_y);
-        
-        std::cout << "COMBINED: " << combined << std::endl;
-        
-        //double course = servo.calculate_course(combined);
-        
-        //servo.set_target(course);
-        //servo.run();
-        
-        //compass.report();
-        */
     }
     
     return 0;
