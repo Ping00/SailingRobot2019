@@ -26,7 +26,7 @@ void Module_CMPS12::run()
     data = m_CMPS12_hardware_connection.read();
     if(data.get_entry(DATA_SET_CALIBRATION_STATE_8) != -1)
     {
-        
+        m_CMPS12_data_reading.set_entry(DATA_SET_COMPASS_BEARING_DEGREES_16,data.get_entry[DATA_SET_COMPASS_BEARING_DEGREES_16]);
     }
 }
 
