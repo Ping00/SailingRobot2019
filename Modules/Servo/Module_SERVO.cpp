@@ -17,11 +17,13 @@ bool Module_SERVO::init()
 		
 void Module_SERVO::run()
 {
+	int servo_position = calculate_position(m_target);
+	
 	m_servo_hardware_connection.command(
 		m_servo_hardware_connection.get_file_descriptor(),
 		m_channel,
 		MAESTRO_SET_POSITION,
-		m_target);
+		servo_position);
 }
 
 void Module_SERVO::set_target(int limit)
@@ -34,5 +36,14 @@ void Module_SERVO::set_target(int limit)
 
 int Module_SERVO::calculate_position(int position)
 {
-	return 0;
+	int servo_lower_limit = m_servo_hardware_connection.get_lower_limit();
+	int servo_upper_limit = m_servo_hardware_connection.get_upper_limit();
+
+	//Calculate percentile range for our boundaries
+	int percentile = (m_target - m_lower_boundary) / (m_upper_boundary - m_lower_boundary);
+	int destination = percentile*(servo_upper_limit-servo_lower_limit)+servo_lower_limit;
+	
+	std::cout << "SERVO SHOULD BE AT: " << destination <<  << " FOR " << position << std::endl;
+	
+	return destination;
 }
