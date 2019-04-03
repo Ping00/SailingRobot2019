@@ -62,7 +62,7 @@ VEC2 Calculation_Unit::degrees_to_vector(double value)
     double radians = degrees_to_radians(value);
 
     VEC2 vec;
-    vec.x = cos(radians);
+    vec.x = -cos(radians);
     vec.y = sin(radians);
     
     //PI/2 gives a value very close to 0

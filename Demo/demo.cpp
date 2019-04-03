@@ -51,7 +51,7 @@ int main(int argc, char* argv[])
     std::cout << "- STARTING SYSTEM -" << std::endl;
     
     
-    const int offset = 0;
+    const int offset = 90;
     
     int waypoint = 120;
     int true_waypoint = 120 + offset;
@@ -69,6 +69,8 @@ int main(int argc, char* argv[])
         
         std::cout << "CURRENT X : " << current_pos.x << std::endl;
         std::cout << "CURRENT Y : " << current_pos.y << std::endl;
+        
+        
         
         /*
         //DEGREES (WE NEED RADIANS)
