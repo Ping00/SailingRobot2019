@@ -1,4 +1,5 @@
 #include "Module_SERVO.hpp"
+#include "../../Utilities/utilities.hpp"
 #include <iostream>
 Module_SERVO::Module_SERVO(double lower_limit, double upper_limit, int channel)
 {
@@ -29,7 +30,12 @@ void Module_SERVO::run()
 	if(m_initialized)
 	{
 		//ADD CALCULATION UNIT
-		int servo_position = 0;
+		int servo_position = Utilities::convert_coordinates(
+		m_upper_boundary, 
+		m_lower_boundary, 
+		m_servo_hardware_connection.get_upper_limit(),
+		m_servo_hardware_connection.get_lower_limit(),
+		m_target);
 
 
 		m_servo_hardware_connection.command(
