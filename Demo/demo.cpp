@@ -14,7 +14,6 @@ int main(int argc, char* argv[])
     Module_CMPS12   compass;
     Module_SERVO    servo(-1,1,RUDDER);
     
-    int destination_degree = 120;
 
     bool compass_state = compass.init();
     bool servo_state = servo.init();
@@ -46,6 +45,12 @@ int main(int argc, char* argv[])
     sleep(2);
     std::cout << "- STARTING SYSTEM -" << std::endl;
     
+    
+    int waypoint = 120;
+    double waypoint_vec_y = cos(waypoint*(M_PI/180));
+    double waypoint_vec_x = sin(waypoint*(M_PI/180));
+
+    
     while(true)
     {
         compass.run();
@@ -53,15 +58,27 @@ int main(int argc, char* argv[])
         std::cout << "BEARING: " << bearing << std::endl;
         
         //DEGREES (WE NEED RADIANS)
-        int offset = bearing;
-        
-        
-        
         double vec_y = cos(bearing*(M_PI/180));
         double vec_x = sin(bearing*(M_PI/180));
         
         std::cout << "VEC X: " << vec_x << std::endl;
         std::cout << "VEC Y: " << vec_y << std::endl;
+        std::cout << "------------" << std::endl;
+        
+        
+        std::cout << "VEC X: " << waypoint_vec_x << std::endl;
+        std::cout << "VEC Y: " << waypoint_vec_y << std::endl;
+        std::cout << "------------" << std::endl;
+        std::cout << "DIFFERENCE" << std::endl;
+        
+        double diff_x = waypoint_vec_x - vec_x;
+        double diff_y = waypoint_vec_y - vec_y;
+        std::cout << "DIF X: " << diff_x << std::endl;
+        std::cout << "DIF Y: " << diff_y << std::endl;
+        
+        double combined = diff_x + diff_y;
+        std::cout << "COMBINED: " << combined << std::endl;
+
         
         //compass.report();
     }
