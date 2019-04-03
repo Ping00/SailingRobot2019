@@ -29,7 +29,6 @@ void Module_SERVO::run()
 {
 	if(m_initialized)
 	{
-		//ADD CALCULATION UNIT
 		int servo_position = Utilities::convert_coordinates(
 		m_upper_boundary, 
 		m_lower_boundary, 

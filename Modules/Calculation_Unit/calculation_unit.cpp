@@ -1,4 +1,5 @@
 #include "calculation_unit.hpp"
+#include <math.h>
 #include <iostream>
 double Calculation_Unit::calculate_rudder_position(VEC2 vector)
 {
@@ -10,7 +11,28 @@ double Calculation_Unit::calculate_rudder_position(VEC2 vector)
 
     //V.x = cos(A)
     //V.y = sin(A)
-
+    
+    //If Y is negative then we need to turn around
+    if(vector.y <= 0)
+    {
+        //TURN RIGHT
+        if(vector.x >= 0)
+        {
+            std::cout << "WRONG SIDE : TURN RIGHT " << std::endl;
+        }
+        //TURN LEFT
+        else if(vector.x < 0)
+        {
+            std::cout << "RONG SIDE : TURN LEFT" << std::endl;
+        }
+    }
+    //We are looking in the correct half
+    else
+    {
+        int threshold = abs(vector.x) - RUDDER_DEAD_ZONE;
+        std::cout << "DEADZONE: " << threshold << std::endl;
+        
+    }
 
 
     return 0;

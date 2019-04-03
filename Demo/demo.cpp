@@ -5,20 +5,22 @@
 #include "../Modules/Compass/Module_CMPS12.hpp"
 #include "../Modules/Servo/Module_SERVO.hpp"
 #include "../Utilities/Data_Containers/VEC2.hpp"
+#include "../Modules/Calculation_Unit/calculation_unit.hpp"
 int main(int argc, char* argv[])
 {
-    static int RUDDER = 0;
-    static int SAIL = 1;
+    static const int RUDDER = 1;
+    static const int SAIL = 0;
 
     std::cout << "Starting DEMO" << std::endl;
     
     
     Module_CMPS12       compass;
-    //Module_SERVO        servo(-1,1,RUDDER);
+    Module_SERVO        servo(-1,1,RUDDER);
     
+    Calculation_Unit    CU;
 
     bool compass_state = compass.init();
-    //bool servo_state = servo.init();
+    bool servo_state = servo.init();
 
     
     if(compass_state)
@@ -30,7 +32,7 @@ int main(int argc, char* argv[])
         std::cout << "[ ERROR ] COMPASS  " << std::endl;
     }
     
-    /*
+    
     if(servo_state)
     {
         std::cout << "[ OK ] SERVO: RUDDER" << std::endl;
@@ -39,7 +41,7 @@ int main(int argc, char* argv[])
     {
         std::cout << "[ ERROR ] SERVO: RUDDER" << std::endl;
     }
-    */
+    
     /*
     if(compass_state == false || servo_state == false)
     {
@@ -81,6 +83,8 @@ int main(int argc, char* argv[])
         std::cout << "DEST X : " << dest.x << std::endl;
         std::cout << "DEST Y : " << dest.y << std::endl;
 
+        double rudder_setting = CU.calculate_rudder_position(dest);
+        
 
         /*
         //DEGREES (WE NEED RADIANS)
