@@ -22,13 +22,13 @@ void Module_SERVO::run()
 	{
 		int servo_position = calculate_position(m_target);
 	
-		/*
+		
 		m_servo_hardware_connection.command(
 			m_servo_hardware_connection.get_file_descriptor(),
 			m_channel,
 			MAESTRO_SET_POSITION,
 			servo_position);
-		*/
+		
 	}
 	else
 	{

@@ -76,9 +76,11 @@ int main(int argc, char* argv[])
         std::cout << "DIF X: " << diff_x << std::endl;
         std::cout << "DIF Y: " << diff_y << std::endl;
         
-        double combined = diff_x + diff_y;
+        double combined = (diff_x + diff_y)/2;
         std::cout << "COMBINED: " << combined << std::endl;
 
+        servo.set_target(-1);
+        servo.run();
         
         //compass.report();
     }
