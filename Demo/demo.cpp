@@ -2,9 +2,10 @@
 #include <unistd.h>
 #include <math.h>
 #include "../Utilities/utilities.hpp"
+#include "../Utilities/Data_Containers/VEC2.hpp"
 #include "../Modules/Compass/Module_CMPS12.hpp"
 #include "../Modules/Servo/Module_SERVO.hpp"
-#include "../Utilities/Data_Containers/VEC2.hpp"
+#include "../Modules/GPS/Module_GPS.hpp"
 #include "../Modules/Calculation_Unit/calculation_unit.hpp"
 int main(int argc, char* argv[])
 {
@@ -16,11 +17,17 @@ int main(int argc, char* argv[])
     
     Module_CMPS12       compass;
     Module_SERVO        servo(-1,1,RUDDER);
+    Module_GPS          gps;
+    
+    
+    
     
     Calculation_Unit    CU;
 
     bool compass_state = compass.init();
     bool servo_state = servo.init();
+    bool gps_state = gps.init();
+    
 
     
     if(compass_state)

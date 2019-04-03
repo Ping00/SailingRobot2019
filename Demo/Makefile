@@ -9,7 +9,7 @@ CFLAGS = -Wall -pthread -D_REENTRANT -lwiringPi
 TARGET = boatDemo
 
 # Lägg till eventuella nya källkodsfiler för ditt program här
-SOURCES = 
+SOURCES = demo.cpp
 
 all : $(TARGET)
 
