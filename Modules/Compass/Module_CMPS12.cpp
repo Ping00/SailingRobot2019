@@ -20,11 +20,8 @@ bool Module_CMPS12::init()
 
 void Module_CMPS12::run()
 {
-    CMPS12_DATA set;
-    set = m_CMPS12_hardware_connection.read();
-    //Check if set was valid by examining Calibration byte
-    //-1 Means set was invalid (Data failed due to wire connection)
-    
+    CMPS12_DATA data;
+    data = m_CMPS12_hardware_connection.read();
 }
 
 bool Module_CMPS12::getInitialized()

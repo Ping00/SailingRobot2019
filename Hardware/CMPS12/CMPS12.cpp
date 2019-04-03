@@ -31,11 +31,10 @@ bool CMPS12::init()
 
 CMPS12_DATA CMPS12::read()
 {
-
+    CMPS12_DATA data_set;
     //Read data if we are initialized
     if(m_initialized)
     {
-        CMPS12_DATA data_set;
         
         std::vector<int> raw_data;
         raw_data.reserve(31);
@@ -45,11 +44,11 @@ CMPS12_DATA CMPS12::read()
             raw_data[i] = wiringPiI2CReadReg8(m_file_descriptor,i);
             if(raw_data[i] == -1)
             {
-                std::cout << "Data Corrupt!" << std::endl;
+                //std::cout << "Data Corrupt!" << std::endl;
             }
             else
             { 
-                std::cout << "Data OK!" << std::endl;
+                //std::cout << "Data OK!" << std::endl;
             }
         }
         
@@ -57,10 +56,6 @@ CMPS12_DATA CMPS12::read()
         
         
         return data_set;
-        
     }
-    else
-    {
-        throw "ERROR: CMPS WAS NOT INITIALIZED!";
-    }
+    
 }
