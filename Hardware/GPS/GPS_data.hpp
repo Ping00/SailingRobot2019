@@ -19,8 +19,8 @@ class GPS_DATA
 		void set_valid(bool valid);
 		bool get_valid();
 		
-		double get_latitude;
-		double get_longitude;
-		std::string get_time;
+		double get_latitude();
+		double get_longitude();
+		std::string get_time();
 };
 #endif//__GPS_DATA_HPP__
