@@ -42,15 +42,9 @@ CMPS12_DATA CMPS12::read()
         for(int i = 0; i < TOTAL_REGISTRY_ENTRIES; i++)
         {
             raw_data[i] = wiringPiI2CReadReg8(m_file_descriptor,i);
-            if(raw_data[i] == -1)
-            {
-                //std::cout << "Data Corrupt!" << std::endl;
-            }
-            else
-            { 
-                //std::cout << "Data OK!" << std::endl;
-            }
         }
+        
+        printf("Pitch: %i\n",raw_data[PITCH_ANGLE_8]);
         
         //Check that data set was not corrupt
         
