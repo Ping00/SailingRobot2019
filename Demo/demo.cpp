@@ -1,5 +1,6 @@
 #include <iostream>
 #include <unistd.h>
+#include <math.h>
 #include "../Modules/Compass/Module_CMPS12.hpp"
 #include "../Modules/Servo/Module_SERVO.hpp"
 int main(int argc, char* argv[])
@@ -45,28 +46,24 @@ int main(int argc, char* argv[])
     sleep(2);
     std::cout << "- STARTING SYSTEM -" << std::endl;
     
-    
-    //TESTING SERVO STATES
-    servo.set_target(-1);
-    servo.run();
-    
-    servo.set_target(0);
-    servo.run();
-    
-    servo.set_target(1);
-    servo.run();
-    
-    
-    
-    sleep(3);
-    return 1;
     while(true)
     {
         compass.run();
+        int bearing = compass.get_reading().get_entry(DATA_SET_COMPASS_BEARING_DEGREES_16);
+        std::cout << "BEARING: " << bearing << std::endl;
         
-        //int bearing = compass.get_reading.get_entry(DATA_SET_COMPASS_BEARING_DEGREES_16);
+        //DEGREES (WE NEED RADIANS)
+        int offset = bearing;
         
-        compass.report();
+        
+        
+        double vec_y = cos(bearing*(M_PI/180));
+        double vec_x = sin(bearing*(M_PI/180));
+        
+        std::cout << "VEC X: " << vec_x << std::endl;
+        std::cout << "VEC Y: " << vec_y << std::endl;
+        
+        //compass.report();
     }
     
     return 0;
