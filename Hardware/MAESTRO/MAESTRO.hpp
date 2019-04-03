@@ -9,6 +9,7 @@ typedef enum
 class MAESTRO
 {
     private:
+    bool  m_initialized;
 
     public:
       MAESTRO();
