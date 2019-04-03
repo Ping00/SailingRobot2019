@@ -49,15 +49,27 @@ int main(int argc, char* argv[])
         std::cout << "[ ERROR ] SERVO: RUDDER" << std::endl;
     }
     
-    /*
-    if(compass_state == false || servo_state == false)
+    if(gps_state)
     {
+        std::cout << "[ OK ] GPS" << std::endl;
+    }
+    else
+    {
+        std::cout << "[ ERROR ] GPS" << std::endl;
+    }
+    std::cout << "--------------" << std::endl;
+    
+    if(compass_state == false || servo_state == false || gps_state == false)
+    {
+        std::cout << "[ ERROR ] SOME SYSTEMS FAILED TO INITIALIZE" << std::endl;
         return -1;
     }
-    */
-    std::cout << "[ OK ] ALL SYSTEMS" << std::endl;
-    sleep(2);
-    std::cout << "- STARTING SYSTEM -" << std::endl;
+    else
+    {
+        std::cout << "[ OK ] ALL SYSTEMS" << std::endl;
+        sleep(2);
+        std::cout << "- STARTING SYSTEM -" << std::endl;
+    }
     
     
     const int offset = 90;

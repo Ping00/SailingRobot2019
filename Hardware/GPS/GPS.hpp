@@ -5,8 +5,9 @@ class GPS
 {
 	private:
 		bool m_initialized;
-				
-		gpsmm m_gps;
+		
+		//GPSMM is a pointer to go around the initializer list
+		gpsmm* m_gps;
 		
 	public:
 		GPS();
