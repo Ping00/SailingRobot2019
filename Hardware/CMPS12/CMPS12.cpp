@@ -46,9 +46,6 @@ CMPS12_DATA CMPS12::read()
             raw_data[i] = wiringPiI2CReadReg8(m_file_descriptor,i);
         }
         
-        //bitshift the relevant data amounts
-        
-        
         //Calibration
         data_set.set_entry(DATA_SET_CALIBRATION_STATE_8,
         raw_data[CALIBRATION_STATE_8]);
@@ -57,9 +54,13 @@ CMPS12_DATA CMPS12::read()
         int degrees_shifted = bitshift(
         raw_data[COMPASS_BEARING_16_HIGH_BYTE_DEGREES],raw_data[COMPASS_BEARING_16_LOW_BYTE_DEGREES]) / 16;
         
+        std::cout << "DATA INTERCEPTION: " << degrees_shifted << std::endl;
+        
         //Set Degrees Bearing
         data_set.set_entry(DATA_SET_COMPASS_BEARING_DEGREES_16,
         degrees_shifted);
+        
+        std::cout << "DID WE GET THE DATA: " << data_set.get_entry(DATA_SET_COMPASS_BEARING_DEGREES_16) << std::endl;
         
         //Pitch
         data_set.set_entry(DATA_SET_PITCH_ANGLE_8,
@@ -68,11 +69,6 @@ CMPS12_DATA CMPS12::read()
         //Roll
         data_set.set_entry(DATA_SET_ROLL_ANGLE_8,
         raw_data[ROLL_ANGLE_8]);
-        
-        
-        //data_set.set_entry[DATA_SET_PITCH_ANGLE_8] = raw_data[PITCH_ANGLE_8];
-        //data_set.set_entry[DATA_SET_ROLL_ANGLE_8] = raw_data[ROLL_ANGLE_8];
-        
         
         return data_set;
     }

@@ -2,7 +2,7 @@
 #define  __CMPS12_DATA_HPP__
 #include <inttypes.h>
 #include <vector>
-#include "CMPS12_I2C_registry.hpp"
+#include "CMPS12_DATA_registry.hpp"
 class CMPS12_DATA
 {
     private:

@@ -15,6 +15,7 @@ int main(void)
         while(true)
         {
             compass.run();
+            compass.report();
         }
     }
 

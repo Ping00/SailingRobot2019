@@ -26,6 +26,8 @@ class Module_CMPS12
       bool getInitialized();
 
       CMPS12_DATA get_reading();
+      
+      void report();
 
 };
 #endif//__MODULE_CMPS12_HPP__
