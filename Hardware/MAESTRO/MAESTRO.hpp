@@ -6,7 +6,10 @@ class MAESTRO
     private:
     bool  m_initialized;
     int   m_file_descriptor;
-    const char* portname;
+    const char* m_portname;
+    
+    int m_lower_limit;
+    int m_upper_limit;
 
     public:
       MAESTRO();
