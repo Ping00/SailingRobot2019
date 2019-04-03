@@ -10,3 +10,21 @@ bool Module_GPS::init()
 	m_initialized = result;
 	return result;
 }
+
+void Module_GPS::run()
+{
+	
+}
+
+void Module_GPS::read_data()
+{
+	
+}
+
+GPS_DATA Module_GPS::get_reading()
+{
+		GPS_DATA temp;
+		
+		return temp;
+
+}

@@ -59,6 +59,8 @@ int main(int argc, char* argv[])
     }
     std::cout << "--------------" << std::endl;
     
+    
+    /*
     if(compass_state == false || servo_state == false || gps_state == false)
     {
         std::cout << "[ ERROR ] SOME SYSTEMS FAILED TO INITIALIZE" << std::endl;
@@ -67,10 +69,11 @@ int main(int argc, char* argv[])
     else
     {
         std::cout << "[ OK ] ALL SYSTEMS" << std::endl;
-        sleep(2);
-        std::cout << "- STARTING SYSTEM -" << std::endl;
     }
+    */
     
+    sleep(2);
+    std::cout << "- STARTING SYSTEM -" << std::endl;
     
     const int offset = 90;
     int waypoint = 120;
