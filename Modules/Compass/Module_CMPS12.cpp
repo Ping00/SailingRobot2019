@@ -26,11 +26,16 @@ void Module_CMPS12::run()
     data = m_CMPS12_hardware_connection.read();
     if(data.get_entry(DATA_SET_CALIBRATION_STATE_8) != -1)
     {
-            std::cout << "DATA OK" << std::endl;
+        m_CMPS12_data_reading = data;
     }
 }
 
 bool Module_CMPS12::getInitialized()
 {
     return m_initialized;
+}
+
+CMPS12_DATA Module_CMPS12::get_reading()
+{
+    return m_CMPS12_data_reading;
 }

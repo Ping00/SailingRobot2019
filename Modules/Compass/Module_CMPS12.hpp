@@ -16,8 +16,6 @@ class Module_CMPS12
       //Is this module initialized
       bool                      m_initialized;
       
-      int                       m_iterator_counter;
-      int                       m_tick_counter;
 
     public:
       Module_CMPS12();
