@@ -19,10 +19,29 @@ int main(int argc, char* argv[])
 
     if(compass_state)
     {
-        std::cout << "COMPASS OK!" << std::endl;
+        std::cout << "[ OK ] COMPASS  " << std::endl;
     }
+    else
+    {
+        std::cout << "[ ERROR ] COMPASS  " << std::endl;
+    }
+    if(servo_state)
+    {
+        std::cout << "[ OK ] SERVO: RUDDER" << std::endl;
+    }
+    else
+    {
+        std::cout << "[ ERROR ] SERVO: RUDDER" << std::endl;
+    }
+    
+    if(compass_state == false || servo_state == false)
+    {
+            return -1;
+    }
+    std::cout << "[ OK ] ALL SYSTEMS" << std::endl;
     sleep(2);
-
+    std::cout << "- STARTING SYSTEM -" << std::endl;
+    sleep(3);
     while(true)
     {
         compass.run();
