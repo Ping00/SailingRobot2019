@@ -42,6 +42,14 @@ void Module_SERVO::set_target(int limit)
 	{
 		m_target = limit;
 	}
+	else if(limit > m_upper_boundary)
+	{
+		m_target = m_upper_boundary;
+	}
+	else if(limit < m_lower_boundary)
+	{
+		m_target = m_lower_boundary;
+	}
 }
 
 
@@ -61,10 +69,14 @@ double Module_SERVO::calculate_course(double value)
 {
 		if(value > 0)
 		{
-				return 1;
+				return value;
 		}
 		else if(value < 0)
 		{
-				return -1;
+				return -value;
+		}
+		else
+		{
+				return 0;
 		}
 }

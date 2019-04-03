@@ -79,10 +79,10 @@ int main(int argc, char* argv[])
         double combined = (diff_x + diff_y);
         
         std::cout << "COMBINED: " << combined << std::endl;
-        double course = calculate_course(combined);
+        double course = servo.calculate_course(combined);
+        std::cout << "COURSE SET: " << course << std::endl;
         
-        
-        servo.set_target(-1);
+        servo.set_target(course);
         servo.run();
         
         //compass.report();
