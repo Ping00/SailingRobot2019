@@ -1,7 +1,8 @@
 #include "CMPS12_data.hpp"
+#define TOTAL_ENTRIES 18
 CMPS12_DATA::CMPS12_DATA()
 {
-   m_data.reserve(18);
+   m_data.reserve(TOTAL_ENTRIES);
 }
 
 void CMPS12_DATA::set_entry(DATA_SET_REGISTRY entry, int data)

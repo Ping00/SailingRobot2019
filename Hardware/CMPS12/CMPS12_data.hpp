@@ -7,8 +7,6 @@ class CMPS12_DATA
 {
     private:
       std::vector<int> m_data;
-      
-      //const int DATA_ENTRIES = 18;
 
       /*
       int   m_command_register;
