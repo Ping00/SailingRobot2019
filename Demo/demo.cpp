@@ -37,7 +37,6 @@ int main(int argc, char* argv[])
         std::cout << "[ ERROR ] SERVO: RUDDER" << std::endl;
     }
     
-    /*
     if(compass_state == false || servo_state == false)
     {
         return -1;
@@ -45,8 +44,22 @@ int main(int argc, char* argv[])
     std::cout << "[ OK ] ALL SYSTEMS" << std::endl;
     sleep(2);
     std::cout << "- STARTING SYSTEM -" << std::endl;
-    sleep(3);
     
+    
+    //TESTING SERVO STATES
+    servo.set_target(-1);
+    servo.run();
+    
+    servo.set_target(0);
+    servo.run();
+    
+    servo.set_target(1);
+    servo.run();
+    
+    
+    
+    sleep(3);
+    return 1;
     while(true)
     {
         compass.run();
@@ -55,6 +68,6 @@ int main(int argc, char* argv[])
         
         compass.report();
     }
-    */
+    
     return 0;
 }

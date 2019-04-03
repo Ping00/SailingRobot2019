@@ -23,7 +23,7 @@ class Module_SERVO
 		void run();
 		void set_target(int limit);
 		
-		//int calculate_position(double position);
+		int calculate_position(double position);
 		
 		
 };
