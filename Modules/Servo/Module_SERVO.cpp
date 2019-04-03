@@ -28,7 +28,8 @@ void Module_SERVO::run()
 {
 	if(m_initialized)
 	{
-		int servo_position = calculate_position(m_target);
+		//ADD CALCULATION UNIT
+		int servo_position = 0;
 
 
 		m_servo_hardware_connection.command(

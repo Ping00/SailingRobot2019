@@ -1,6 +1,7 @@
 #include "calculation_unit.hpp"
 #include <math.h>
 #include <iostream>
+#define EPSILON 1e-14
 double Calculation_Unit::degrees_to_radians(double degrees)
 {
     return degrees * (M_PI/180);
@@ -16,9 +17,6 @@ int Calculation_Unit::convert_coordinates(double from_low, double from_high, dou
 
     double percentile = (position - from_low) / (from_high - from_low);
     int result = percentile * (to_high - to_low ) + to_low;
-    //TODO REMOVE PRINTOUTS
-    std::cout << "PERCENTILE: " << percentile << std::endl;
-    std::cout << "RESULT: " << result << std::endl;
     return result;
 }
 
@@ -63,10 +61,15 @@ VEC2 Calculation_Unit::degrees_to_vector(double value)
     //(cos & sin uses radians for its calculations)
     double radians = degrees_to_radians(value);
 
-    VEC2 coordinates;
-    coordinates.x = cos(radians);
-    coordinates.y = sin(radians);
-    return coordinates;
+    VEC2 vec;
+    vec.x = cos(radians);
+    vec.y = sin(radians);
+    
+    //PI/2 gives a value very close to 0
+    if(std::abs(vec.x) < EPSILON) vec.x = 0;
+    if(std::abs(vec.y) < EPSILON) vec.y = 0;
+    
+    return vec;
 }
 
 double Calculation_Unit::vector_to_degrees(VEC2 vector)
