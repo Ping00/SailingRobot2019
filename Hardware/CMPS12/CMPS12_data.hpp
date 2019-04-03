@@ -7,7 +7,8 @@ class CMPS12_DATA
 {
     private:
       std::vector<int> m_data;
-
+      bool             m_data_reading_valid;
+      
       /*
       int   m_command_register;
       int   m_compass_bearing_8bit;
@@ -37,6 +38,8 @@ class CMPS12_DATA
         void set_entry(int entry, int data);
         int get_entry(DATA_SET_REGISTRY entry);
         int get_entry(int entry);
+        
+        bool get_valid();
 
 };
 #endif

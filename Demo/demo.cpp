@@ -12,11 +12,12 @@ int main(void)
     if(compass_state)
     {
         std::cout << "COMPASS OK!" << std::endl;
-        while(true)
-        {
-            compass.run();
-            compass.report();
-        }
+    }
+    
+    while(true)
+    {
+        compass.run();
+        compass.report();
     }
 
     return 0;
