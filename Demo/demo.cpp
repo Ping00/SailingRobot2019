@@ -15,7 +15,6 @@ int main(int argc, char* argv[])
     
     Module_CMPS12       compass;
     //Module_SERVO        servo(-1,1,RUDDER);
-    Utilities utilities;
     
 
     bool compass_state = compass.init();
@@ -55,7 +54,7 @@ int main(int argc, char* argv[])
     const int offset = 90;
     int waypoint = 120;
 
-    VEC2 waypoint_vec = utilities.degrees_to_vector(waypoint + offset);
+    VEC2 waypoint_vec = Utilities::degrees_to_vector(waypoint + offset);
     
     while(true)
     {
@@ -65,7 +64,7 @@ int main(int argc, char* argv[])
         
         int offset_bearing = bearing + offset;
         
-        VEC2 current_pos = utilities.degrees_to_vector(offset_bearing);
+        VEC2 current_pos = Utilities::degrees_to_vector(offset_bearing);
         
         std::cout << "CURRENT X : " << current_pos.x << std::endl;
         std::cout << "CURRENT Y : " << current_pos.y << std::endl;
@@ -77,7 +76,7 @@ int main(int argc, char* argv[])
         int dest_offset = waypoint - bearing;
         std::cout << "DESTINATION BEARING: " << dest_offset << std::endl;
         
-        VEC2 dest = utilities.degrees_to_vector(dest_offset + 90);
+        VEC2 dest = Utilities::degrees_to_vector(dest_offset + 90);
 
         std::cout << "DEST X : " << dest.x << std::endl;
         std::cout << "DEST Y : " << dest.y << std::endl;
