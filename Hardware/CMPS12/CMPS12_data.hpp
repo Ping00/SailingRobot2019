@@ -33,7 +33,7 @@ class CMPS12_DATA
 
     public:
         CMPS12_DATA();
-        void set_entry(CMPS12_DATA entry, int data);
-        int get_entry(CMPS12_DATA entry);
+        void set_entry(DATA_SET_REGISTRY entry, int data);
+        int get_entry(DATA_SET_REGISTRY entry);
 };
 #endif

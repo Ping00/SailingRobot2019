@@ -22,6 +22,10 @@ void Module_CMPS12::run()
 {
     CMPS12_DATA data;
     data = m_CMPS12_hardware_connection.read();
+    if(data.get_entry(DATA_SET_CALIBRATION_STATE_8) == -1)
+    {
+            std::cout << "BAD DATA << std::endl;
+    }
 }
 
 bool Module_CMPS12::getInitialized()
