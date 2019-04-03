@@ -9,7 +9,7 @@ CFLAGS = -Wall -pthread -D_REENTRANT -lwiringPi -lgps
 TARGET = boatDemo
 
 # Lägg till eventuella nya källkodsfiler för ditt program här
-SOURCES = demo.cpp ../Modules/Compass/Module_CMPS12.cpp ../Modules/Servo/Module_SERVO.cpp ../Modules/GPS/Module_GPS.cpp ../Modules/Calculation_Unit/calculation_unit.cpp ../Utilities/utilities.cpp ../Utilities/Data_Containers/VEC2.cpp ../Hardware/GPS/GPS.cpp ../Hardware/CMPS12/CMPS12.cpp ../Hardware/CMPS12/CMPS12_data.cpp ../Hardware/MAESTRO/MAESTRO.cpp  
+SOURCES = demo.cpp ../Modules/Compass/Module_CMPS12.cpp ../Modules/Servo/Module_SERVO.cpp ../Modules/GPS/Module_GPS.cpp ../Modules/Calculation_Unit/calculation_unit.cpp ../Utilities/utilities.cpp ../Utilities/Data_Containers/VEC2.cpp ../Hardware/GPS/GPS.cpp ../Hardware/CMPS12/CMPS12.cpp ../Hardware/CMPS12/CMPS12_data.cpp ../Hardware/MAESTRO/MAESTRO.cpp ../Hardware/GPS/GPS_data.cpp 
 
 all : $(TARGET)
 
