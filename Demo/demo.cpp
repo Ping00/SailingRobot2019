@@ -52,11 +52,9 @@ int main(int argc, char* argv[])
     
     
     const int offset = 90;
-    
     int waypoint = 120;
-    int true_waypoint = 120 + offset;
 
-    
+    VEC2 waypoint_vec = CU.degrees_to_vector(waypoint + offset);
     
     while(true)
     {
@@ -64,14 +62,26 @@ int main(int argc, char* argv[])
         int bearing = compass.get_reading().get_entry(DATA_SET_COMPASS_BEARING_DEGREES_16);
         std::cout << "BEARING: " << bearing << std::endl;
         
-        int true_bearing = bearing + offset;
-        VEC2 current_pos = CU.degrees_to_vector(true_bearing);
+        int offset_bearing = bearing + offset;
+        
+        VEC2 current_pos = CU.degrees_to_vector(offset_bearing);
         
         std::cout << "CURRENT X : " << current_pos.x << std::endl;
         std::cout << "CURRENT Y : " << current_pos.y << std::endl;
+        std::cout << "------------" << std::endl;
+        std::cout << "WAYPOINT X : " << waypoint_vec.x << std::endl;
+        std::cout << "WAYPOINT Y : " << waypoint_vec.y << std::endl;
+
         
+        int dest_offset = waypoint - bearing;
+        std::cout << "DESTINATION BEARING: " << dest_offset << std::endl;
         
-        
+        VEC2 dest = CU.degrees_to_vector(dest_offset);
+
+        std::cout << "DEST X : " << dest.x << std::endl;
+        std::cout << "DEST Y : " << dest.y << std::endl;
+
+
         /*
         //DEGREES (WE NEED RADIANS)
         double vec_y = cos(bearing*(M_PI/180));
