@@ -1,5 +1,6 @@
 #ifndef __MODULE_SERVO_HPP__
 #define __MODULE_SERVO_HPP__
+#include "../../Hardware/MAESTRO/MAESTRO.hpp"
 class Module_SERVO
 {
 	private:
@@ -7,13 +8,14 @@ class Module_SERVO
 		
 		int		m_upper_boundary;
 		int		m_lower_boundary;
+		int		m_channel;
 		
 		int		m_target;
 		
 		MAESTRO	m_servo_hardware_connection;
 	
 	public:
-		Module_SERVO(int upper_limit, int lower_limit);
+		Module_SERVO(int upper_limit, int lower_limit, int channel);
 		
 		bool init();
 		

@@ -1,7 +1,10 @@
 #include "Module_SERVO.hpp"
-Module_SERVO::Module_SERVO(int upper_limit, int lower_limit)
+Module_SERVO::Module_SERVO(int upper_limit, int lower_limit, int channel)
 {
-	
+	m_upper_boundary = upper_limit;
+	m_lower_boundary = lower_limit;
+	m_channel = channel;
+	m_initialized = false;
 }
 		
 bool Module_SERVO::init()

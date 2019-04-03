@@ -7,10 +7,9 @@ int main(int argc, char* argv[])
 
     std::cout << "Starting Test" << std::endl;
     Module_CMPS12   compass;
-    Module_SERVO    servo_rudder;
+    Module_SERVO    servo(1,-1);
 
     bool compass_state = compass.init();
-    bool servo_rudder_state = servo_rudder.init();
 
     if(compass_state)
     {
