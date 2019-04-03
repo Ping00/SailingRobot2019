@@ -1,6 +1,6 @@
 #ifndef __MAESTRO_HPP__
 #define __MAESTRO_HPP__
-
+#include "MAESTRO_REGISTRY.hpp"
 class MAESTRO
 {
     private:
@@ -13,7 +13,7 @@ class MAESTRO
 
       bool init();
 
-      command(int handle, int channel, MAESTRO_COMMAND command, int value);
+      void command(int handle, int channel, MAESTRO_REGISTRY command, int value);
 
 };
 #endif//__MAESTRO_HPP__

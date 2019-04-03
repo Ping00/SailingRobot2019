@@ -6,8 +6,8 @@ int main(void)
 {
 
     std::cout << "Starting Test" << std::endl;
-    Module_CMPS12 compass;
-    MAESTRO maestro;
+    Module_CMPS12   compass;
+    Module_SERVO    servo_rudder;
 
     bool compass_state = compass.init();
 
@@ -16,6 +16,7 @@ int main(void)
     {
         std::cout << "COMPASS OK!" << std::endl;
     }
+    sleep(2);
     
     while(true)
     {
