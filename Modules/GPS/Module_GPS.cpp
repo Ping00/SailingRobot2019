@@ -6,5 +6,7 @@ Module_GPS::Module_GPS()
 
 bool Module_GPS::init()
 {
-	return true;
+	bool result = m_gps_hardware_connection.init();
+	m_initialized = result;
+	return result;
 }
