@@ -54,3 +54,13 @@ int MAESTRO::get_file_descriptor()
 {
     return m_file_descriptor;
 }
+
+int MAESTRO::get_lower_limit()
+{
+    return m_lower_limit;
+}
+
+int MAESTRO::get_upper_limit()
+{
+    return m_upper_limit;
+}

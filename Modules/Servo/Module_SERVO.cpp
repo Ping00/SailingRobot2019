@@ -31,3 +31,8 @@ void Module_SERVO::set_target(int limit)
 		m_target = limit;
 	}
 }
+
+int Module_SERVO::calculate_position(int position)
+{
+	return 0;
+}

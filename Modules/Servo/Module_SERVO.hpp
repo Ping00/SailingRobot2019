@@ -23,6 +23,8 @@ class Module_SERVO
 		void run();
 		void set_target(int limit);
 		
+		int calculate_position(int position);
+		
 		
 };
 #endif//__MODULE_SERVO_HPP__

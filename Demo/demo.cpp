@@ -45,6 +45,9 @@ int main(int argc, char* argv[])
     while(true)
     {
         compass.run();
+        
+        int compass.get_reading.get_entry(DATA_SET_COMPASS_BEARING_DEGREES_16);
+        
         compass.report();
     }
 
