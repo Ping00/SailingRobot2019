@@ -31,7 +31,12 @@ class CMPS12_DATA
 
     public:
         CMPS12_DATA();
+        
+        void transfer(CMPS12_DATA transfer);
         void set_entry(DATA_SET_REGISTRY entry, int data);
+        void set_entry(int entry, int data);
         int get_entry(DATA_SET_REGISTRY entry);
+        int get_entry(int entry);
+
 };
 #endif

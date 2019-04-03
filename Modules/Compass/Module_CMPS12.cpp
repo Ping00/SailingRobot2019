@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Module_CMPS12.hpp"
+//#include "../../Hardware/CMPS12/CMPS12_DATA_registry.hpp"
 Module_CMPS12::Module_CMPS12()
 {
     std::cout << "Constructing [Module] : CMPS12" << std::endl;
@@ -26,7 +27,15 @@ void Module_CMPS12::run()
     data = m_CMPS12_hardware_connection.read();
     if(data.get_entry(DATA_SET_CALIBRATION_STATE_8) != -1)
     {
-        m_CMPS12_data_reading.set_entry(DATA_SET_COMPASS_BEARING_DEGREES_16,data.get_entry[DATA_SET_COMPASS_BEARING_DEGREES_16]);
+        //Transfer data between the vectors
+        for(int i = 0; i < 18; i++)
+        {
+            m_CMPS12_data_reading.set_entry(i,data.get_entry(i));
+        }
+    }
+    else
+    {
+        std::cout << "CONNECTION ERROR: CHECK CABLING" << std::endl;
     }
 }
 

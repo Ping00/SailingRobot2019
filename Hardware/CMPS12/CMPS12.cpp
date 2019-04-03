@@ -54,13 +54,9 @@ CMPS12_DATA CMPS12::read()
         int degrees_shifted = bitshift(
         raw_data[COMPASS_BEARING_16_HIGH_BYTE_DEGREES],raw_data[COMPASS_BEARING_16_LOW_BYTE_DEGREES]) / 16;
         
-        std::cout << "DATA INTERCEPTION: " << degrees_shifted << std::endl;
-        
         //Set Degrees Bearing
         data_set.set_entry(DATA_SET_COMPASS_BEARING_DEGREES_16,
         degrees_shifted);
-        
-        std::cout << "DID WE GET THE DATA: " << data_set.get_entry(DATA_SET_COMPASS_BEARING_DEGREES_16) << std::endl;
         
         //Pitch
         data_set.set_entry(DATA_SET_PITCH_ANGLE_8,
