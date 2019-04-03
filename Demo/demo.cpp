@@ -84,7 +84,10 @@ int main(int argc, char* argv[])
         std::cout << "DEST Y : " << dest.y << std::endl;
 
         double rudder_setting = CU.calculate_rudder_position(dest);
-        
+        std::cout << "REUDDER:: " << rudder_setting << std::endl;
+
+        servo.set_target(rudder_setting);
+        servo.run();
 
         /*
         //DEGREES (WE NEED RADIANS)
