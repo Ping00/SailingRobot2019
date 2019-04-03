@@ -76,7 +76,7 @@ int main(int argc, char* argv[])
         int dest_offset = waypoint - bearing;
         std::cout << "DESTINATION BEARING: " << dest_offset << std::endl;
         
-        VEC2 dest = CU.degrees_to_vector(dest_offset);
+        VEC2 dest = CU.degrees_to_vector(dest_offset + 90);
 
         std::cout << "DEST X : " << dest.x << std::endl;
         std::cout << "DEST Y : " << dest.y << std::endl;
