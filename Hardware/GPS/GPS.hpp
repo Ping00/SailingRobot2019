@@ -8,8 +8,10 @@ class GPS
 	private:
 		bool m_initialized;
 		
-		//GPSMM is a pointer to go around the initializer list
-		gpsmm* m_gps;
+		//GPSMM is an unique vector so we dont have
+		//to use the init list to construct it,
+		//parameters will be passed in init by make_unique<>()
+		std::unique_ptr<gpsmm> m_gps;
 		
 	public:
 		GPS();

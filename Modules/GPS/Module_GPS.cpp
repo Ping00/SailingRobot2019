@@ -1,4 +1,5 @@
 #include "Module_GPS.hpp"
+#include <iostream>
 Module_GPS::Module_GPS()
 {
 	
@@ -15,7 +16,15 @@ void Module_GPS::run()
 {
 	if(m_initialized)
 	{
-			
+		GPS_DATA reading = m_gps_hardware_connection.read();
+		if(reading.get_valid())
+		{
+			m_data_reading = reading;
+		}
+		else
+		{
+			std::cout << "GPS: DATA READING NOT VALID" << std::endl;
+		}
 	}
 }
 

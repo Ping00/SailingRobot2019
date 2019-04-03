@@ -1,5 +1,6 @@
 #include "GPS.hpp"
 #include <iostream>
+#include <math.h>
 GPS::GPS()
 {
 	
@@ -8,8 +9,8 @@ GPS::GPS()
 bool GPS::init()
 {
 	//Init and bind
-	gpsmm gps("localhost",DEFAULT_GPSD_PORT);
-	m_gps = &gps;
+	//gpsmm gps("localhost",DEFAULT_GPSD_PORT);
+	m_gps = std::make_unique<gpsmm>("localhost",DEFAULT_GPSD_PORT);
 	
 	if(m_gps == nullptr)
 	{
@@ -18,7 +19,7 @@ bool GPS::init()
 	}
 	
 	//Check if our DAEMON is running
-	if(gps.stream(WATCH_ENABLE | WATCH_JSON) == nullptr)
+	if(m_gps->stream(WATCH_ENABLE | WATCH_JSON) == nullptr)
 	{
 			std::cout << "GPSD DAEMON NOT RUNNING" << std::endl;
 			return false;
@@ -31,6 +32,34 @@ bool GPS::init()
 GPS_DATA GPS::read()
 {
 	GPS_DATA data_reading;
+	
+	struct gps_data_t* gps_raw_data;
+	
+	if((gps_raw_data = m_gps->read()) == nullptr)
+	{
+		std::cout << "READ ERROR: CHECK USB PORT NAME FOR GPSD" << std::endl;	
+	}
+	else
+	{
+		double lat;
+		double lon;
+		
+		lat = gps_raw_data->fix.latitude;
+		lon = gps_raw_data->fix.longitude;
+
+		if(isnan(lat) || isnan(lon))
+		{
+			std::cout << "NON-PROPER READING (INDOORS?)" << std::endl;
+		}
+		else
+		{
+			std::cout << "LATITUDE : " << lat << std::endl;
+			std::cout << "LONGITUDE: " << lon << std::endl;
+			std::cout << "----------------" << std::endl;	
+		}
+	}
+	
+	
 	
 	return data_reading;
 }

@@ -83,6 +83,9 @@ int main(int argc, char* argv[])
     while(true)
     {
         compass.run();
+        gps.run();
+        sleep(1);
+        /*
         int bearing = compass.get_reading().get_entry(DATA_SET_COMPASS_BEARING_DEGREES_16);
         std::cout << "BEARING: " << bearing << std::endl;
         
@@ -110,7 +113,8 @@ int main(int argc, char* argv[])
 
         servo.set_target(rudder_setting);
         servo.run();
-
+        */
+        
     }
     
     return 0;
