@@ -21,10 +21,11 @@ class Module_SERVO
 		bool init();
 		
 		void run();
-		void set_target(int limit);
+		void set_target(double limit);
 		
+		//TODO PLACE IN CONTROL UNIT
 		int calculate_position(double position);
 		double calculate_course(double value);
-		
+		//
 };
 #endif//__MODULE_SERVO_HPP__
