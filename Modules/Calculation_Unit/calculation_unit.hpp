@@ -7,12 +7,7 @@ class Calculation_Unit
 
 
     public:
-      double  degrees_to_radians(double degrees);
-      double  radians_to_degrees(double radians);
-      int     convert_coordinates(double v_high, double v_low, double u_high, double u_low, double position);
-      double  calculate_rudder_position(VEC2 vector);
-      double  calculate_sail_position(VEC2 vector);
-      VEC2    degrees_to_vector(double value);
-      double  vector_to_degrees(VEC2 vector);
+      double calculate_rudder_position(VEC2 vector)
+      double calculate_sail_position(VEC2 vector)
 };
 #endif//__CALCULATION_UNIT_HPP__
