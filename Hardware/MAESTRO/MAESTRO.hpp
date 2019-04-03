@@ -16,7 +16,7 @@ class MAESTRO
 
       bool init();
 
-      void command(int handle, int channel, MAESTRO_REGISTRY command, int value);
+      void command(int handle, unsigned char channel, MAESTRO_REGISTRY command, int value);
 
 };
 #endif//__MAESTRO_HPP__
