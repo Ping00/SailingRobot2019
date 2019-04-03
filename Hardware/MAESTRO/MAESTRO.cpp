@@ -1,6 +1,15 @@
 #include "MAESTRO.hpp"
-MAESTRO::MAESTRO();
+MAESTRO::MAESTRO()
+{
+	portname = "/dev/ttyACM0";
+}
 
-bool MAESTRO::init();
+bool MAESTRO::init(const char* port)
+{
+	
+}
 
-void MAESTRO::command(int handle, int channel, MAESTRO_COMMAND command, int value); 
+void MAESTRO::command(int handle, int channel, MAESTRO_COMMAND command, int value)
+{
+	
+}

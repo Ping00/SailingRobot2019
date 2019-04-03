@@ -1,15 +1,12 @@
 #ifndef __MAESTRO_HPP__
 #define __MAESTRO_HPP__
 
-typedef enum
-{
-
-} MAESTRO_COMMAND;
-
 class MAESTRO
 {
     private:
     bool  m_initialized;
+    int   m_file_descriptor;
+    const char* portname;
 
     public:
       MAESTRO();
