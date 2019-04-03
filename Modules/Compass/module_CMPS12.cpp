@@ -18,6 +18,7 @@ bool Module_CMPS12::init()
 
 void Module_CMPS12::run()
 {
+    CMPS12_DATA set;
     m_CMPS12_hardware_connection.read();
 }
 
