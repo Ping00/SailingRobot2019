@@ -18,13 +18,15 @@ int CMPS12::bitshift(int high, int low)
 
 bool CMPS12::init()
 {
+    std::cout << "CMPS Hardware Initializing" << std::endl;
     wiringPiSetup();
     m_file_directory = wiringPiI2CSetup(I2C_DEVICE_ADDRESS);
     if(m_file_directory == -1)
     {
-        return false;
+        std::cout << "CMPS Hardware Failed to Initialize" << std::endl;
+        m_initialized = false;
     }
-    return true;
+    m_initialized = true;
 }
 
 CMPS12_DATA CMPS12::read()
