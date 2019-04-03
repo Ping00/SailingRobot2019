@@ -17,6 +17,7 @@ bool GPS::init()
 		return false;
 	}
 	
+	//Check if our DAEMON is running
 	if(gps.stream(WATCH_ENABLE | WATCH_JSON) == nullptr)
 	{
 			std::cout << "GPSD DAEMON NOT RUNNING" << std::endl;
@@ -25,4 +26,11 @@ bool GPS::init()
 	
 	return true;
 	
+}
+
+GPS_DATA GPS::read()
+{
+	GPS_DATA data_reading;
+	
+	return data_reading;
 }

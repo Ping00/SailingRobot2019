@@ -15,9 +15,10 @@ class Module_GPS
 	public:
 		Module_GPS();
 		bool init();
-		void run();
-		void read_data();
 		
+		void run();
 		GPS_DATA get_reading();
+		
+		void report();
 };
 #endif//__MODULE_GPS_HPP__

@@ -13,18 +13,13 @@ bool Module_GPS::init()
 
 void Module_GPS::run()
 {
-	
-}
-
-void Module_GPS::read_data()
-{
-	
+	if(m_initialized)
+	{
+			
+	}
 }
 
 GPS_DATA Module_GPS::get_reading()
 {
-		GPS_DATA temp;
-		
-		return temp;
-
+	return m_data_reading;
 }
