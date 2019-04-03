@@ -1,9 +1,10 @@
 #include <iostream>
 #include <unistd.h>
 #include <math.h>
+#include "../Utilities/utilities.hpp"
 #include "../Modules/Compass/Module_CMPS12.hpp"
 #include "../Modules/Servo/Module_SERVO.hpp"
-#include "../Modules/Calculation_Unit/calculation_unit.hpp"
+#include "../Utilities/Data_Containers/VEC2.hpp"
 int main(int argc, char* argv[])
 {
     static int RUDDER = 0;
@@ -14,7 +15,7 @@ int main(int argc, char* argv[])
     
     Module_CMPS12       compass;
     //Module_SERVO        servo(-1,1,RUDDER);
-    Calculation_Unit    CU;
+    Utilities utilities;
     
 
     bool compass_state = compass.init();
@@ -54,7 +55,7 @@ int main(int argc, char* argv[])
     const int offset = 90;
     int waypoint = 120;
 
-    VEC2 waypoint_vec = CU.degrees_to_vector(waypoint + offset);
+    VEC2 waypoint_vec = utilities.degrees_to_vector(waypoint + offset);
     
     while(true)
     {
@@ -64,7 +65,7 @@ int main(int argc, char* argv[])
         
         int offset_bearing = bearing + offset;
         
-        VEC2 current_pos = CU.degrees_to_vector(offset_bearing);
+        VEC2 current_pos = utilities.degrees_to_vector(offset_bearing);
         
         std::cout << "CURRENT X : " << current_pos.x << std::endl;
         std::cout << "CURRENT Y : " << current_pos.y << std::endl;
@@ -76,7 +77,7 @@ int main(int argc, char* argv[])
         int dest_offset = waypoint - bearing;
         std::cout << "DESTINATION BEARING: " << dest_offset << std::endl;
         
-        VEC2 dest = CU.degrees_to_vector(dest_offset + 90);
+        VEC2 dest = utilities.degrees_to_vector(dest_offset + 90);
 
         std::cout << "DEST X : " << dest.x << std::endl;
         std::cout << "DEST Y : " << dest.y << std::endl;

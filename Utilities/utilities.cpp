@@ -7,7 +7,7 @@ double Utilities::degrees_to_radians(double degrees)
     return degrees * (M_PI/180);
 }
 
-/*
+
 double Utilities::radians_to_degrees(double radians)
 {
     return radians * (180/M_PI);
@@ -43,5 +43,5 @@ double Utilities::vector_to_degrees(VEC2 vector)
     //A = atan2(V.y, V.x)
     return 0;
 }
-*/
+
 
