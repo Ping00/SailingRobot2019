@@ -8,6 +8,7 @@ class Module_SERVO
 		
 		int		m_upper_boundary;
 		int		m_lower_boundary;
+		
 		int		m_channel;
 		
 		int		m_target;

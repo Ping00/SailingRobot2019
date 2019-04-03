@@ -9,9 +9,13 @@ int main(int argc, char* argv[])
 
     std::cout << "Starting Test" << std::endl;
     Module_CMPS12   compass;
-    Module_SERVO    servo(1,-1,RUDDER);
+    //UPPER AND LOWER SHOULD USE CONVERSION SO THAT 3968 = -1 AND 8000 = 1
+    Module_SERVO    servo(8000,3968,RUDDER);
+    
+    int destination_degree = 120;
 
     bool compass_state = compass.init();
+    bool servo_state = servo.init();
 
     if(compass_state)
     {

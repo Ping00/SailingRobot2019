@@ -49,3 +49,8 @@ void MAESTRO::command(int handle, unsigned char channel, MAESTRO_REGISTRY comman
     }
     
 }
+
+int MAESTRO::get_file_descriptor()
+{
+    return m_file_descriptor;
+}

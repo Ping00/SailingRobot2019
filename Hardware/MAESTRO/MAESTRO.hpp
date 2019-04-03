@@ -17,6 +17,7 @@ class MAESTRO
       bool init();
 
       void command(int handle, unsigned char channel, MAESTRO_REGISTRY command, int value);
-
+      
+      int get_file_descriptor();
 };
 #endif//__MAESTRO_HPP__

@@ -17,7 +17,11 @@ bool Module_SERVO::init()
 		
 void Module_SERVO::run()
 {
-	
+	m_servo_hardware_connection.command(
+		m_servo_hardware_connection.get_file_descriptor(),
+		m_channel,
+		MAESTRO_SET_POSITION,
+		m_target);
 }
 
 void Module_SERVO::set_target(int limit)
