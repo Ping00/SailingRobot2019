@@ -22,5 +22,8 @@ void Module_SERVO::run()
 
 void Module_SERVO::set_target(int limit)
 {
-	
+	if(limit < m_upper_boundary || limit > m_lower_boundary)
+	{
+		m_target = limit;
+	}
 }
