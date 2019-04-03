@@ -57,3 +57,14 @@ int Module_SERVO::calculate_position(double position)
 	return destination;
 }
 
+double Module_SERVO::calculate_course(double value)
+{
+		if(value > 0)
+		{
+				return 1;
+		}
+		else if(value < 0)
+		{
+				return -1;
+		}
+}

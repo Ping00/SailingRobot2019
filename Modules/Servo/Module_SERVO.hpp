@@ -24,7 +24,7 @@ class Module_SERVO
 		void set_target(int limit);
 		
 		int calculate_position(double position);
-		
+		double calculate_course(double value);
 		
 };
 #endif//__MODULE_SERVO_HPP__
