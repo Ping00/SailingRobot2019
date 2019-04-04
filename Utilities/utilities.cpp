@@ -15,15 +15,8 @@ double Utilities::radians_to_degrees(double radians)
 
 double Utilities::convert_coordinates(double from_low, double from_high, double to_low, double to_high, double position)
 {
-    std::cout << "FROM: " << from_low << " : " << from_high << std::endl;
-    std::cout << "TO  : " << to_low << " : " << to_high << std::endl;
-    std::cout << "Curr: " << position << std::endl;
-
-
     double percentile = (position - from_low) / (from_high - from_low);
-    std::cout << "PERCENTILE: " << percentile << std::endl;
     double result = percentile * (to_high - to_low ) + to_low;
-    std::cout << "RESULT: " << result << std::endl;
     return result;
 }
 
