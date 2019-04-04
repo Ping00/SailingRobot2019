@@ -82,7 +82,7 @@ int main(int argc, char* argv[])
     
     while(true)
     {
-        compass.run();
+        //compass.run();
         gps.run();
         sleep(1);
         /*

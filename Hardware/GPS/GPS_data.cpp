@@ -2,6 +2,7 @@
 #include <string>
 GPS_DATA::GPS_DATA()
 {
+	m_valid = false;
 	m_latitude	= 0;
 	m_longitude = 0;
 	m_time = "";

@@ -1,6 +1,7 @@
 #include "GPS.hpp"
 #include <iostream>
 #include <math.h>
+#include <string>
 GPS::GPS()
 {
 	
@@ -9,7 +10,6 @@ GPS::GPS()
 bool GPS::init()
 {
 	//Init and bind
-	//gpsmm gps("localhost",DEFAULT_GPSD_PORT);
 	m_gps = std::make_unique<gpsmm>("localhost",DEFAULT_GPSD_PORT);
 	
 	if(m_gps == nullptr)
@@ -41,21 +41,21 @@ GPS_DATA GPS::read()
 	}
 	else
 	{
-		double lat;
-		double lon;
+		double lan = gps_raw_data->fix.latitude;
+		double lon = gps_raw_data->fix.longitude;
 		
-		lat = gps_raw_data->fix.latitude;
-		lon = gps_raw_data->fix.longitude;
-
 		if(isnan(lat) || isnan(lon))
 		{
-			std::cout << "NON-PROPER READING (INDOORS?)" << std::endl;
+			std::cout << "READ ERROR (Too Fast/Indoors?)" << std::endl;
+			return data_reading;
 		}
 		else
 		{
-			std::cout << "LATITUDE : " << lat << std::endl;
-			std::cout << "LONGITUDE: " << lon << std::endl;
-			std::cout << "----------------" << std::endl;	
+			data_reading.set_valid(true);
+			data_reading.set_latitude(gps_raw_data->fix.latitude);
+			data_reading.set_longitude(gps_raw_data->fix.longitude);
+			data_reading.set_timestamp(gps_raw_data->fix.time;);
+			return data_reading;
 		}
 	}
 	

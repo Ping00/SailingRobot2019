@@ -32,3 +32,10 @@ GPS_DATA Module_GPS::get_reading()
 {
 	return m_data_reading;
 }
+
+void Module_GPS::report()
+{
+	std::cout << "GPS LAT : " << m_data_reading.get_latitude() << std::endl;
+	std::cout << "GPS LON : " << m_data_reading.get_longitude() << std::endl;
+	std::cout << "GPS TIME: " << m_data_reading.get_time() << std::endl;
+}
