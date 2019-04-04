@@ -120,11 +120,11 @@ int main(int argc, char* argv[])
         std::cout << "DEST Y : " << dest.y << std::endl;
 
         double rudder_setting = CU.calculate_rudder_position(dest);
-        double sail_settings = CU.calculate_sail_position(dest);
-        std::cout << "REUDDER:: " << rudder_setting << std::endl;
-
+        double sail_setting = CU.calculate_sail_position(dest);
+        std::cout << "RUDDER:: " << rudder_setting << std::endl;
+        std::cout << "SAILS:: " << sail_setting << std::endl;
         servo_rudder.set_target(rudder_setting);
-        servo_sail.set_target(sail_settings);
+        servo_sail.set_target(sail_setting);
         servo_rudder.run();
         servo_sail.run();
         
