@@ -1,6 +1,7 @@
 #include "calculation_unit.hpp"
 #include <math.h>
 #include <iostream>
+#include "../../Utilities/utilities.hpp"
 double Calculation_Unit::calculate_rudder_position(VEC2 vector)
 {
     //NOTE VECTOR BEARING SHOULD BE ROTATED 90 DEGREES SO THAT X,Y = 0,1 IS NORTH

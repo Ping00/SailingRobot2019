@@ -16,7 +16,8 @@ int main(int argc, char* argv[])
     
     
     Module_CMPS12       compass;
-    Module_SERVO        servo(-1,1,RUDDER);
+    Module_SERVO        servo_rudder(-1,1,RUDDER);
+    Module_SERVO        servo_sail(0,1,SAIL);
     Module_GPS          gps;
     
     
@@ -25,7 +26,8 @@ int main(int argc, char* argv[])
     Calculation_Unit    CU;
 
     bool compass_state = compass.init();
-    bool servo_state = servo.init();
+    bool servo_state_rudder = servo_rudder.init();
+    bool servo_state_sail = servo_sail.init();
     bool gps_state = gps.init();
     
 
@@ -40,13 +42,22 @@ int main(int argc, char* argv[])
     }
     
     
-    if(servo_state)
+    if(servo_state_rudder)
     {
         std::cout << "[ OK ] SERVO: RUDDER" << std::endl;
     }
     else
     {
         std::cout << "[ ERROR ] SERVO: RUDDER" << std::endl;
+    }
+    
+    if(servo_state_sail)
+    {
+        std::cout << "[ OK ] SERVO: SAIL" << std::endl;
+    }
+    else
+    {
+        std::cout << "[ ERROR ] SERVO: SAIL" << std::endl;
     }
     
     if(gps_state)
@@ -82,10 +93,10 @@ int main(int argc, char* argv[])
     
     while(true)
     {
-        //compass.run();
-        gps.run();
-        sleep(1);
-        /*
+        compass.run();
+        //gps.run();
+        //sleep(1);
+        
         int bearing = compass.get_reading().get_entry(DATA_SET_COMPASS_BEARING_DEGREES_16);
         std::cout << "BEARING: " << bearing << std::endl;
         
@@ -109,11 +120,14 @@ int main(int argc, char* argv[])
         std::cout << "DEST Y : " << dest.y << std::endl;
 
         double rudder_setting = CU.calculate_rudder_position(dest);
+        double sail_settings = CU.calculate_sail_position(dest);
         std::cout << "REUDDER:: " << rudder_setting << std::endl;
 
-        servo.set_target(rudder_setting);
-        servo.run();
-        */
+        servo_rudder.set_target(rudder_setting);
+        servo_sail.set_target(sail_settings);
+        servo_rudder.run();
+        servo_sail.run();
+        
         
     }
     
