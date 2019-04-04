@@ -24,7 +24,7 @@ int main(int argc, char* argv[])
 
 
 
-    //Calculation_Unit    CU;
+    Calculation_Unit    CU;
 
     bool compass_state = compass.init();
     bool servo_state_rudder = servo_rudder.init();
@@ -98,27 +98,26 @@ int main(int argc, char* argv[])
     sleep(2);
     std::cout << "- STARTING SYSTEM -" << std::endl;
 
-    //const int offset = 90;
-    //int waypoint = 120;
+    const int offset = 90;
+    int waypoint = 120;
 
     //VEC2 waypoint_vec = Utilities::degrees_to_vector(waypoint + offset);
 
     while(true)
     {
-        sleep(1);
+        //sleep(1);
+        
+        
         wind_sensor.read();
-        int wind_bearing = wind_sensor.get_reading();
-        std::cout << "Wind Bearing: " << wind_bearing << std::endl;
-        
-        
-        /*
         compass.run();
         //gps.run();
         //sleep(1);
-
+        
+        int wind_bearing = wind_sensor.get_reading();
         int bearing = compass.get_reading().get_entry(DATA_SET_COMPASS_BEARING_DEGREES_16);
-        std::cout << "BEARING: " << bearing << std::endl;
-
+        std::cout << "Compass Bearing: " << bearing << std::endl;
+        std::cout << "Wind Bearing: " << wind_bearing << std::endl;
+    
         int offset_bearing = bearing + offset;
 
         VEC2 current_pos = Utilities::degrees_to_vector(offset_bearing);
@@ -137,12 +136,13 @@ int main(int argc, char* argv[])
 
         //Rotate it 90 degrees so that Y+1 = NORTH otherwise X+1 IS NORTH
         VEC2 dest = Utilities::degrees_to_vector(dest_offset + 90);
+        VEC2 wind = Utilities::degrees_to_vector(wind_bearing + 90);
 
         //std::cout << "DEST X : " << dest.x << std::endl;
         //std::cout << "DEST Y : " << dest.y << std::endl;
 
         double rudder_setting = CU.calculate_rudder_position(dest);
-        double sail_setting = CU.calculate_sail_position(dest);
+        double sail_setting = CU.calculate_sail_position(wind);
 
         //std::cout << "RUDDER:: " << rudder_setting << std::endl;
         //std::cout << "SAILS:: " << sail_setting << std::endl;
@@ -153,7 +153,7 @@ int main(int argc, char* argv[])
 
         double angle_of_approach = CU.calculate_angle_of_approach(waypoint,bearing);
         std::cout << "Recommended AOA IS: " << angle_of_approach << std::endl;
-        */
+        
     }
 
     return 0;
