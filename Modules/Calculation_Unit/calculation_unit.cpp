@@ -101,7 +101,7 @@ double Calculation_Unit::calculate_angle_of_approach(double destination_bearing,
     //If our angle is too big or too small
     //Offset with our discrepancy so we get a small variation
     if(offset < angle_discrepancy) offset += angle_discrepancy;
-    std::cout << "DISCREPANCY ANGLE OFFSET: " << offset << std::endl;
+    if(offset > max_angle - offset) offset -= angle_discrepancy;
     return offset;
 }
 
