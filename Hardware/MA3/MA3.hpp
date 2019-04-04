@@ -4,12 +4,13 @@ class MA3
 {
     private:
       bool m_initialized;
-
-      WIND_DATA m_reading;
+      int m_file_descriptor;
+      int m_channel_config;
 
     public:
         MA3();
 
-        bool init();
+        bool  init();
+        int   read();
 };
 #endif//__MA3_HPP__
