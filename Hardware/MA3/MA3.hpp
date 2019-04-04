@@ -11,6 +11,6 @@ class MA3
         MA3();
 
         bool  init();
-        int   read();
+        int   read(int spi_channel);
 };
 #endif//__MA3_HPP__

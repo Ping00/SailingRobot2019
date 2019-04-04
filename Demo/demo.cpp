@@ -6,6 +6,7 @@
 #include "../Modules/Compass/Module_CMPS12.hpp"
 #include "../Modules/Servo/Module_SERVO.hpp"
 #include "../Modules/GPS/Module_GPS.hpp"
+#include "../Modules/Wind_Sensor/Module_Wind_Sensor.hpp"
 #include "../Modules/Calculation_Unit/calculation_unit.hpp"
 int main(int argc, char* argv[])
 {
@@ -19,7 +20,7 @@ int main(int argc, char* argv[])
     Module_SERVO        servo_rudder(-1,1,RUDDER);
     Module_SERVO        servo_sail(0,1,SAIL);
     Module_GPS          gps;
-
+    Module_Wind_Sensor  wind_sensor(0);
 
 
 
