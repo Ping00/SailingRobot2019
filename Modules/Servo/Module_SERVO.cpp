@@ -35,6 +35,8 @@ void Module_SERVO::run()
 		m_servo_hardware_connection.get_upper_limit(),
 		m_servo_hardware_connection.get_lower_limit(),
 		m_target);
+		
+		std::cout << "TARGET IS: " << servo_position << std::endl;
 
 
 		m_servo_hardware_connection.command(

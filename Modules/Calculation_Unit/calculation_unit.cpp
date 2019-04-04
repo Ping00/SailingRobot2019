@@ -73,7 +73,7 @@ double Calculation_Unit::calculate_sail_position(VEC2 vector)
     double sail = vector.y;
 
     double sail_power = Utilities::convert_coordinates(-1,1,0, 1, sail);
-    std::cout << "SAILS ARE AT: " << sail_power << " Percentage" << std::endl;
+    std::cout << "SAILS ARE AT: " << sail_power*100 << " Percentage" << std::endl;
     //POS NEG X IS IRRELEVANT AS SAIL CAN SWING AROUND TO OTHER SIDE
     return sail_power;
 }
