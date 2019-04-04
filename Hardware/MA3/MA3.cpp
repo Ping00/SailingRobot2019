@@ -7,7 +7,7 @@ MA3::MA3()
     m_channel_config = 8;
 }
 
-bool MA3::init()
+bool MA3::init(int spi_channel)
 {
     //Load SPI Drivers (Not required as GPIO is native to PI)
     //And activated via Raspi-config instead 
@@ -21,7 +21,7 @@ bool MA3::init()
     }
     */
     
-    m_file_descriptor = wiringPiSPISetup(m_spi_channel, 1000000);
+    m_file_descriptor = wiringPiSPISetup(spi_channel, 1000000);
     if(m_file_descriptor < 0)
     {
             std::cout << "Failed to open SPI BUS" << std::endl;
@@ -45,6 +45,7 @@ int MA3::read(int spi_channel)
     }
     else
     {
+        std::cout << "Sensor not initialized!" << std::endl;
         return -1;
     }
 

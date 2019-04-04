@@ -24,12 +24,13 @@ int main(int argc, char* argv[])
 
 
 
-    Calculation_Unit    CU;
+    //Calculation_Unit    CU;
 
     bool compass_state = compass.init();
     bool servo_state_rudder = servo_rudder.init();
     bool servo_state_sail = servo_sail.init();
     bool gps_state = gps.init();
+    bool wind_sensor_state = wind_sensor.init();
 
 
 
@@ -69,6 +70,16 @@ int main(int argc, char* argv[])
     {
         std::cout << "[ ERROR ] GPS" << std::endl;
     }
+    
+    if(wind_sensor_state)
+    {
+        std::cout << "[ OK ] WIND SENSOR" << std::endl;
+    }
+    else
+    {
+        std::cout << "[ ERROR ] WIND SENSOR" << std::endl;
+    }
+    
     std::cout << "--------------" << std::endl;
 
 
@@ -87,13 +98,20 @@ int main(int argc, char* argv[])
     sleep(2);
     std::cout << "- STARTING SYSTEM -" << std::endl;
 
-    const int offset = 90;
-    int waypoint = 120;
+    //const int offset = 90;
+    //int waypoint = 120;
 
-    VEC2 waypoint_vec = Utilities::degrees_to_vector(waypoint + offset);
+    //VEC2 waypoint_vec = Utilities::degrees_to_vector(waypoint + offset);
 
     while(true)
     {
+        sleep(1);
+        wind_sensor.read();
+        int wind_bearing = wind_sensor.get_reading();
+        std::cout << "Wind Bearing: " << wind_bearing << std::endl;
+        
+        
+        /*
         compass.run();
         //gps.run();
         //sleep(1);
@@ -135,6 +153,7 @@ int main(int argc, char* argv[])
 
         double angle_of_approach = CU.calculate_angle_of_approach(waypoint,bearing);
         std::cout << "Recommended AOA IS: " << angle_of_approach << std::endl;
+        */
     }
 
     return 0;

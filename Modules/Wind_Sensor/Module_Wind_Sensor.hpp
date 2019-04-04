@@ -1,5 +1,6 @@
 #ifndef __MODULE_WIND_SENSOR_HPP__
 #define __MODULE_WIND_SENSOR_HPP__
+#include "../../Hardware/MA3/MA3.hpp"
 class Module_Wind_Sensor
 {
 	private:

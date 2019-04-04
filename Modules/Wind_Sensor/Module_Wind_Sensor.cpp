@@ -7,7 +7,7 @@ Module_Wind_Sensor::Module_Wind_Sensor(int spi_channel)
 
 bool	Module_Wind_Sensor::init()
 {
-		bool result = m_hardware_connection_MA3.init();
+		bool result = m_hardware_connection_MA3.init(m_spi_channel);
 		m_initialized = result;
 		return result;
 }

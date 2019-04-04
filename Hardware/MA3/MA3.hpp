@@ -10,7 +10,7 @@ class MA3
     public:
         MA3();
 
-        bool  init();
+        bool  init(int spi_channel);
         int   read(int spi_channel);
 };
 #endif//__MA3_HPP__
