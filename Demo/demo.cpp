@@ -33,7 +33,7 @@ int main(int argc, char* argv[])
     bool wind_sensor_state = wind_sensor.init();
 
 
-
+    
     if(compass_state)
     {
         std::cout << "[ OK ] COMPASS  " << std::endl;
@@ -106,8 +106,16 @@ int main(int argc, char* argv[])
     while(true)
     {
         //sleep(1);
+        sleep(1);
+        gps.run();
+        compass.run();
+        wind_sensor.read();
         
+        gps.report();
+        compass.report();
+        wind_sensor.report();
         
+        /*
         wind_sensor.read();
         compass.run();
         //gps.run();
@@ -153,6 +161,8 @@ int main(int argc, char* argv[])
 
         double angle_of_approach = CU.calculate_angle_of_approach(waypoint,bearing);
         std::cout << "Recommended AOA IS: " << angle_of_approach << std::endl;
+        */
+        
         
     }
 

@@ -28,3 +28,11 @@ int 	Module_Wind_Sensor::get_reading()
 {
 	return m_reading;
 }
+
+void Module_Wind_Sensor::report()
+{
+		std::cout << "Wind Bearing: " << m_reading << std::endl;
+}
+
+
+

@@ -16,5 +16,6 @@ class Module_Wind_Sensor
 		bool	init();
 		void 	read();
 		int 	get_reading();
+		void 	report();
 };
 #endif//__MODULE_WIND_SENSOR_HPP__
