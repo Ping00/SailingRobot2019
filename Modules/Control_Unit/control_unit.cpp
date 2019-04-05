@@ -129,10 +129,6 @@ void Control_Unit::set_waypoint(GPS_POSITION waypoint)
 
 bool Control_Unit::validate_inits(std::vector<bool> statuses)
 {
-    //TODO REMOVE THE TWO LINES BELOW AFTER TESTING IS DONE
-    std::cout << "TESTING AUTO SUCCEED WITH TEST VALUES: [REMOVE WHEN FINISHED TESTING]" << std::endl;
-    return true;
-
 
     if(statuses[0])
     {

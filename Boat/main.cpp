@@ -33,7 +33,7 @@ void drive_rudder(Module_SERVO& rudder)
 {
   while(true)
   {
-      //rudder.run();
+      rudder.run();
   }
 }
 
@@ -42,7 +42,7 @@ void drive_sail(Module_SERVO& sail)
 {
   while(true)
   {
-      //sail.run();
+      sail.run();
   }
 }
 
@@ -128,11 +128,11 @@ int main(int argc, char* argv[])
     }
 
     //NOTE RE-ENABLE ON PI AS IT IS THE ONLY ONE WITH PROPER SPI / I2C CONNECTIONS
-    //init_status[0] = servo_rudder.init();
-    //init_status[1] = servo_sail.init();
-    //init_status[2] = module_gps.init();
-    //init_status[3] = module_compass.init();
-    //init_status[4] = module_wind.init();
+    init_status[0] = servo_rudder.init();
+    init_status[1] = servo_sail.init();
+    init_status[2] = module_gps.init();
+    init_status[3] = module_compass.init();
+    init_status[4] = module_wind.init();
 
 
     //Check if all modules were initialized properly
@@ -159,6 +159,10 @@ int main(int argc, char* argv[])
         return -1;
     }
 
+    //Default our Servos to their Default positions from start
+    servo_sail.set_target(0);
+    servo_rudder.set_target(0);
+    
     std::cout << "Activating Threads..." << std::endl;
     //IF all modules were initialize properly we launch our threads
     std::thread t1(poll_wind_sensor,std::ref(module_wind));
@@ -183,7 +187,17 @@ int main(int argc, char* argv[])
 
         std::cout << "Primary Loop" << std::endl;
 
-
+        //GRAB WAYPOINT
+        
+        int wind_bearing;
+        int boat_bearing;
+        //GPS_DATA
+        
+        GPS_POSITION current_waypoint = control_unit.get_waypoint();
+        std::cout << "Current Waypoint" << std::endl;
+        std::cout << "Lat: " << current_waypoint.latitude << std::endl;
+        std::cout << "Lon: " << current_waypoint.longitude << std::endl;
+        
 
 
         /*
@@ -297,6 +311,8 @@ int main(int argc, char* argv[])
         double checkpoint_distance = calculation_unit.calculate_distance(current_position,waypoint_position);
 
         */
+        
+    
 
     }
 
