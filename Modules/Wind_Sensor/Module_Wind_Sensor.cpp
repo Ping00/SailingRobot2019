@@ -1,5 +1,6 @@
 #include "Module_Wind_Sensor.hpp"
 #include "../../Utilities/utilities.hpp"
+#include <iostream>
 Module_Wind_Sensor::Module_Wind_Sensor(int spi_channel)
 {
 	m_initialized = false;
