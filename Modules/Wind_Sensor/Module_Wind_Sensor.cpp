@@ -1,7 +1,7 @@
 #include "Module_Wind_Sensor.hpp"
 #include "../../Utilities/utilities.hpp"
 #include <iostream>
-#define OFFSET 205
+#define OFFSET 20
 Module_Wind_Sensor::Module_Wind_Sensor(int spi_channel)
 {
     std::cout << "Constructing [Module] Wind Sensor" << std::endl;
