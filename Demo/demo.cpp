@@ -106,13 +106,13 @@ int main(int argc, char* argv[])
     while(true)
     {
         //sleep(1);
-        sleep(1);
-        gps.run();
-        compass.run();
+        //sleep(1);
+        //gps.run();
+        //compass.run();
         wind_sensor.read();
         
-        gps.report();
-        compass.report();
+        //gps.report();
+        //compass.report();
         wind_sensor.report();
         
         /*

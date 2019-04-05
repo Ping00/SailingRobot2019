@@ -1,6 +1,7 @@
 #include "Module_Wind_Sensor.hpp"
 #include "../../Utilities/utilities.hpp"
 #include <iostream>
+#define OFFSET 205
 Module_Wind_Sensor::Module_Wind_Sensor(int spi_channel)
 {
 	m_initialized = false;
@@ -19,8 +20,8 @@ void 	Module_Wind_Sensor::read()
 	//The values retrieved from the sensor need to be converted to our range
 	//(Initial values are between 2-1020, we want 0 - 359	
 	int reading = m_hardware_connection_MA3.read(m_spi_channel);
-	m_reading = Utilities::convert_coordinates(2,1020,0,359,reading);
-	
+	int bearing_uncorrected = Utilities::convert_coordinates(2,1020,0,359,reading);
+	m_reading = Utilities::normalize(bearing_uncorrected - OFFSET);
 	//TODO ADD OFFSET SO THE READING POINTS NORTH
 	
 }
