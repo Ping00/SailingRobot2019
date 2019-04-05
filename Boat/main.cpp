@@ -209,21 +209,21 @@ int main(int argc, char* argv[])
     TEMP_WAYPOINT.latitude = 60.105879322635616;
     TEMP_WAYPOINT.longitude = 19.926559925079346;
     
-    control_unit.set_waypoint(TEMP_WAYPOINT);
+    //control_unit.set_waypoint(TEMP_WAYPOINT);
     
     while(control_unit.is_active())
     {
-      std::this_thread::sleep_for(std::chrono::milliseconds(600));
-      module_compass.report();
-      module_gps.report();
-      module_wind.report();
+      //std::this_thread::sleep_for(std::chrono::milliseconds(600));
+      //module_compass.report();
+      //module_gps.report();
+      //module_wind.report();
 
-      /*
+      
         //Take a nap
         std::this_thread::sleep_for(std::chrono::milliseconds(200));
-        std::cout << "Primary Loop" << std::endl;
-        std::cout << "------------------" << std::endl;
-        */
+        //std::cout << "Primary Loop" << std::endl;
+        //std::cout << "------------------" << std::endl;
+        
       
         //GRAB A SET OF ITERATION DATA AT THIS MOMENT IN TIME
         //GPS_DATA      gps_reading     = TEMP_GPS_DATA;
@@ -250,7 +250,8 @@ int main(int argc, char* argv[])
         fresh_log.m_distance_from_waypoint      = 0;
         fresh_log.m_distance_from_destination   = 0;
         data_logger.log_data(fresh_log);
-
+        */
+         
         //Set a waypoint if there is none
         //NOTE Replace with DO-WHILE?
         if(control_unit.is_waypoint_set() == false)
@@ -334,7 +335,7 @@ int main(int argc, char* argv[])
             std::cout << "Waypoint set" << std::endl;
         }
 
-        */
+        
         
         //TEST 1 (WAYPOINT GUIDANCE)
         
@@ -387,7 +388,7 @@ int main(int argc, char* argv[])
         servo_sail.set_target(sail_setting);
 
         
-        /*
+        
         //DESTINATION CALCULATIONS
         double waypoint_distance = calculation_unit.calculate_distance(current_position,waypoint_position);
         double goal_threshold = control_unit.get_calculated_threshold();
@@ -435,7 +436,7 @@ int main(int argc, char* argv[])
             control_unit.set_waypoint_status(false);
         }
 
-        */
+        
 
 
         //------ OLD CODE --------
