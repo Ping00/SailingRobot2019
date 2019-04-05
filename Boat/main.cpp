@@ -34,7 +34,7 @@ void drive_rudder(Module_SERVO& rudder)
   std::cout << "Starting Automatic Rudder Servo"<< std::endl;
   while(true)
   {
-      //rudder.run();
+      rudder.run();
   }
 }
 
@@ -44,7 +44,7 @@ void drive_sail(Module_SERVO& sail)
   std::cout << "Starting Automatic Sail Servo"<< std::endl;
   while(true)
   {
-      //sail.run();
+      sail.run();
   }
 }
 
@@ -55,7 +55,7 @@ void poll_wind_sensor(Module_Wind_Sensor& wind)
   while(true)
   {
     //std::cout << "Polling Wind Sensor!" << std::endl;
-    //wind.run();
+    wind.run();
     std::this_thread::sleep_for(std::chrono::milliseconds(200));
   }
 }
@@ -66,7 +66,7 @@ void poll_gps_sensor(Module_GPS& gps)
   std::cout << "Starting Automatic GPS"<< std::endl;
   while(true)
   {
-    std::cout << "Polling GPS!" << std::endl;
+    //std::cout << "Polling GPS!" << std::endl;
     gps.run();
     std::this_thread::sleep_for(std::chrono::milliseconds(1200));
   }
@@ -137,11 +137,11 @@ int main(int argc, char* argv[])
     }
 
     //NOTE RE-ENABLE ON PI AS IT IS THE ONLY ONE WITH PROPER SPI / I2C CONNECTIONS
-    //init_status[0] = servo_rudder.init();
-    //init_status[1] = servo_sail.init();
+    init_status[0] = servo_rudder.init();
+    init_status[1] = servo_sail.init();
     init_status[2] = module_gps.init();
-    //init_status[3] = module_compass.init();
-    //init_status[4] = module_wind.init();
+    init_status[3] = module_compass.init();
+    init_status[4] = module_wind.init();
 
 
     //Check if all modules were initialized properly
@@ -174,11 +174,11 @@ int main(int argc, char* argv[])
 
     std::cout << "Activating Threads..." << std::endl;
     //IF all modules were initialize properly we launch our threads
-    //std::thread t1(poll_wind_sensor,std::ref(module_wind));
-    //std::thread t2(poll_compass,std::ref(module_compass));
+    std::thread t1(poll_wind_sensor,std::ref(module_wind));
+    std::thread t2(poll_compass,std::ref(module_compass));
     std::thread t3(poll_gps_sensor,std::ref(module_gps));
-    //std::thread t4(drive_rudder,std::ref(servo_rudder));
-    //std::thread t5(drive_sail,std::ref(servo_sail));
+    std::thread t4(drive_rudder,std::ref(servo_rudder));
+    std::thread t5(drive_sail,std::ref(servo_sail));
     //std::thread t6(log_data,std::ref(data_logger))
 
     //Wait for modules to collect initial set of data
@@ -203,14 +203,13 @@ int main(int argc, char* argv[])
     TEMP_COMPASS_DATA.set_entry(DATA_SET_COMPASS_BEARING_DEGREES_16,122);
 
     int TEMP_WIND = 5;
-
+    
     while(control_unit.is_active())
     {
       std::this_thread::sleep_for(std::chrono::milliseconds(600));
-      //module_compass.report();
+      module_compass.report();
       module_gps.report();
-      //module_wind.report();
-
+      module_wind.report();
 
       /*
         //Take a nap
