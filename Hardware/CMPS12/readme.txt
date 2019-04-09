@@ -87,15 +87,6 @@
 
 
 
-##
-##  SOFTWARE INSTRUCTIONS
-##
-
-
-
-
-
-
 
     
     

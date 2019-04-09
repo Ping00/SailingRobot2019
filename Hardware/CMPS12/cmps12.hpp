@@ -43,7 +43,7 @@ class CMPS12
       //ADD DATA CONTAINER MEMBERS
       //CMPS12_DATA data;
 
-      //uint16 bitshift(uint8 high, uint8 low);
+      uint16_t bitshift(uint8 high, uint8 low);
 
 
     public:
