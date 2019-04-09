@@ -71,7 +71,7 @@
 ##  REGISTRY (I2C MODE)
 ##
 
-     [0x00] = 
+     [0x01] = COMMAND_WRITE
      [0x00] =
      [0x00] =
      [0x00] =
