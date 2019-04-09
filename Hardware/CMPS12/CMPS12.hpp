@@ -40,11 +40,9 @@ typedef enum
 class CMPS12
 {
     private:
-      //ADD DATA CONTAINER MEMBERS
-      //CMPS12_DATA data;
-
+      //Place in Utilities eventually
       uint16_t bitshift(uint8 high, uint8 low);
-
+      
 
     public:
       CMPS12();
@@ -52,8 +50,8 @@ class CMPS12
       //Establish connection to I2C device
       bool init();
 
-      //Read data from I2C Pins, store data in members
-      /*CMPS12_DATA*/void read();
+      //Read data from I2C Pins, return retrieved data
+      CMPS12_DATA read();
 
 };
 #endif//__CMPS12_HPP__
