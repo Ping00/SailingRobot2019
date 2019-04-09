@@ -50,14 +50,14 @@
     A = 3.3V
     B = SDA/TX
     C = SCL/TX
-    D = Mode (I2C Default, Connect for Serial) [UNUSED]
-    E = Factory use [UNUSED]
+    D = Mode (I2C Default, Connect for Serial)  [UNUSED]
+    E = Factory use                             [UNUSED]
     F = 0v GND (Ground)
 
 #---------------------------------#
 
 ##
-## INSTRUCTIONS
+##  HARDWARE INSTRUCTIONS
 ##
         
     Connect A->A For all PINS Of corresponding Letter 
@@ -68,7 +68,7 @@
     
     
 ##
-## REGISTRY (I2C MODE)
+##  REGISTRY (I2C MODE)
 ##
 
      [0x00] = 
@@ -87,7 +87,9 @@
 
 
 
-
+##
+##  SOFTWARE INSTRUCTIONS
+##
 
 
 
