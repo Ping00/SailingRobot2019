@@ -4,8 +4,9 @@
 class CMPS12
 {
     private:
-      //Place in Utilities eventually
-      uint16_t bitshift(int high, int low);
+      int bitshift(int high, int low);
+
+      bool initialized;
 
     public:
       CMPS12();

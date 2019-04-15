@@ -2,10 +2,11 @@
 #define  __CMPS12_DATA_HPP__
 #include <inttypes.h>
 #include <vector>
+#include "CMPS12_I2C_registry.hpp"
 class CMPS12_DATA
 {
     private:
-      std::std::vector<int> m_data;
+      std::vector<int> m_data;
 
       /*
       int   m_command_register;
@@ -31,6 +32,6 @@ class CMPS12_DATA
     public:
         CMPS12_DATA();
 
-        int get_entry(CMPS12_REGISTRY_I2C entry);
+        int get_entry(CMPS12_I2C_REGISTRY entry);
 };
 #endif

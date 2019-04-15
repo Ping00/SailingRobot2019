@@ -34,5 +34,5 @@ typedef enum
   PITCH_ANGLE_16_LOW_BYTE                   = 0x1D,
   CALIBRATION_STATE_8                       = 0x1E
 
-} CMPS12_REGISTRY_I2C; 
+} CMPS12_I2C_REGISTRY; 
 #endif//__CMPS12_I2C_REGISTRY__

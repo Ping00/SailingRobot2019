@@ -1,13 +1,13 @@
-#include "cmps12.hpp"
+#include "CMPS12.hpp"
 #include <iostream>
 CMPS12::CMPS12()
 {
-    m_data.reserve(31);
+    
 }
 
-uint16_t CMPS12::bitshift(uint8 high, uint8 low)
+int CMPS12::bitshift(int high, int low)
 {
-    uint16_t result = (high << 8 | low);
+    int result = (high << 8 | low);
     return result;
 }
 
