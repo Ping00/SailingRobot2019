@@ -13,6 +13,8 @@ class MAESTRO
     public:
       MAESTRO();
 
+      bool init();
+
       command(int handle, int channel, MAESTRO_COMMAND command, int value);
 
 };
