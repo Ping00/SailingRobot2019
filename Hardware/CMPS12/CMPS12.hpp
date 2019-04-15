@@ -1,5 +1,5 @@
 #ifndef __CMPS12_HPP__
-#define  __CMPS12_HPP__
+#define __CMPS12_HPP__
 
 typedef enum
 {
@@ -43,7 +43,6 @@ class CMPS12
       //Place in Utilities eventually
       uint16_t bitshift(uint8 high, uint8 low);
       
-
     public:
       CMPS12();
 
