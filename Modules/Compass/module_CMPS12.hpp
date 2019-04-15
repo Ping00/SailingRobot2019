@@ -14,13 +14,15 @@ class Module_CMPS12
       std::vector<CMPS12_DATA>  m_CMPS12_data_set;
 
       //Is this module initialized
-      bool                      m_active;
+      bool                      m_initialized;
 
     public:
       Module_CMPS12();
       ~Module_CMPS12();
       bool init();
       void run();
+      
+      bool getInitialized();
 
 };
 #endif//__MODULE_CMPS12_HPP__
