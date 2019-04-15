@@ -31,7 +31,7 @@ class CMPS12_DATA
 
     public:
         CMPS12_DATA();
-
+        void set_entry(CMPS12_I2C_REGISTRY entry, int data);
         int get_entry(CMPS12_I2C_REGISTRY entry);
 };
 #endif

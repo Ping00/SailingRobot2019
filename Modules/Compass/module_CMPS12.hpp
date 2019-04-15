@@ -20,8 +20,5 @@ class Module_CMPS12
       void init();
       void run();
 
-      //For Eventual Observer request
-      //bool send();
-
 };
 #endif//__MODULE_CMPS12_HPP__
