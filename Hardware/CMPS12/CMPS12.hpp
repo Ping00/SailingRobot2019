@@ -6,6 +6,8 @@ class CMPS12
     private:
       int bitshift(int high, int low);
 
+      const int TOTAL_REGISTRY_ENTRIES = 31;
+      
       bool initialized;
 
     public:

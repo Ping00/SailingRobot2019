@@ -1,10 +1,18 @@
 #include <iostream>
-#include "../../Hardware/CMPS12/CMPS12.hpp"
+#include "../Compass/module_CMPS12.hpp"
 int main(void)
 {
 
     std::cout << "Starting Test" << std::endl;
-    CMPS12 compass;
+    Module_CMPS12 compass;
+    bool compass_state = compass.init();
+    if(compass_state)
+    {
+        while(true)
+        {
+            std::cout << "COMPASS OK!" << std::endl;
+        }
+    }
 
     return 0;
 }
