@@ -1,13 +1,31 @@
 ##
-## CMPS12 
+##  Boat Components
 ##
-## Compass Module
+
+##
+##  CMPS12 
+##
+##  Compass Module
 ##
 ##
 
 ##
-## MAESTRO 6-CHANNEL USB SERVO CONTROLLER 
+##  MAESTRO 
 ##
-## Servo Module
+##  Servo Module
+##
+##
+
+##
+##  GPS
+##
+##
+##
+##
+
+##
+##  SERVO
+##
+##
 ##
 ##

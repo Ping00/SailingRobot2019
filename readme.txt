@@ -11,11 +11,13 @@
 
 ##
 ##  HARDWARE
+##############
+##  Each hardware component represents the hard connection to the device it is speaking from->to.
 ##
-    Each hardware component represents the hard connection to the device it is speaking from->to.
 
-
-##  
-##  MODULES  
 ##
-    Modules will perform the required adaptation of our raw data which our hardware components aquire.
+##  MODULES
+##############
+##  Modules will perform the required adaptation of our raw data which our hardware components aquire.
+##
+
