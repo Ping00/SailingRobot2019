@@ -15,5 +15,9 @@ CMPS12_DATA CMPS12::read()
 {
     CMPS12_DATA data;
 
+    const int registry_entries = 31;
+
+    
+
     return data;
 }
