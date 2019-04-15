@@ -10,10 +10,8 @@ class CMPS12
       const int   I2C_DEVICE_ADDRESS      = 0x60;
       const char* I2C_DEVICE_PATH         = "/dev/i2c-1";
 
-      bool initialized;
-
-
-      int       m_file_directory;
+      bool        m_initialized;
+      int         m_file_directory;
 
     public:
       CMPS12();

@@ -2,9 +2,12 @@
 #include <iostream>
 #include <vector>
 #include "CMPS12_I2C_registry.hpp"
+#include <wiringPi.h>
+#include <wiringPiI2C.h>
 CMPS12::CMPS12()
 {
-
+    m_file_directory = 0;
+    m_initialized   = false;
 }
 
 int CMPS12::bitshift(int high, int low)
@@ -15,8 +18,13 @@ int CMPS12::bitshift(int high, int low)
 
 bool CMPS12::init()
 {
-    
-    return false;
+    wiringPiSetup();
+    m_file_directory = wiringPiI2CSetup(I2C_DEVICE_ADDRESS);
+    if(m_file_directory == -1)
+    {
+        return false;
+    }
+    return true;
 }
 
 CMPS12_DATA CMPS12::read()
@@ -25,16 +33,16 @@ CMPS12_DATA CMPS12::read()
     CMPS12_DATA data;
 
     //Read data if
-    if(initialized)
+    if(m_initialized)
     {
         std::vector<int> raw_data;
         raw_data.reserve(TOTAL_REGISTRY_ENTRIES);
 
-        //Read All Entries into our raw data
-        for(int i = 0; i < TOTAL_REGISTRY_ENTRIES; i++)
-        {
+        //If Our Read Equals -1 then we have a connection error between the pins
 
-        }
+
+        //Read All Entries into our raw data
+
     }
     else
     {
