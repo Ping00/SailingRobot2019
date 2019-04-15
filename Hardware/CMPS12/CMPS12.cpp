@@ -2,7 +2,7 @@
 #include <iostream>
 CMPS12::CMPS12()
 {
-
+    m_data.reserve(31);
 }
 
 uint16_t CMPS12::bitshift(uint8 high, uint8 low)
@@ -17,7 +17,7 @@ CMPS12_DATA CMPS12::read()
 
     const int registry_entries = 31;
 
-    
+
 
     return data;
 }

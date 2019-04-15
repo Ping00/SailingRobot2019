@@ -1,12 +1,11 @@
 #ifndef __CMPS12_DATA_HPP__
 #define  __CMPS12_DATA_HPP__
 #include <inttypes.h>
-#include "CMPS12.hpp"
 #include <vector>
 class CMPS12_DATA
 {
     private:
-      std::std::vector<int> data;
+      std::std::vector<int> m_data;
 
       /*
       int   m_command_register;
