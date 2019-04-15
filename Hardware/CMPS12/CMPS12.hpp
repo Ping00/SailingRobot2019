@@ -6,9 +6,14 @@ class CMPS12
     private:
       int bitshift(int high, int low);
 
-      const int TOTAL_REGISTRY_ENTRIES = 31;
-      
+      const int   TOTAL_REGISTRY_ENTRIES  = 31;
+      const int   I2C_DEVICE_ADDRESS      = 0x60;
+      const char* I2C_DEVICE_PATH         = "/dev/i2c-1";
+
       bool initialized;
+
+
+      int       m_file_directory;
 
     public:
       CMPS12();

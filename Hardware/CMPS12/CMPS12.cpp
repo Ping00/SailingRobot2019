@@ -13,6 +13,12 @@ int CMPS12::bitshift(int high, int low)
     return result;
 }
 
+bool CMPS12::init()
+{
+    
+    return false;
+}
+
 CMPS12_DATA CMPS12::read()
 {
     //Data set
@@ -27,13 +33,12 @@ CMPS12_DATA CMPS12::read()
         //Read All Entries into our raw data
         for(int i = 0; i < TOTAL_REGISTRY_ENTRIES; i++)
         {
-            
+
         }
     }
     else
     {
-        std::cout << "ERROR: CMPS WAS NOT INITIALIZED!" << std::endl;
-        return data;
+        throw "ERROR: CMPS WAS NOT INITIALIZED!";
     }
 
     return data;

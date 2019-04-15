@@ -11,10 +11,10 @@ Module_CMPS12::~Module_CMPS12()
 
 bool Module_CMPS12::init()
 {
-  return true;
+    return m_CMPS12_hardware_connection.init();
 }
 
 void Module_CMPS12::run()
 {
-
+    m_CMPS12_hardware_connection.read();
 }
