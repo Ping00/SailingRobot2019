@@ -1,5 +1,5 @@
 #include <iostream>
-#include "../Compass/module_CMPS12.hpp"
+#include "../Modules/Compass/module_CMPS12.hpp"
 int main(void)
 {
 
