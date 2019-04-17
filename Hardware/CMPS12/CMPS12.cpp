@@ -45,12 +45,7 @@ CMPS12_DATA CMPS12::read()
             raw_data[i] = wiringPiI2CReadReg8(m_file_descriptor,i);
         }
         
-        printf("Pitch: %i\n",raw_data[PITCH_ANGLE_8]);
-        
-        //Check that data set was not corrupt
-        
-        
         return data_set;
     }
-    
+    return data_set;
 }
