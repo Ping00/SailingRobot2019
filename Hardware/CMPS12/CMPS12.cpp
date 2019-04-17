@@ -27,6 +27,7 @@ bool CMPS12::init()
         m_initialized = false;
     }
     m_initialized = true;
+    return m_initialized;
 }
 
 CMPS12_DATA CMPS12::read()

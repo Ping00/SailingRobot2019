@@ -10,8 +10,8 @@ class Module_CMPS12
       //Hardware component for our compass module
       CMPS12                    m_CMPS12_hardware_connection;
 
-      //Container for X amount of stored data-pulls
-      std::vector<CMPS12_DATA>  m_CMPS12_data_set;
+      //Latest reading
+      CMPS12_DATA               m_CMPS12_data_reading;
 
       //Is this module initialized
       bool                      m_initialized;
@@ -21,8 +21,10 @@ class Module_CMPS12
       ~Module_CMPS12();
       bool init();
       void run();
-      
+
       bool getInitialized();
+
+      CMPS12_DATA get_reading();
 
 };
 #endif//__MODULE_CMPS12_HPP__
