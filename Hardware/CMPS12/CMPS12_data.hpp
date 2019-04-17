@@ -7,6 +7,8 @@ class CMPS12_DATA
 {
     private:
       std::vector<int> m_data;
+      
+      //const int DATA_ENTRIES = 18;
 
       /*
       int   m_command_register;
@@ -31,7 +33,7 @@ class CMPS12_DATA
 
     public:
         CMPS12_DATA();
-        void set_entry(CMPS12_I2C_REGISTRY entry, int data);
-        int get_entry(CMPS12_I2C_REGISTRY entry);
+        void set_entry(DATA_SET_REGISTRY entry, int data);
+        int get_entry(DATA_SET_REGISTRY entry);
 };
 #endif

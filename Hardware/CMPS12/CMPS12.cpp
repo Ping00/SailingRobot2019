@@ -6,7 +6,7 @@
 #include <wiringPiI2C.h>
 CMPS12::CMPS12()
 {
-    m_file_directory = 0;
+    m_file_descriptor = 0;
     m_initialized   = false;
 }
 
@@ -20,8 +20,8 @@ bool CMPS12::init()
 {
     std::cout << "CMPS Hardware Initializing" << std::endl;
     wiringPiSetup();
-    m_file_directory = wiringPiI2CSetup(I2C_DEVICE_ADDRESS);
-    if(m_file_directory == -1)
+    m_file_descriptor = wiringPiI2CSetup(I2C_DEVICE_ADDRESS);
+    if(m_file_descriptor == -1)
     {
         std::cout << "CMPS Hardware Failed to Initialize" << std::endl;
         m_initialized = false;
@@ -32,25 +32,25 @@ bool CMPS12::init()
 
 CMPS12_DATA CMPS12::read()
 {
-    //Data set
-    CMPS12_DATA data;
-
-    //Read data if
+    CMPS12_DATA data_set;
+    //Read data if we are initialized
     if(m_initialized)
     {
+        
         std::vector<int> raw_data;
-        raw_data.reserve(TOTAL_REGISTRY_ENTRIES);
-
-        //If Our Read Equals -1 then we have a connection error between the pins
-
-
-        //Read All Entries into our raw data
-
+        raw_data.reserve(31);
+        //Last Registry is to affirm if the package was OK or not
+        for(int i = 0; i < TOTAL_REGISTRY_ENTRIES; i++)
+        {
+            raw_data[i] = wiringPiI2CReadReg8(m_file_descriptor,i);
+        }
+        
+        printf("Pitch: %i\n",raw_data[PITCH_ANGLE_8]);
+        
+        //Check that data set was not corrupt
+        
+        
+        return data_set;
     }
-    else
-    {
-        throw "ERROR: CMPS WAS NOT INITIALIZED!";
-    }
-
-    return data;
+    
 }
