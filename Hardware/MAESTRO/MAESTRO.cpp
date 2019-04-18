@@ -16,24 +16,24 @@ MAESTRO::MAESTRO()
 bool MAESTRO::init()
 {
 	bool result = false;
-	
+
 	struct termios options;
     tcgetattr(m_file_descriptor ,&options);
     options.c_lflag &= ~(ECHO | ECHONL | ICANON | ISIG | IEXTEN);
     options.c_oflag &= ~(ONLCR | OCRNL);
     tcsetattr(m_file_descriptor,TCSANOW, &options);
 	
-	m_file_descriptor = open(portname, O_RDWR | O_NOCTTY);
+	m_file_descriptor = open(m_portname, O_RDWR | O_NOCTTY);
 	if(m_file_descriptor < 0)
     {
         printf("Init Failed to open file descriptor\n");
         return false;
     }
-	
+
 	return result;
 }
 
 void MAESTRO::command(int handle, int channel, MAESTRO_REGISTRY command, int value)
 {
-	
+
 }

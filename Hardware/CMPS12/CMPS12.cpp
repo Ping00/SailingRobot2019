@@ -33,26 +33,43 @@ bool CMPS12::init()
 CMPS12_DATA CMPS12::read()
 {
     CMPS12_DATA data_set;
+
     //Read data if we are initialized
     if(m_initialized)
     {
-        
         std::vector<int> raw_data;
         //Reserve 31 Slots for our raw data
         raw_data.reserve(31);
-        
+
         for(int i = 0; i < TOTAL_REGISTRY_ENTRIES; i++)
         {
             raw_data[i] = wiringPiI2CReadReg8(m_file_descriptor,i);
         }
+
+        //Check if calibration was valid (If yes then usually the data was OK read)
+        if(raw_data[CALIBRATION_STATE_8] == -1)
+        {
+            data_set.set_valid(false);
+            return data_set;
+        }
+
+        //Data set is valid
+        data_set.set_valid(true);
         
-        //bitshift data
-        
-        
-        //Transfer relevant pieces to our Container
-        
+
+
+        //Bitshift relevant required data
+        int degrees_shifted = bitshift(
+        raw_data[COMPASS_BEARING_16_HIGH_BYTE_DEGREES],raw_data[COMPASS_BEARING_16_LOW_BYTE_DEGREES]) / 16;
+
+        //data_set.set_entry()
+
         return data_set;
     }
-    std::cout << "CMPS Hardware Not Initialized" << std::endl;
-    return data_set;
+    else
+    {
+        std::cout << "CMPS Hardware Not Initialized" << std::endl;
+        return data_set;
+    }
+
 }

@@ -4,10 +4,12 @@
 #include "../Modules/Servo/Module_SERVO.hpp"
 int main(int argc, char* argv[])
 {
+    static int RUDDER = 0;
+    static int SAIL = 1;
 
     std::cout << "Starting Test" << std::endl;
     Module_CMPS12   compass;
-    Module_SERVO    servo(1,-1);
+    Module_SERVO    servo(1,-1,RUDDER);
 
     bool compass_state = compass.init();
 
@@ -16,7 +18,7 @@ int main(int argc, char* argv[])
         std::cout << "COMPASS OK!" << std::endl;
     }
     sleep(2);
-    
+
     while(true)
     {
         compass.run();

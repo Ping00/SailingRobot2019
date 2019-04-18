@@ -7,7 +7,7 @@ class CMPS12_DATA
 {
     private:
       bool  m_data_reading_valid;
-      
+
       int   m_command_register;
       int   m_compass_bearing_8bit;
       //int   m_compass_bearing_16bit;
@@ -26,18 +26,18 @@ class CMPS12_DATA
       int   m_compass_bearing_degrees;
       //int   m_pitch_angle_16bit;
       int   m_calibration;
-      
+
 
     public:
         CMPS12_DATA();
-        
+
         void set_entry(DATA_SET_REGISTRY entry, int data);
         void set_entry(int entry, int data);
-        
+
         int get_entry(DATA_SET_REGISTRY entry);
         int get_entry(int entry);
-        
-        void set_valid(bool valid)
+
+        void set_valid(bool valid);
         bool get_valid();
 
 };
