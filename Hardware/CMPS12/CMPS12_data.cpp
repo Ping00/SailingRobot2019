@@ -9,25 +9,54 @@ CMPS12_DATA::CMPS12_DATA()
 
 void CMPS12_DATA::set_entry(DATA_SET_REGISTRY entry, int data)
 {
-   m_data[entry] = data;
+    swich(entry)
+    {
+        default:
+            std::cout << "NOT IMPLEMENTED IN THIS VERSION" << std::endl;
+            break;
+        
+    }
 }
 
 int CMPS12_DATA::get_entry(DATA_SET_REGISTRY entry)
 {
-   return m_data[entry];
+        swich(entry)
+    {
+        default:
+            std::cout << "NOT IMPLEMENTED IN THIS VERSION" << std::endl;
+            break;
+        
+    }
 }
 
 int CMPS12_DATA::get_entry(int entry)
 {
-   return m_data[entry];
+    swich(entry)
+    {
+        default:
+            std::cout << "NOT IMPLEMENTED IN THIS VERSION" << std::endl;
+            break;
+        
+    }
 }
 
 void CMPS12_DATA::set_entry(int entry, int data)
 {
-   m_data[entry] = data;
+    swich(entry)
+    {
+        default:
+            std::cout << "NOT IMPLEMENTED IN THIS VERSION" << std::endl;
+            break;
+        
+    }
+}
+
+void CMPS12_DATA::set_valid(bool valid)
+{
+    m_data_reading_valid = valid;
 }
 
 bool CMPS12_DATA::get_valid()
 {
-   return m_data_reading_valid;
+    return m_data_reading_valid;
 }

@@ -3,7 +3,8 @@
 #include <vector>
 #include "CMPS12_I2C_registry.hpp"
 #include <wiringPi.h>
-#include <wiringPiI2C.h>
+#include <wiringPiI2C.h>#
+#define COMPASS_READ_BYTES 31
 CMPS12::CMPS12()
 {
     m_file_descriptor = 0;
@@ -39,32 +40,10 @@ CMPS12_DATA CMPS12::read()
         
         std::vector<int> raw_data;
         //Reserve 31 Slots for our raw data
-        raw_data.reserve(31);
+        raw_data.reserve(COMPASS_READ_BYTES);
         
-        for(int i = 0; i < TOTAL_REGISTRY_ENTRIES; i++)
-        {
-            raw_data[i] = wiringPiI2CReadReg8(m_file_descriptor,i);
-        }
-        
-        //Calibration
-        data_set.set_entry(DATA_SET_CALIBRATION_STATE_8,
-        raw_data[CALIBRATION_STATE_8]);
-        
-        //Calculate Bitshift for true degree bearing
-        int degrees_shifted = bitshift(
-        raw_data[COMPASS_BEARING_16_HIGH_BYTE_DEGREES],raw_data[COMPASS_BEARING_16_LOW_BYTE_DEGREES]) / 16;
-        
-        //Set Degrees Bearing
-        data_set.set_entry(DATA_SET_COMPASS_BEARING_DEGREES_16,
-        degrees_shifted);
-        
-        //Pitch
-        data_set.set_entry(DATA_SET_PITCH_ANGLE_8,
-        raw_data[PITCH_ANGLE_8]);
-        
-        //Roll
-        data_set.set_entry(DATA_SET_ROLL_ANGLE_8,
-        raw_data[ROLL_ANGLE_8]);
+        //Read the relevant data
+
         
         return data_set;
     }
