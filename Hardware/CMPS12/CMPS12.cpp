@@ -3,8 +3,7 @@
 #include <vector>
 #include "CMPS12_I2C_registry.hpp"
 #include <wiringPi.h>
-#include <wiringPiI2C.h>#
-#define COMPASS_READ_BYTES 31
+#include <wiringPiI2C.h>
 CMPS12::CMPS12()
 {
     m_file_descriptor = 0;
@@ -40,10 +39,17 @@ CMPS12_DATA CMPS12::read()
         
         std::vector<int> raw_data;
         //Reserve 31 Slots for our raw data
-        raw_data.reserve(COMPASS_READ_BYTES);
+        raw_data.reserve(31);
         
-        //Read the relevant data
-
+        for(int i = 0; i < TOTAL_REGISTRY_ENTRIES; i++)
+        {
+            raw_data[i] = wiringPiI2CReadReg8(m_file_descriptor,i);
+        }
+        
+        //bitshift data
+        
+        
+        //Transfer relevant pieces to our Container
         
         return data_set;
     }
