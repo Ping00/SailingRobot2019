@@ -27,18 +27,14 @@ void Module_CMPS12::run()
     {
          CMPS12_DATA data;
         data = m_CMPS12_hardware_connection.read();
-        if(data.get_entry(DATA_SET_CALIBRATION_STATE_8) != -1)
+        if(data.get_valid())
         {
-            //Transfer data between the vectors
-            for(int i = 0; i < 18; i++)
-            {
-                m_CMPS12_data_reading.set_entry(i,data.get_entry(i));
-            }
+            m_CMPS12_data_reading = data;
         }
         else
         {
             std::cout << "CONNECTION ERROR: CHECK CABLING" << std::endl;
-        }   
+        }
     }
 }
 

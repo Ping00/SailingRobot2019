@@ -32,7 +32,7 @@ bool CMPS12::init()
 
 CMPS12_DATA CMPS12::read()
 {
-    CMPS12_DATA data_set;
+    CMPS12_DATA compass_data;
 
     //Read data if we are initialized
     if(m_initialized)
@@ -49,27 +49,31 @@ CMPS12_DATA CMPS12::read()
         //Check if calibration was valid (If yes then usually the data was OK read)
         if(raw_data[CALIBRATION_STATE_8] == -1)
         {
-            data_set.set_valid(false);
-            return data_set;
+            compass_data.set_valid(false);
+            return compass_data;
         }
 
         //Data set is valid
-        data_set.set_valid(true);
-        
+        compass_data.set_valid(true);
+
 
 
         //Bitshift relevant required data
-        int degrees_shifted = bitshift(
+        int bearing_16 = bitshift(
         raw_data[COMPASS_BEARING_16_HIGH_BYTE_DEGREES],raw_data[COMPASS_BEARING_16_LOW_BYTE_DEGREES]) / 16;
 
         //data_set.set_entry()
+        compass_data.set_entry(DATA_SET_CALIBRATION_STATE_8, raw_data[CALIBRATION_STATE_8]);
+        compass_data.set_entry(DATA_SET_ROLL_ANGLE_8, raw_data[ROLL_ANGLE_8]);
+        compass_data.set_entry(DATA_SET_PITCH_ANGLE_8, raw_data[PITCH_ANGLE_8]);
+        compass_data.set_entry(DATA_SET_COMPASS_BEARING_DEGREES_16, bearing_16);
 
-        return data_set;
+        return compass_data;
     }
     else
     {
         std::cout << "CMPS Hardware Not Initialized" << std::endl;
-        return data_set;
+        return compass_data;
     }
 
 }
