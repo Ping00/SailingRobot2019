@@ -6,6 +6,7 @@ int main(int argc, char* argv[])
     Calculation_Unit CU;
 
     double test = 90;
+    std::cout << "-------------------" << std::endl;
     std::cout << "Test Default (D): " << test << std::endl;
 
 
@@ -24,18 +25,19 @@ int main(int argc, char* argv[])
     double result = CU.convert_coordinates(-1,1,2000,4000,1);
 
     //BEARING OFFSET
-    int offset = 90;
+    const int offset = 90;
     int bearing = 0;
-
+    std::cout << "-------------------" << std::endl;
     int offset_bearing = offset + bearing;
     VEC2 pos_vec = CU.degrees_to_vector(offset_bearing);
 
-    int destination_bearing = 155;
+    int destination_bearing = 0 + offset;
     VEC2 destination_vec = CU.degrees_to_vector(destination_bearing);
-
+    std::cout << "CURRENT BEARING" << std::endl;
     std::cout << "X: " << pos_vec.x << std::endl;
     std::cout << "Y: " << pos_vec.y << std::endl;
     std::cout << "-------------------" << std::endl;
+    std::cout << "DESTINATION BEARING" << std::endl;
     std::cout << "X: " << destination_vec.x << std::endl;
     std::cout << "Y: " << destination_vec.y << std::endl;
     std::cout << "-------------------" << std::endl;
