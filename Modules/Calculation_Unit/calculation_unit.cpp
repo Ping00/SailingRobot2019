@@ -15,22 +15,11 @@ int Calculation_Unit::convert_coordinates(double from_low, double from_high, dou
 {
 
     double percentile = (position - from_low) / (from_high - from_low);
-    int result = percentile*(to_high - to_low )+to_low;
+    int result = percentile * (to_high - to_low ) + to_low;
+    //TODO REMOVE PRINTOUTS
     std::cout << "PERCENTILE: " << percentile << std::endl;
     std::cout << "RESULT: " << result << std::endl;
     return result;
-    /*
-  int servo_lower_limit = m_servo_hardware_connection.get_lower_limit();
-	int servo_upper_limit = m_servo_hardware_connection.get_upper_limit();
-
-	std::cout << "TARGET IS: " << m_target << std::endl;
-
-	double percentile = (m_target - m_lower_boundary) / (m_upper_boundary - m_lower_boundary);
-
-	std::cout << "PERCENTILE IS: " << percentile << std::endl;
-
-	int destination = percentile*(servo_upper_limit-servo_lower_limit)+servo_lower_limit;
-  */
 }
 
 double Calculation_Unit::calculate_rudder_position(VEC2 vector)
@@ -40,10 +29,14 @@ double Calculation_Unit::calculate_rudder_position(VEC2 vector)
     //NOTE Dead zone represents how much of our centering we should ignore
     const double RUDDER_DEAD_ZONE = 0.2;
 
+    //V.x = cos(A)
+    //V.y = sin(A)
+
+
     //If the Y vector is negative then our boat is looking in the opposite direction
     if(vector.y < 0)
     {
-        
+
     }
     //Means our facing is correct
     else
@@ -61,13 +54,23 @@ double Calculation_Unit::calculate_sail_position(VEC2)
     return 0;
 }
 
-VEC2    Calculation_Unit::degrees_to_vector(double value)
+VEC2 Calculation_Unit::degrees_to_vector(double value)
 {
-    VEC2 temp;
-    return temp;
+    //V.x = cos(A)
+    //V.y = sin(A)
+
+    //Convert our degrees to radians
+    //(cos & sin uses radians for its calculations)
+    double radians = degrees_to_radians(value);
+
+    VEC2 coordinates;
+    coordinates.x = cos(radians);
+    coordinates.y = sin(radians);
+    return coordinates;
 }
 
-double  Calculation_Unit::vector_to_degrees(VEC2 vector)
+double Calculation_Unit::vector_to_degrees(VEC2 vector)
 {
+    //A = atan2(V.y, V.x)
     return 0;
 }

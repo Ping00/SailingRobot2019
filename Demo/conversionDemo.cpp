@@ -25,9 +25,21 @@ int main(int argc, char* argv[])
 
     //BEARING OFFSET
     int offset = 90;
+    int bearing = 0;
 
-    int bearing = 0 + offset;
+    int offset_bearing = offset + bearing;
+    VEC2 pos_vec = CU.degrees_to_vector(offset_bearing);
 
+    int destination_bearing = 155;
+    VEC2 destination_vec = CU.degrees_to_vector(destination_bearing);
+
+    std::cout << "X: " << pos_vec.x << std::endl;
+    std::cout << "Y: " << pos_vec.y << std::endl;
+    std::cout << "-------------------" << std::endl;
+    std::cout << "X: " << destination_vec.x << std::endl;
+    std::cout << "Y: " << destination_vec.y << std::endl;
+    std::cout << "-------------------" << std::endl;
+    std::cout << "DIFFERENCE" << std::endl;
     
 
 
