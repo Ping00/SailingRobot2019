@@ -39,9 +39,11 @@ int main(int argc, char* argv[])
     std::cout << "X: " << destination_vec.x << std::endl;
     std::cout << "Y: " << destination_vec.y << std::endl;
     std::cout << "-------------------" << std::endl;
-    std::cout << "DIFFERENCE" << std::endl;
-    
 
+    VEC2 diff_vec = pos_vec - destination_vec;
+    std::cout << "DIFFERENCE" << std::endl;
+    std::cout << "X: " << diff_vec.x << std::endl;
+    std::cout << "Y: " << diff_vec.y << std::endl;
 
     return 0;
 }

@@ -6,5 +6,8 @@ class VEC2
         VEC2();
         double x;
         double y;
+
+        //Overloaded operators
+        VEC2 operator-(const VEC2& vector);
 };
 #endif//__VEC2_HPP__
