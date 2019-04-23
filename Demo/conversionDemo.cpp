@@ -21,8 +21,14 @@ int main(int argc, char* argv[])
     std::cout << "VECTOR X : " << vector.x << std::endl;
     std::cout << "VECTOR Y : " << vector.y << std::endl;
 
-    
+    double result = CU.convert_coordinates(-1,1,2000,4000,1);
 
+    //BEARING OFFSET
+    int offset = 90;
+
+    int bearing = 0 + offset;
+
+    
 
 
     return 0;
