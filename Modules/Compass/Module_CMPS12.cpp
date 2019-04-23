@@ -25,7 +25,7 @@ void Module_CMPS12::run()
 {
     if(m_initialized)
     {
-         CMPS12_DATA data;
+        CMPS12_DATA data;
         data = m_CMPS12_hardware_connection.read();
         if(data.get_valid())
         {

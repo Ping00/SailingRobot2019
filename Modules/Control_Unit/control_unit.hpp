@@ -3,6 +3,6 @@
 class Control_Unit
 {
 
-  
+
 };
 #endif//__CONTROL_UNIT_HPP__
