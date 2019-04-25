@@ -30,18 +30,34 @@ VEC2 Utilities::degrees_to_vector(double value)
     //We inverse x so it matches our rotation (Right + | Left -)
     vec.x = -cos(radians);
     vec.y = sin(radians);
-    
+
     //PI/2 gives a value very close to 0 (1e-17 etc)
     if(std::abs(vec.x) < EPSILON) vec.x = 0;
     if(std::abs(vec.y) < EPSILON) vec.y = 0;
-    
+
     return vec;
 }
 
 double Utilities::vector_to_degrees(VEC2 vector)
 {
+    //TODO
     //A = atan2(V.y, V.x)
     return 0;
 }
 
+double Utilities::coordinates_to_degrees(double lat1, double lon1, double lat2, double lon2)
+{
+    //TODO
+    /*
+    float dy = lat2 - lat1;
+    float dx = cos(M_PI/180*lat1)*(long2 - long1);
+    float angle = atan2f(dy, dx);
+    */
+
+    double dy = lat2 - lat1;
+    double dx = cosf(M_PI/180*lat1)*(lon2 - lon1);
+    double degrees = atan2f(dy,dx);
+    
+    return degrees;
+}
 

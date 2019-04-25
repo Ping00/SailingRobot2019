@@ -23,5 +23,8 @@ class GPS_DATA
 		double get_latitude();
 		double get_longitude();
 		std::string get_time();
+
+		void set_speed(double speed);
+		double get_speed();
 };
 #endif//__GPS_DATA_HPP__
