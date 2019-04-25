@@ -75,3 +75,9 @@ GPS_DATA Calculation_Unit::calculate_waypoint(GPS_DATA current_position, double 
     GPS_DATA temp;
     return temp;
 }
+
+double Calculation_Unit::calculate_distance(GPS_DATA point_a, GPS_DATA point_b)
+{
+
+    return 0;
+}
