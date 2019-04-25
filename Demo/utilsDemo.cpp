@@ -20,8 +20,8 @@ int main(void)
     double lon_s = 19.929149916771962;
 
 
-    double lat_e =          60.10346709484701;
-    double lon_e =                19.929850459229783;
+    double lat_e = 60.10346709484701;
+    double lon_e = 19.929850459229783;
 
     double result = Utilities::coordinates_to_degrees(lat_default,lon_default,lat_w,lon_w);
     std::cout << "DEGREES WEST: " << result << std::endl;

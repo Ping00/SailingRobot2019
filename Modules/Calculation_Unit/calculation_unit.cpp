@@ -60,8 +60,9 @@ double Calculation_Unit::calculate_rudder_position(VEC2 vector)
     return 0;
 }
 
-double Calculation_Unit::calculate_sail_position(VEC2)
+double Calculation_Unit::calculate_sail_position(VEC2 vector)
 {
+    
     return 0;
 }
 
