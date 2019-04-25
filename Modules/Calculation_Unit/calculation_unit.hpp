@@ -9,5 +9,6 @@ class Calculation_Unit
     public:
       double calculate_rudder_position(VEC2 vector);
       double calculate_sail_position(VEC2 vector);
+      double calculate_angle_of_approach(GPS_DATA current_position, GPS_DATA destination, VEC2 wind_directtion);
 };
 #endif//__CALCULATION_UNIT_HPP__

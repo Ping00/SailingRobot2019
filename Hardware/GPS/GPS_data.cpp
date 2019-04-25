@@ -5,6 +5,7 @@ GPS_DATA::GPS_DATA()
 	m_valid = false;
 	m_latitude	= 0;
 	m_longitude = 0;
+	m_speed 		= 0;
 	m_time = "";
 }
 
@@ -48,3 +49,12 @@ std::string GPS_DATA::get_time()
 	return m_time;
 }
 
+double GPS_DATA::get_speed()
+{
+	return m_speed;
+}
+
+void GPS_DATA::set_speed(double speed)
+{
+	m_speed = speed;
+}
