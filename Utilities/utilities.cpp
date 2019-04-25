@@ -48,16 +48,16 @@ double Utilities::vector_to_degrees(VEC2 vector)
 double Utilities::coordinates_to_degrees(double lat1, double lon1, double lat2, double lon2)
 {
     //TODO
-    /*
-    float dy = lat2 - lat1;
-    float dx = cos(M_PI/180*lat1)*(long2 - long1);
-    float angle = atan2f(dy, dx);
-    */
 
     double dy = lat2 - lat1;
-    double dx = cosf(M_PI/180*lat1)*(lon2 - lon1);
-    double degrees = atan2f(dy,dx);
-    
+    double dx = cos(M_PI/180*lat1)*(lon2 - lon1);
+    double angle = atan2f(dy, dx);
+    double degrees = radians_to_degrees(angle);
+    //Add 360 if we are under 0 to give us a range between 0-360
+    if(degrees < 0)
+    {
+        degrees += 360;
+    }
     return degrees;
 }
 
