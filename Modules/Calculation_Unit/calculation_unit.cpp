@@ -62,8 +62,19 @@ double Calculation_Unit::calculate_rudder_position(VEC2 vector)
 
 double Calculation_Unit::calculate_sail_position(VEC2 vector)
 {
-    
-    return 0;
+    //IF Y IS POSITIVE THEN WIND AT OUR BACKS (GOOD)
+    //IF Y IS NEGATIVE THEN WIND IS BLOWING AT US (BAD)
+    //IF Y IS 0 THEN IT IS FROM OUR SIDE
+
+    //Y AXIS DETERMINES HOW HARD WE NEED TO SWING OUR SAILS
+    //-1 MIN
+    //+1 MAX
+    double sail = vector.y;
+
+    double sail_power = Utilities::convert_coordinates(-1,1,0,1,sail);
+    std::cout << "SAILS ARE AT: " << sail_power << " Percentage" << std::endl;
+    //POS NEG X IS IRRELEVANT AS SAIL CAN SWING AROUND TO OTHER SIDE
+    return sail_power;
 }
 
 double Calculation_Unit::calculate_angle_of_approach(GPS_DATA current_position, GPS_DATA destination, VEC2 wind_directtion)
