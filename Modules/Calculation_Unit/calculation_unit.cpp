@@ -87,8 +87,20 @@ GPS_DATA Calculation_Unit::calculate_waypoint(GPS_DATA current_position, double 
 {
     GPS_DATA temp;
 
-    double latitude_radians = Utilities::degrees_to_radians(0);
-    double angle_radians = Utilities::degrees_to_radians(0);
+    //NOTE DISTANCE IS IN KM, 10m = 0.01
+
+    //LATITUDE
+    double latitude_radians = Utilities::degrees_to_radians(current_position.get_latitude());
+    double angle_radians = Utilities::degrees_to_radians(direction);
+
+    const double earth_radius = 6371.0;
+
+    double theta = distance / earth_radius;
+    double omega = asin(sin(latitude_radians)*cos(theta) + cos(latitude_radians) * sin(theta) * cos(angle_radians));
+    double result_latitude = Utilities::radians_to_degrees(omega);
+
+    //LONGITUDE
+    
 
 
     //Latitude
