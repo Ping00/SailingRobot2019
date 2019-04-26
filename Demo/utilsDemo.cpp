@@ -22,18 +22,21 @@ int main(void)
 
     double lat_e = 60.10346709484701;
     double lon_e = 19.929850459229783;
+    double result = 0;
 
-    double result = Utilities::coordinates_to_degrees(lat_default,lon_default,lat_w,lon_w);
-    std::cout << "DEGREES WEST: " << result << std::endl;
-
-     result = Utilities::coordinates_to_degrees(lat_default,lon_default,lat_n,lon_n);
+    result = Utilities::coordinates_to_degrees(lat_default,lon_default,lat_n,lon_n);
     std::cout << "DEGREES NORTH: " << result << std::endl;
+
+    result = Utilities::coordinates_to_degrees(lat_default,lon_default,lat_w,lon_w);
+    std::cout << "DEGREES EAST: " << result << std::endl;
+
+
 
      result = Utilities::coordinates_to_degrees(lat_default,lon_default,lat_s,lon_s);
     std::cout << "DEGREES SOUTH: " << result << std::endl;
 
     result = Utilities::coordinates_to_degrees(lat_default,lon_default,lat_e,lon_e);
-    std::cout << "DEGREES EAST: " << result << std::endl;
+    std::cout << "DEGREES WEST: " << result << std::endl;
 
     std::cout << "-----------" << std::endl;
 

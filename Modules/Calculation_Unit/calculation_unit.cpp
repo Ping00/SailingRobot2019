@@ -86,6 +86,10 @@ double Calculation_Unit::calculate_angle_of_approach(GPS_DATA current_position, 
 GPS_DATA Calculation_Unit::calculate_waypoint(GPS_DATA current_position, double distance, double direction)
 {
     GPS_DATA temp;
+    
+
+
+
     return temp;
 }
 
