@@ -86,8 +86,30 @@ double Calculation_Unit::calculate_angle_of_approach(GPS_DATA current_position, 
 GPS_DATA Calculation_Unit::calculate_waypoint(GPS_DATA current_position, double distance, double direction)
 {
     GPS_DATA temp;
-    
 
+    double latitude_radians = Utilities::degrees_to_radians(0);
+    double angle_radians = Utilities::degrees_to_radians(0);
+
+
+    //Latitude
+    /*
+    double Lat_Rad = degreeToRadium(gpsLat);
+    double a_rad = degreeToRadium(angle);
+    double d = distance/R;
+    double c = asin(sin(Lat_Rad)*cos(d) + cos(Lat_Rad)*sin(d)*cos(a_rad));
+    return radiumToDegree(c);
+    */
+
+    //Longitude
+    /*
+    double Lat_Rad = degreeToRadium(gpsLatI);
+    double a_rad = degreeToRadium(angle);
+    double Lat_Rad2 = degreeToRadium(gpsLatE);
+    double d = distance / R;
+    double c = atan2(sin(a_rad)*sin(d)*cos(Lat_Rad), cos(d) - sin(Lat_Rad)*sin(Lat_Rad2));
+    double Lon_End = gpsLon + radiumToDegree(c);
+    return Lon_End;
+    */
 
 
     return temp;
