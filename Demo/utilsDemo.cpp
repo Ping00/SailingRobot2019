@@ -33,7 +33,15 @@ int main(void)
     std::cout << "DEGREES SOUTH: " << result << std::endl;
 
     result = Utilities::coordinates_to_degrees(lat_default,lon_default,lat_e,lon_e);
-   std::cout << "DEGREES EAST: " << result << std::endl;
+    std::cout << "DEGREES EAST: " << result << std::endl;
+
+    std::cout << "-----------" << std::endl;
+
+    double sail = 0;
+    double sailPos = 0.0;
+    sailPos = Utilities::convert_coordinates(-1,1,0,1,sail);
+    std::cout << "Old target is at: " << sail << std::endl;
+    std::cout << "New Target is at: " << sailPos << std::endl;
 
     return 0;
 }
