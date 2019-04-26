@@ -96,11 +96,19 @@ GPS_DATA Calculation_Unit::calculate_waypoint(GPS_DATA current_position, double 
     const double earth_radius = 6371.0;
 
     double theta = distance / earth_radius;
-    double omega = asin(sin(latitude_radians)*cos(theta) + cos(latitude_radians) * sin(theta) * cos(angle_radians));
-    double result_latitude = Utilities::radians_to_degrees(omega);
+    double omega_lat = asin(sin(latitude_radians)*cos(theta) + cos(latitude_radians) * sin(theta) * cos(angle_radians));
+    double result_latitude = Utilities::radians_to_degrees(omega_lat);
 
     //LONGITUDE
-    
+
+    double omega_lon = atan2(sin(angle_radians)*sin(theta)*cos(latitude_radians),cos(theta)-sin(latitude_radians)*sin(result_latitude));
+    double result_longitude = current_pos.get_longitude() + Utilities::radians_to_degrees(omega_lon);
+
+    temp.set_latitude(result_latitude);
+    temp.set_longitude(result_longitude);
+
+    std::cout << "LAT: " << result_latitude << std::endl;
+    std::cout << "LON: " << result_longitude << std::endl;
 
 
     //Latitude
