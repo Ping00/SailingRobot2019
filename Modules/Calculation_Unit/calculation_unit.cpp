@@ -2,6 +2,7 @@
 #include <math.h>
 #include <iostream>
 #include "../../Utilities/utilities.hpp"
+#include <iomanip>
 double Calculation_Unit::calculate_rudder_position(VEC2 vector)
 {
     //NOTE VECTOR BEARING SHOULD BE ROTATED 90 DEGREES SO THAT X,Y = 0,1 IS NORTH
@@ -102,13 +103,14 @@ GPS_DATA Calculation_Unit::calculate_waypoint(GPS_DATA current_position, double 
     //LONGITUDE
 
     double omega_lon = atan2(sin(angle_radians)*sin(theta)*cos(latitude_radians),cos(theta)-sin(latitude_radians)*sin(result_latitude));
-    double result_longitude = current_pos.get_longitude() + Utilities::radians_to_degrees(omega_lon);
+    double result_longitude = current_position.get_longitude() + Utilities::radians_to_degrees(omega_lon);
 
     temp.set_latitude(result_latitude);
     temp.set_longitude(result_longitude);
 
-    std::cout << "LAT: " << result_latitude << std::endl;
-    std::cout << "LON: " << result_longitude << std::endl;
+
+    std::cout << "LAT: " << std::setprecision(20) << result_latitude << std::endl;
+    std::cout << "LON: " << std::setprecision(20) << result_longitude << std::endl;
 
 
     //Latitude

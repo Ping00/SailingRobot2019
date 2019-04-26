@@ -1,5 +1,6 @@
 #include <iostream>
 #include "../Utilities/utilities.hpp"
+#include "../Modules/Calculation_Unit/calculation_unit.hpp"
 
 int main(void)
 {
@@ -45,6 +46,20 @@ int main(void)
     sailPos = Utilities::convert_coordinates(-1,1,0,1,sail);
     std::cout << "Old target is at: " << sail << std::endl;
     std::cout << "New Target is at: " << sailPos << std::endl;
+
+    std::cout << "-----------" << std::endl;
+
+    GPS_DATA location;
+
+    location.set_latitude(60.10347832490164);
+    location.set_longitude(19.928544759750366);
+
+
+    std::cout << "-----------" << std::endl;
+    Calculation_Unit CU;
+    double distance_kilometers = 0.2;
+
+    CU.calculate_waypoint(location,distance_kilometers,90);
 
     return 0;
 }
