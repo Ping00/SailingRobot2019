@@ -104,30 +104,36 @@ int main(int argc, char* argv[])
         
         VEC2 current_pos = Utilities::degrees_to_vector(offset_bearing);
         
-        std::cout << "CURRENT X : " << current_pos.x << std::endl;
-        std::cout << "CURRENT Y : " << current_pos.y << std::endl;
-        std::cout << "------------" << std::endl;
-        std::cout << "WAYPOINT X : " << waypoint_vec.x << std::endl;
-        std::cout << "WAYPOINT Y : " << waypoint_vec.y << std::endl;
+        //std::cout << "CURRENT X : " << current_pos.x << std::endl;
+        //std::cout << "CURRENT Y : " << current_pos.y << std::endl;
+        //std::cout << "------------" << std::endl;
+        //std::cout << "WAYPOINT X : " << waypoint_vec.x << std::endl;
+        //std::cout << "WAYPOINT Y : " << waypoint_vec.y << std::endl;
 
         
+        //GET OFFSET FOR OUR DESTINATION BEARING
         int dest_offset = waypoint - bearing;
+        
         std::cout << "DESTINATION BEARING: " << dest_offset << std::endl;
         
+        //Rotate it 90 degrees so that Y+1 = NORTH otherwise X+1 IS NORTH
         VEC2 dest = Utilities::degrees_to_vector(dest_offset + 90);
 
-        std::cout << "DEST X : " << dest.x << std::endl;
-        std::cout << "DEST Y : " << dest.y << std::endl;
+        //std::cout << "DEST X : " << dest.x << std::endl;
+        //std::cout << "DEST Y : " << dest.y << std::endl;
 
         double rudder_setting = CU.calculate_rudder_position(dest);
         double sail_setting = CU.calculate_sail_position(dest);
-        std::cout << "RUDDER:: " << rudder_setting << std::endl;
-        std::cout << "SAILS:: " << sail_setting << std::endl;
+        
+        //std::cout << "RUDDER:: " << rudder_setting << std::endl;
+        //std::cout << "SAILS:: " << sail_setting << std::endl;
         servo_rudder.set_target(rudder_setting);
         servo_sail.set_target(sail_setting);
         servo_rudder.run();
         servo_sail.run();
         
+        double angle_of_approach = CU.calculate_angle_of_approach(waypoint,bearing);
+        std::cout << "Recommended AOA IS: " << angle_of_approach << std::endl;
         
     }
     
