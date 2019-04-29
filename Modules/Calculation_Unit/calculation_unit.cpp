@@ -130,11 +130,11 @@ GPS_DATA Calculation_Unit::calculate_waypoint(GPS_DATA current_position, double 
 
 }
 
-double Calculation_Unit::calculate_distance(GPS_DATA point_a, GPS_DATA point_b)
+double Calculation_Unit::calculate_distance(GPS_POSITION point_a, GPS_POSITION point_b)
 {
 
   //Convert to radian
-  double distance_latitude = Utilities::degrees_to_radians(point_b.get_latitude() - point_a.get_latitude());
+  double distance_latitude = Utilities::degrees_to_radians(point_b.latitude - point_a.latitude);
   double distance_longitude = Utilities::degrees_to_radians(point_b.get_longitude() - point_a.get_longitude());
 
   double factor =
