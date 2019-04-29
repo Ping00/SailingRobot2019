@@ -2,7 +2,6 @@
 #include <math.h>
 #include <iostream>
 #include "../../Utilities/utilities.hpp"
-#include <iomanip>
 double Calculation_Unit::calculate_rudder_position(VEC2 vector)
 {
     //NOTE VECTOR BEARING SHOULD BE ROTATED 90 DEGREES SO THAT X,Y = 0,1 IS NORTH
@@ -79,9 +78,10 @@ double Calculation_Unit::calculate_sail_position(VEC2 vector)
     return sail_power;
 }
 
-double Calculation_Unit::calculate_angle_of_approach(GPS_DATA current_position, GPS_DATA destination, VEC2 wind_directtion)
+double Calculation_Unit::calculate_angle_of_approach(double destination_bearing, double wind_bearing)
 {
-    return 0;
+    double x = 0;
+    return x;
 }
 
 GPS_DATA Calculation_Unit::calculate_waypoint(GPS_DATA current_position, double distance, double direction)
@@ -107,32 +107,6 @@ GPS_DATA Calculation_Unit::calculate_waypoint(GPS_DATA current_position, double 
 
     temp.set_latitude(result_latitude);
     temp.set_longitude(result_longitude);
-
-
-    std::cout << "LAT: " << std::setprecision(20) << result_latitude << std::endl;
-    std::cout << "LON: " << std::setprecision(20) << result_longitude << std::endl;
-
-
-    //Latitude
-    /*
-    double Lat_Rad = degreeToRadium(gpsLat);
-    double a_rad = degreeToRadium(angle);
-    double d = distance/R;
-    double c = asin(sin(Lat_Rad)*cos(d) + cos(Lat_Rad)*sin(d)*cos(a_rad));
-    return radiumToDegree(c);
-    */
-
-    //Longitude
-    /*
-    double Lat_Rad = degreeToRadium(gpsLatI);
-    double a_rad = degreeToRadium(angle);
-    double Lat_Rad2 = degreeToRadium(gpsLatE);
-    double d = distance / R;
-    double c = atan2(sin(a_rad)*sin(d)*cos(Lat_Rad), cos(d) - sin(Lat_Rad)*sin(Lat_Rad2));
-    double Lon_End = gpsLon + radiumToDegree(c);
-    return Lon_End;
-    */
-
 
     return temp;
 }

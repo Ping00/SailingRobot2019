@@ -59,7 +59,12 @@ int main(void)
     Calculation_Unit CU;
     double distance_kilometers = 0.2;
 
-    CU.calculate_waypoint(location,distance_kilometers,90);
+    GPS_DATA place = CU.calculate_waypoint(location,distance_kilometers,90);
+
+
+
+    std::cout << "LAT: " << std::setprecision(20) << place.get_latitude() << std::endl;
+    std::cout << "LON: " << std::setprecision(20) << place.get_longitude() << std::endl;
 
     return 0;
 }
