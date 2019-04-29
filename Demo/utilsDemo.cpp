@@ -25,6 +25,7 @@ int main(void)
     double lon_e = 19.929850459229783;
     double result = 0;
 
+/*
     result = Utilities::coordinates_to_degrees(lat_default,lon_default,lat_n,lon_n);
     std::cout << "DEGREES NORTH: " << result << std::endl;
 
@@ -65,6 +66,14 @@ int main(void)
 
     std::cout << "LAT: " << std::setprecision(20) << place.get_latitude() << std::endl;
     std::cout << "LON: " << std::setprecision(20) << place.get_longitude() << std::endl;
+    */
+    //-------------
+
+    Calculation_Unit CU;
+
+    CU.calculate_angle_of_approach(0,5);
+
+
 
     return 0;
 }
