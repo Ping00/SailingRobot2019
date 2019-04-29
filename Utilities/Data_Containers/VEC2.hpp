@@ -4,7 +4,7 @@ class VEC2
 {
     public:
         VEC2();
-        VEC2(double x_value, double y_value);
+
         double x;
         double y;
 

@@ -83,19 +83,20 @@ int main(void)
 
     Calculation_Unit CU;
     //SCHOOL
-    GPS_DATA location;
+    GPS_POSITION location;
+    location.latitude = start_lat;
+    location.longitude = start_lon;
 
-    location.set_latitude(start_lat);
-    location.set_longitude(start_lon);
-
-
+    std::cout << "START VALUES" << std::endl;
+    std::cout << "LAT: " << location.latitude << std::endl;
+    std::cout << "LON: " << location.longitude << std::endl;
     std::cout << "-----------" << std::endl;
     // 0.2km = 200m
     double distance_kilometers = 0.2;
 
-    GPS_DATA place = CU.calculate_waypoint(location,distance_kilometers,90);
-    std::cout << "LAT: " << std::setprecision(20) << place.get_latitude() << std::endl;
-    std::cout << "LON: " << std::setprecision(20) << place.get_longitude() << std::endl;
+    GPS_POSITION place = CU.calculate_waypoint(location,distance_kilometers,90);
+    std::cout << "LAT: " << std::setprecision(20) << place.latitude << std::endl;
+    std::cout << "LON: " << std::setprecision(20) << place.longitude << std::endl;
 
     double distance = CU.calculate_distance(location,place);
 
@@ -103,7 +104,7 @@ int main(void)
 
     for(int i = 0; i < 360; i++)
     {
-      GPS_DATA place = CU.calculate_waypoint(location,distance_kilometers,i);
+      GPS_POSITION place = CU.calculate_waypoint(location,distance_kilometers,i);
       double distance = CU.calculate_distance(location,place);
       std::cout << "DISTANCE FROM A -> B :" << distance << std::endl;
     }

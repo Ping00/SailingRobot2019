@@ -106,13 +106,13 @@ double Calculation_Unit::calculate_angle_of_approach(double destination_bearing,
     return offset;
 }
 
-GPS_DATA Calculation_Unit::calculate_waypoint(GPS_DATA current_position, double distance, double direction)
+GPS_POSITION Calculation_Unit::calculate_waypoint(GPS_POSITION current_position, double distance, double direction)
 {
     //STOLEN FROM THE INTERNET (Hende d, c, they did not specifiy what they meant)
 
 
     //LATITUDE
-    double latitude_radians = Utilities::degrees_to_radians(current_position.get_latitude());
+    double latitude_radians = Utilities::degrees_to_radians(current_position.latitude);
     double angle_radians = Utilities::degrees_to_radians(direction);
     double d = distance / EARTH_RADIUS;
     double c = asin(sin(latitude_radians)*cos(d) + cos(latitude_radians)*sin(d)*cos(angle_radians));
@@ -120,11 +120,11 @@ GPS_DATA Calculation_Unit::calculate_waypoint(GPS_DATA current_position, double 
 
     //LONGITUDE
     double c2 = atan2(sin(angle_radians)*sin(d)*cos(latitude_radians), cos(d) - sin(latitude_radians)*sin(c));
-    double corrected_longitude = current_position.get_longitude() + Utilities::radians_to_degrees(c2);
+    double corrected_longitude = current_position.longitude + Utilities::radians_to_degrees(c2);
 
-    GPS_DATA coords;
-    coords.set_latitude(corrected_latitude);
-    coords.set_longitude(corrected_longitude);
+    GPS_POSITION coords;
+    coords.latitude = corrected_latitude;
+    coords.longitude = corrected_longitude;
     return coords;
 
 
@@ -135,13 +135,13 @@ double Calculation_Unit::calculate_distance(GPS_POSITION point_a, GPS_POSITION p
 
   //Convert to radian
   double distance_latitude = Utilities::degrees_to_radians(point_b.latitude - point_a.latitude);
-  double distance_longitude = Utilities::degrees_to_radians(point_b.get_longitude() - point_a.get_longitude());
+  double distance_longitude = Utilities::degrees_to_radians(point_b.longitude - point_a.longitude);
 
   double factor =
   sin(distance_latitude / 2) *
   sin(distance_latitude / 2) +
-  cos(Utilities::degrees_to_radians(point_a.get_latitude())) *
-  cos(Utilities::degrees_to_radians(point_b.get_latitude())) *
+  cos(Utilities::degrees_to_radians(point_a.latitude)) *
+  cos(Utilities::degrees_to_radians(point_b.latitude)) *
   sin(distance_longitude / 2) *
   sin(distance_longitude / 2);
 
