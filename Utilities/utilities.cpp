@@ -64,3 +64,11 @@ double Utilities::coordinates_to_degrees(double lat1, double lon1, double lat2, 
     return degrees;
 }
 
+double Utilities::flip_degrees(double degrees)
+{
+    if(degrees == 0) return 0;
+
+    return abs(degrees - 360);
+
+}
+

@@ -69,10 +69,13 @@ int main(void)
     */
     //-------------
 
-    Calculation_Unit CU;
-
-    CU.calculate_angle_of_approach(0,5);
-
+    /*
+    for(int i = 0; i < 360; i++)
+    {
+      double flipped = Utilities::flip_degrees(i);
+      std::cout << "FLIP: "<<  i << " TO " << flipped << std::endl;
+    }
+    */
 
 
     return 0;

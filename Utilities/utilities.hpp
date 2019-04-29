@@ -11,6 +11,7 @@ class Utilities
       static VEC2    degrees_to_vector(double value);
       static double  vector_to_degrees(VEC2 vector);
       static double  coordinates_to_degrees(double lat1, double lon1, double lat2, double lon2);
+      static double  flip_degrees(double degrees);
 
 };
 #endif//__UTILITIES_HPP__
