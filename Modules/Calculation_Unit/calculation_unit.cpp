@@ -2,13 +2,14 @@
 #include <math.h>
 #include <iostream>
 #include "../../Utilities/utilities.hpp"
+#define EARTH_RADIUS 6371.0
 double Calculation_Unit::calculate_rudder_position(VEC2 vector)
 {
     //NOTE VECTOR BEARING SHOULD BE ROTATED 90 DEGREES SO THAT X,Y = 0,1 IS NORTH
 
     //NOTE Dead zone represents how much of our centering we should ignore
     //This is to prevent constant wiggle as we try to center in on our target
-    const double RUDDER_DEAD_ZONE = 0.125;
+    const double RUDDER_DEAD_ZONE = 0.225;
 
     //V.x = cos(A)
     //V.y = sin(A)
@@ -107,33 +108,44 @@ double Calculation_Unit::calculate_angle_of_approach(double destination_bearing,
 
 GPS_DATA Calculation_Unit::calculate_waypoint(GPS_DATA current_position, double distance, double direction)
 {
-    GPS_DATA temp;
+    //STOLEN FROM THE INTERNET (Hende d, c, they did not specifiy what they meant)
 
-    //NOTE DISTANCE IS IN KM, 10m = 0.01
 
     //LATITUDE
     double latitude_radians = Utilities::degrees_to_radians(current_position.get_latitude());
     double angle_radians = Utilities::degrees_to_radians(direction);
-
-    const double earth_radius = 6371.0;
-
-    double theta = distance / earth_radius;
-    double omega_lat = asin(sin(latitude_radians)*cos(theta) + cos(latitude_radians) * sin(theta) * cos(angle_radians));
-    double result_latitude = Utilities::radians_to_degrees(omega_lat);
+    double d = distance / EARTH_RADIUS;
+    double c = asin(sin(latitude_radians)*cos(d) + cos(latitude_radians)*sin(d)*cos(angle_radians));
+    double corrected_latitude = Utilities::radians_to_degrees(c);
 
     //LONGITUDE
+    double c2 = atan2(sin(angle_radians)*sin(d)*cos(latitude_radians), cos(d) - sin(latitude_radians)*sin(c));
+    double corrected_longitude = current_position.get_longitude() + Utilities::radians_to_degrees(c2);
 
-    double omega_lon = atan2(sin(angle_radians)*sin(theta)*cos(latitude_radians),cos(theta)-sin(latitude_radians)*sin(result_latitude));
-    double result_longitude = current_position.get_longitude() + Utilities::radians_to_degrees(omega_lon);
+    GPS_DATA coords;
+    coords.set_latitude(corrected_latitude);
+    coords.set_longitude(corrected_longitude);
+    return coords;
 
-    temp.set_latitude(result_latitude);
-    temp.set_longitude(result_longitude);
 
-    return temp;
 }
 
 double Calculation_Unit::calculate_distance(GPS_DATA point_a, GPS_DATA point_b)
 {
 
-    return 0;
+  //Convert to radian
+  double distance_latitude = Utilities::degrees_to_radians(point_b.get_latitude() - point_a.get_latitude());
+  double distance_longitude = Utilities::degrees_to_radians(point_b.get_longitude() - point_a.get_longitude());
+
+  double factor =
+  sin(distance_latitude / 2) *
+  sin(distance_latitude / 2) +
+  cos(Utilities::degrees_to_radians(point_a.get_latitude())) *
+  cos(Utilities::degrees_to_radians(point_b.get_latitude())) *
+  sin(distance_longitude / 2) *
+  sin(distance_longitude / 2);
+
+  double range = 2 * atan2(sqrt(factor),sqrt(1-factor));
+  double distance = range * EARTH_RADIUS;
+  return distance;
 }

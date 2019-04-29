@@ -1,7 +1,7 @@
 #include <iostream>
 #include "../Utilities/utilities.hpp"
 #include "../Modules/Calculation_Unit/calculation_unit.hpp"
-
+#include <iomanip>
 int main(void)
 {
     //SCHOOL
@@ -77,6 +77,36 @@ int main(void)
     }
     */
 
+    //School Coords
+    double start_lat = 60.10347832490164;
+    double start_lon = 19.928544759750366;
+
+    Calculation_Unit CU;
+    //SCHOOL
+    GPS_DATA location;
+
+    location.set_latitude(start_lat);
+    location.set_longitude(start_lon);
+
+
+    std::cout << "-----------" << std::endl;
+    // 0.2km = 200m
+    double distance_kilometers = 0.2;
+
+    GPS_DATA place = CU.calculate_waypoint(location,distance_kilometers,90);
+    std::cout << "LAT: " << std::setprecision(20) << place.get_latitude() << std::endl;
+    std::cout << "LON: " << std::setprecision(20) << place.get_longitude() << std::endl;
+
+    double distance = CU.calculate_distance(location,place);
+
+    std::cout << "DISTANCE FROM A -> B :" << distance << std::endl;
+
+    for(int i = 0; i < 360; i++)
+    {
+      GPS_DATA place = CU.calculate_waypoint(location,distance_kilometers,i);
+      double distance = CU.calculate_distance(location,place);
+      std::cout << "DISTANCE FROM A -> B :" << distance << std::endl;
+    }
 
     return 0;
 }
