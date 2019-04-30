@@ -1,13 +1,13 @@
 #include <iostream>
 
 //Multithreaded for sail servo control
-void sail_servo
+void sail_servo(Module_SERVO sail)
 {
     
 }
 
 //Multithreadning for rudder servo control
-void rudder_servo
+void rudder_servo(Module_SERVO rudder)
 {
     
 }
@@ -16,6 +16,8 @@ void rudder_servo
 int main(int argc, char* argv[])
 {
     //-------------------
+    
+    
     
     
     
