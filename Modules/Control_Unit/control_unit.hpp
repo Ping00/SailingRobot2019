@@ -11,9 +11,10 @@ class Control_Unit
 
     public:
         Control_Unit();
+        bool init();
         void set_waypoint(GPS_POSITION waypoint);
         void set_destination(GPS_POSITION destination);
-
+        bool get_active();
 
 
 };
