@@ -1,6 +1,8 @@
 #ifndef __UTILITIES_HPP__
 #define __UTILITIES_HPP__
 #include "Data_Containers/VEC2.hpp"
+#include "Data_Containers/GPS_POSITION.hpp"
+#include "../Hardware/GPS/GPS_data.hpp"
 class Utilities
 {
       public:

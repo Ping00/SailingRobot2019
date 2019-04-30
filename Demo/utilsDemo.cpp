@@ -95,8 +95,8 @@ int main(void)
     double distance_kilometers = 0.2;
 
     GPS_POSITION place = CU.calculate_waypoint(location,distance_kilometers,90);
-    std::cout << "LAT: " << std::setprecision(20) << place.latitude << std::endl;
-    std::cout << "LON: " << std::setprecision(20) << place.longitude << std::endl;
+    std::cout << "LAT: " << std::setprecision(1) << place.latitude << std::endl;
+    std::cout << "LON: " << std::setprecision(1) << place.longitude << std::endl;
 
     double distance = CU.calculate_distance(location,place);
 
