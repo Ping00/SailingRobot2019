@@ -5,10 +5,11 @@ class Logger
 {
     private:
         int              m_entries;
-        std::vector<LOG> m_log_entries;
     
     public:
         Logger();
+        
+        void                publish();
         
         void                log(LOG packet);
         int                 get_amount_of_entries();

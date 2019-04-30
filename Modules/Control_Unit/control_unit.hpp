@@ -3,10 +3,14 @@
 class Control_Unit
 {
     private:
-        boolean m_active;
-    
+        boolean       m_active;
+        GPS_POSITION  m_destination;
+        GPS_POSITION  m_waypoint;
+
     public:
         Control_Unit();
-    
+
+
+
 };
 #endif//__CONTROL_UNIT_HPP__
