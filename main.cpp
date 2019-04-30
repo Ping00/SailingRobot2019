@@ -3,13 +3,13 @@
 //Multithreaded for sail servo control
 void sail_servo(Module_SERVO sail)
 {
-
+    sail.run();
 }
 
 //Multithreadning for rudder servo control
 void rudder_servo(Module_SERVO rudder)
 {
-
+    rudder.run();
 }
 
 
@@ -48,10 +48,11 @@ int main(int argc, char* argv[])
     {
         //Step 1: FETCH FRESH DATA
         //When we fetch data, each item should possess the same data_tick +- a threshold
-        //This tells us that our data is fresh enough to be used (Aka, we dont want a GPS of tick 10,)
+        //This tells us that our data is fresh enough to be used (Aka, we dont want a GPS of tick 10, a compass tick of 50)
 
 
         //If we dont have a waypoint (IF WAYPOINT SET = FALSE)
+        //If our data is fresh enough to be used
         //Get new waypoint
         //->  Use destination and wind to calculate our AOA
         //    Grab distance to destination
@@ -59,6 +60,19 @@ int main(int argc, char* argv[])
         //    Grab coordinate of waypoint
         //    Set waypoint
 
+        //NOTE REMEMBER TO ADD OFFSET OF 90 DEGREES TO MAKE Y +1 NORTH IN OUR VEC2
+
+        //Calculate offset to waypoint
+        //Waypoint - Current bearing = RUDDER OFFSET;
+
+        //Make VEC2 of above, (ADD THE 90 DEGREE SHIFT)
+
+        //GRAB RUDDER POSITION FROM THIS VECTOR BASED ON OUR CU
+        //Wind - Current bearing = WIND OFFSET (Add 90 shift in VEC2)
+        //Use the wind offset to get the sails proper position
+
+        //Set the rudder value (thread will move part by itself)
+        //Set the sail value (thread will move part by itself)
 
 
 

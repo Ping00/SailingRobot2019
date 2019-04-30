@@ -25,7 +25,7 @@ int main(void)
     double lon_e = 19.929850459229783;
     double result = 0;
 
-/*
+
     result = Utilities::coordinates_to_degrees(lat_default,lon_default,lat_n,lon_n);
     std::cout << "DEGREES NORTH: " << result << std::endl;
 
@@ -50,23 +50,10 @@ int main(void)
 
     std::cout << "-----------" << std::endl;
 
-    GPS_DATA location;
-
-    location.set_latitude(60.10347832490164);
-    location.set_longitude(19.928544759750366);
-
-
-    std::cout << "-----------" << std::endl;
-    Calculation_Unit CU;
-    double distance_kilometers = 0.2;
-
-    GPS_DATA place = CU.calculate_waypoint(location,distance_kilometers,90);
 
 
 
-    std::cout << "LAT: " << std::setprecision(20) << place.get_latitude() << std::endl;
-    std::cout << "LON: " << std::setprecision(20) << place.get_longitude() << std::endl;
-    */
+
     //-------------
 
     /*

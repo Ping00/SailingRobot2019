@@ -47,7 +47,7 @@ double Utilities::vector_to_degrees(VEC2 vector)
 
 double Utilities::coordinates_to_degrees(double lat1, double lon1, double lat2, double lon2)
 {
-
+    //NOTE NOTE THIS VERSION MAY NOT BE ACCURATE ENOUGH
     //NOTE THAT THIS RETURNS 0 IS TO THE RIGHT (WHEREAS 0 SHOULD BE NORTH) (OFFSET BY 90)
     double dy = lat2 - lat1;
     double dx = cos(M_PI/180*lat1)*(lon2 - lon1);
