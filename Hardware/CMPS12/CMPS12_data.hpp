@@ -6,11 +6,7 @@
 class CMPS12_DATA
 {
     private:
-
-
-
       bool  m_data_reading_valid;
-      int   m_tick;
 
       int   m_command_register;
       int   m_compass_bearing_8bit;
