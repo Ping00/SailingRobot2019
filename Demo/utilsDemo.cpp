@@ -8,21 +8,21 @@ int main(void)
     double lat_default = 60.10347832490164;
     double lon_default = 19.928544759750366;
 
-    //EAST (OCEAN COASTLINE)
-    //
-    double lat_w = 0;
-    double lon_w = 0;
+    //WEST (OCEAN COASTLINE)
+    double lat_w = 60.10354365796281;
+    double lon_w = 19.927384886330515;
 
-    double lat_e = 0;
-    double lon_e = 0;
+    //MUSEUM
+    double lat_e = 60.103515315640564;
+    double lon_e = 19.93024519376206;
 
     //CAR DEALER
-    double lat_n = 60.10599161445948;
-    double lon_n = 19.928770065307617;
+    double lat_n = 60.10416745166214;
+    double lon_n = 19.928647670465693;
 
     //ALAND SEA ACADEMY
-    double lat_s = 60.102836603220055;
-    double lon_s = 19.928147792816162;
+    double lat_s = 60.10302680666239;
+    double lon_s = 19.92855754798086;
 
     double result = 0;
 
@@ -34,6 +34,9 @@ int main(void)
 
     result = Utilities::coordinates_to_degrees(lat_default,lon_default,lat_s,lon_s);
     std::cout << "DEGREES SOUTH: " << result << std::endl;
+
+    result = Utilities::coordinates_to_degrees(lat_default,lon_default,lat_w,lon_w);
+    std::cout << "DEGREES WEST: " << result << std::endl;
 
     /*
     result = Utilities::coordinates_to_degrees(lat_default,lon_default,lat_n,lon_n);
@@ -55,6 +58,7 @@ int main(void)
     */
     std::cout << "-----------" << std::endl;
 
+    /*
     double sail = 0;
     double sailPos = 0.0;
     sailPos = Utilities::convert_coordinates(-1,1,0,1,sail);
@@ -62,10 +66,31 @@ int main(void)
     std::cout << "New Target is at: " << sailPos << std::endl;
 
     std::cout << "-----------" << std::endl;
+    */
+    std::cout << "BOATSIM" << std::endl;
 
+    Calculation_Unit CU;
 
+    double wind_bearing = 45;
 
+    double start_lat = 60.10347832490164;
+    double start_lon = 19.928544759750366;
 
+    double destination_lat = 60.106103905900504;
+    double destination_lon = 19.929392337799072;
+
+    double destination_bearing = Utilities::coordinates_to_degrees(start_lat,start_lon,destination_lat,destination_lon);
+
+    double AOA = CU.calculate_angle_of_approach(destination_bearing,wind_bearing);
+
+    std::cout << "Destination Is At bearing: " << destination_bearing << std::endl;
+    std::cout << "Wind is at bearing: " << wind_bearing << std::endl;
+
+    std::cout << "AOA A: " << AOA << std::endl;
+    std::cout << "AOA B: " << Utilities::flip_degrees(AOA) << std::endl;
+    std::cout << "WE GO WITH A:"  << AOA << std::endl;
+
+    double distance_to_goal = CU.calculate_distance(location,place);
 
     //-------------
 
@@ -77,6 +102,7 @@ int main(void)
     }
     */
 
+    /*
     //School Coords
     double start_lat = 60.10347832490164;
     double start_lon = 19.928544759750366;
@@ -101,7 +127,7 @@ int main(void)
     double distance = CU.calculate_distance(location,place);
 
     std::cout << "DISTANCE FROM A -> B :" << distance << std::endl;
-
+    */
     /*
     for(int i = 0; i < 360; i++)
     {

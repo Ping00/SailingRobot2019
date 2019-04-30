@@ -47,25 +47,29 @@ double Utilities::vector_to_degrees(VEC2 vector)
 
 double Utilities::coordinates_to_degrees(double lat1, double lon1, double lat2, double lon2)
 {
-  /*
-  double la1 = degrees_to_radians(lat1);
-  double la2 = degrees_to_radians(lat2);
-  double c = atan2(sin(degrees_to_radians(lon2-lon1))*cos(la2), cos(la1)*sin(la2) - cos(la2)*sin(la1)*cos(degrees_to_radians(lon2-lon1)));
-  return radians_to_degrees(c);
-  */
+    /*
+    double la1 = degrees_to_radians(lat1);
+    double la2 = degrees_to_radians(lat2);
+    double c = atan2(sin(degrees_to_radians(lon2-lon1))*cos(la2), cos(la1)*sin(la2) - cos(la2)*sin(la1)*cos(degrees_to_radians(lon2-lon1)));
+    return radians_to_degrees(c);
+    */
 
-  
+
     double dy = lat2 - lat1;
     double dx = cos(M_PI/180*lat1)*(lon2 - lon1);
     double angle = atan2f(dy, dx);
     double degrees = radians_to_degrees(angle);
+    //Add the offset so 0 is north
+    degrees -= 90;
+
     //Add 360 if we are under 0 to give us a range between 0-360
-    if(degrees < 0)
+    while(degrees < 0)
     {
         degrees += 360;
     }
-    //Add the offset so 0 is north
-    degrees -= 90;
+
+    //Inverse it
+    degrees = abs(degrees - 360);
 
     return degrees;
 
