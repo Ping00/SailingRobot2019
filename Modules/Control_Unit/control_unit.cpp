@@ -13,6 +13,8 @@ Control_Unit::Control_Unit()
 
   m_waypoint.latitude       = 0;
   m_waypoint.longitude      = 0;
+
+  m_distance_threshold      = 0;
 }
 
 bool Control_Unit::init()

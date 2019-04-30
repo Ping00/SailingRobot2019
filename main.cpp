@@ -32,21 +32,27 @@ int main(int argc, char* argv[])
     //INIT ALL MODULES
 
     //#Read our (Temp?) textfile which has wind and destination data
+    //This way we dont have to recompile each time we want to change those variables
 
     //Check if all modules were initialized properly
 
-    //IF NO then cancel program and print errorlog.
 
     //IF all modules were initialize properly
     bool system_active = true;
+
+    //IF NO then cancel program and print errorlog.
 
     //#Launch our Servo threads
 
     while(control_unit.is_active())
     {
-        //
-
-
+        //If we dont have a waypoint (IF WAYPOINT SET = FALSE)
+        //Get new waypoint
+        //->  Use destination and wind to calculate our AOA
+        //    Grab distance to destination
+        //    Make our waypoint distance half of that (negotiable)
+        //    Grab coordinate of waypoint
+        //    Set waypoint
 
 
 
