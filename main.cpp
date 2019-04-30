@@ -46,6 +46,11 @@ int main(int argc, char* argv[])
 
     while(control_unit.is_active())
     {
+        //Step 1: FETCH FRESH DATA
+        //When we fetch data, each item should possess the same data_tick +- a threshold
+        //This tells us that our data is fresh enough to be used (Aka, we dont want a GPS of tick 10,)
+
+
         //If we dont have a waypoint (IF WAYPOINT SET = FALSE)
         //Get new waypoint
         //->  Use destination and wind to calculate our AOA
@@ -58,7 +63,7 @@ int main(int argc, char* argv[])
 
 
 
-
+        //INCREMENT DATA TICK
     }
 
 

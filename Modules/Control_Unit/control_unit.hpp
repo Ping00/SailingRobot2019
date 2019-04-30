@@ -16,10 +16,12 @@ class Control_Unit
 
         double        m_threshold;
 
+        long int      m_data_tick;
+
     public:
         Control_Unit();
-        bool    get_active();
-        
+        bool    is_active();
+
         bool    init();
         bool    init(GPS_POSITION destination);
 
