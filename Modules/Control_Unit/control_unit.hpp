@@ -3,19 +3,34 @@
 class Control_Unit
 {
     private:
-        boolean       m_active;
-        boolean       m_waypoint_reached;
-        boolean       m_destination_reached;
+        bool          m_active;
+
+        bool          m_waypoint_reached;
+        bool          m_waypoint_set;
+
+        bool          m_destination_set;
+        bool          m_destination_reached;
+
         GPS_POSITION  m_destination;
         GPS_POSITION  m_waypoint;
 
+        double        m_threshold;
+
     public:
         Control_Unit();
-        bool init();
-        void set_waypoint(GPS_POSITION waypoint);
-        void set_destination(GPS_POSITION destination);
-        bool get_active();
+        bool    get_active();
+        
+        bool    init();
+        bool    init(GPS_POSITION destination);
 
+        void    set_waypoint(GPS_POSITION waypoint);
+        GPS_POSITION get_destination();
+
+        void    set_destination(GPS_POSITION destination);
+        GPS_POSITION get_waypoint();
+
+        void    set_threshold(double value);
+        double  get_threshold();
 
 };
 #endif//__CONTROL_UNIT_HPP__

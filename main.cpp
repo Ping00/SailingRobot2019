@@ -40,11 +40,11 @@ int main(int argc, char* argv[])
     //IF all modules were initialize properly
     bool system_active = true;
 
-    //Launch our Servo threads
+    //#Launch our Servo threads
 
-    while(system_active)
+    while(control_unit.is_active())
     {
-
+        //
 
 
 
