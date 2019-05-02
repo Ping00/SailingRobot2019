@@ -83,7 +83,7 @@ double Calculation_Unit::calculate_angle_of_approach(double destination_bearing,
 {
     //Even if we are head on we want to move
     //slightly to the side for good measure
-    const double upper_angle_discrepancy = 15.0;
+    const double upper_angle_discrepancy = 45.0;
     const double lower_angle_discrepancy = 4.0;
     const double max_angle = 90.0;
 
