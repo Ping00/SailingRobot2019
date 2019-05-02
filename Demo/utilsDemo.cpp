@@ -2,6 +2,7 @@
 #include "../Utilities/utilities.hpp"
 #include "../Modules/Calculation_Unit/calculation_unit.hpp"
 #include <iomanip>
+#include <vector>
 int main(void)
 {
     //SCHOOL
@@ -71,28 +72,61 @@ int main(void)
 
     Calculation_Unit CU;
 
-    double wind_bearing = 45;
+    double distance_factor = 4.0;
+    double wind_bearing = 49;
 
-    double start_lat = 60.10347832490164;
-    double start_lon = 19.928544759750366;
+    //double start_lat = 60.10347832490164;
+    //double start_lon = 19.928544759750366;
 
-    double destination_lat = 60.106103905900504;
-    double destination_lon = 19.929392337799072;
+    double start_lat = 60.10577463940261822;
+    double start_lon = 19.926656185728546689;
 
-    double destination_bearing = Utilities::coordinates_to_degrees(start_lat,start_lon,destination_lat,destination_lon);
+    double destination_lat = 60.105879322635616;
+    double destination_lon = 19.926559925079346;
 
-    double AOA = CU.calculate_angle_of_approach(destination_bearing,wind_bearing);
+    //SCHOOL
+    GPS_POSITION start;
+    start.latitude = start_lat;
+    start.longitude = start_lon;
 
-    std::cout << "Destination Is At bearing: " << destination_bearing << std::endl;
-    std::cout << "Wind is at bearing: " << wind_bearing << std::endl;
+    //AUTO REPAIR SHOP
+    GPS_POSITION destination;
+    destination.latitude = destination_lat;
+    destination.longitude = destination_lon;
 
-    std::cout << "AOA A: " << AOA << std::endl;
-    std::cout << "AOA B: " << Utilities::flip_degrees(AOA) << std::endl;
-    std::cout << "WE GO WITH A:"  << AOA << std::endl;
+    //FIRST LOOP
+    GPS_POSITION current_position = start;
 
-    double distance_to_goal = CU.calculate_distance(location,place);
+    //Get bearing to goal
+    double destination_bearing = Utilities::coordinates_to_degrees(
+    start.latitude,start.longitude,
+    destination.latitude,destination.longitude);
 
-    //-------------
+
+    std::cout << "Destination Bearing is at: " << destination_bearing << std::endl;
+    std::cout << "Wind Bearing is at : " << wind_bearing << std::endl;
+    //Get our two possible angles
+    //double AOA = CU.calculate_angle_of_approach(destination_bearing,wind_bearing);
+    double AOA = Utilities::flip_degrees(CU.calculate_angle_of_approach(destination_bearing,wind_bearing));
+    std::cout << "AOA (R) : " << AOA << std::endl;
+    std::cout << "AOA (L) : " << Utilities::flip_degrees(AOA) << std::endl;
+
+    //Add our current angle to the recommended one, normalize
+    double waypoint_angle = Utilities::normalize(AOA+destination_bearing);
+    std::cout << "Waypoint Angle Is: " << waypoint_angle << std::endl;
+
+    //Get distance to goal
+    double goal_distance = CU.calculate_distance(current_position,destination);
+    double waypoint_distance = goal_distance / distance_factor;
+    std::cout << "Distance to goal is: " << goal_distance << std::endl;
+    std::cout << "Distance to Waypoint is: " << waypoint_distance << std::endl;
+
+    GPS_POSITION waypoint = CU.calculate_waypoint(current_position,waypoint_distance,waypoint_angle);
+
+    std::cout << "WAYPOINT: " << std::setprecision(20) << waypoint.latitude << "," << waypoint.longitude << std::endl;
+
+
+
 
     /*
     for(int i = 0; i < 360; i++)

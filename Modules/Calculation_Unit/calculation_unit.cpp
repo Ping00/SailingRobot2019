@@ -83,21 +83,21 @@ double Calculation_Unit::calculate_angle_of_approach(double destination_bearing,
 {
     //Even if we are head on we want to move
     //slightly to the side for good measure
-    const double angle_discrepancy = 5;
+    const double angle_discrepancy = 5.0;
     const double max_angle = 90.0;
 
     //Calculate single side of our bearings (To get other side just)
     double offset = abs(destination_bearing - wind_bearing);
     if(offset > 180) offset = abs(offset - 360);
 
-    std::cout << "OFFSET: " << offset << std::endl;
+    //std::cout << "OFFSET: " << offset << std::endl;
 
     //Cut it in half so that we can only turn +- 90 degrees
     offset = offset / 2;
 
     //Add our discrepancy;
 
-    std::cout << "PROPER ANGLE OFFSET: " << offset << std::endl;
+    //std::cout << "PROPER ANGLE OFFSET: " << offset << std::endl;
 
     //If our angle is too big or too small
     //Offset with our discrepancy so we get a small variation

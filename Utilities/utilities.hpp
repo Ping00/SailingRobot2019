@@ -15,6 +15,7 @@ class Utilities
       static double         coordinates_to_degrees(double lat1, double lon1, double lat2, double lon2);
       static double         flip_degrees(double degrees);
       static GPS_POSITION   extract_position_from_data(GPS_DATA data);
+      static double         normalize(double degrees);
 
 };
 #endif//__UTILITIES_HPP__

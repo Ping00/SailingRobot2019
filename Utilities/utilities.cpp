@@ -83,10 +83,25 @@ double Utilities::flip_degrees(double degrees)
 
 }
 
-GPS_POSITION   extract_position_from_data(GPS_DATA data)
+GPS_POSITION  Utilities::extract_position_from_data(GPS_DATA data)
 {
     GPS_POSITION position;
     position.latitude = data.get_latitude();
     position.longitude = data.get_longitude();
     return position;
+}
+
+double Utilities::normalize(double degrees)
+{
+    double result = degrees;
+    while(result > 360)
+    {
+        result -= 360;
+    }
+
+    while(result < 0)
+    {
+        result += 360;
+    }
+    return result;
 }
