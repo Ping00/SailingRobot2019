@@ -19,7 +19,7 @@ int main(void)
     GPS_POSITION current_position = start;
 
     //Direction of wind in degrees
-    double wind_bearing = 150;
+    double wind_bearing = 337;
 
     //How close do we need to be to the goal to finish
     double goal_threshold = 10.0;
