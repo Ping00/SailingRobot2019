@@ -51,12 +51,15 @@ GPS_DATA GPS::read()
 		}
 		else
 		{
+			std::string time_string = "TEST";
+			double time_reading = 2000;
 
 			data_reading.set_valid(true);
 			data_reading.set_latitude(gps_raw_data->fix.latitude);
 			data_reading.set_longitude(gps_raw_data->fix.longitude);
 			data_reading.set_speed(gps_raw_data->fix.speed);
-			data_reading.set_timestamp(std::to_string(gps_raw_data->fix.time));
+			data_reading.set_time_value(time_reading);
+			data_reading.set_timestamp(time_string);
 			return data_reading;
 		}
 	}
@@ -65,3 +68,5 @@ GPS_DATA GPS::read()
 
 	return data_reading;
 }
+
+std::string
