@@ -84,7 +84,7 @@ double Calculation_Unit::calculate_angle_of_approach(double destination_bearing,
     //Even if we are head on we want to move
     //slightly to the side for good measure
     const double upper_angle_discrepancy = 45.0;
-    const double lower_angle_discrepancy = 4.0;
+    const double lower_angle_discrepancy = 5.0;
     const double max_angle = 90.0;
 
     //Calculate single side of our bearings (To get other side just flip)
@@ -102,8 +102,8 @@ double Calculation_Unit::calculate_angle_of_approach(double destination_bearing,
 
     //If our angle is too big or too small
     //Offset with our discrepancy so we get a small variation
-    if(offset < lower_angle_discrepancy) offset += lower_angle_discrepancy;
-    if(offset > max_angle - offset) offset -= upper_angle_discrepancy;
+    if(offset < lower_angle_discrepancy) offset = lower_angle_discrepancy;
+    if(offset > upper_angle_discrepancy) offset = upper_angle_discrepancy;
     return offset;
 }
 

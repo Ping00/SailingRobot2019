@@ -22,7 +22,6 @@ void 	Module_Wind_Sensor::read()
 	int reading = m_hardware_connection_MA3.read(m_spi_channel);
 	int bearing_uncorrected = Utilities::convert_coordinates(2,1020,0,359,reading);
 	m_reading = Utilities::normalize(bearing_uncorrected - OFFSET);
-	//TODO ADD OFFSET SO THE READING POINTS NORTH
 	
 }
 

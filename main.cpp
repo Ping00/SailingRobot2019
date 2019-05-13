@@ -25,12 +25,15 @@ int main(int argc, char* argv[])
     Module_SERVO      servo_sail;
 
     //#These will get us our desired data
-    Module_GPS        gps;
-    Module_CMPS12     compass;
-    //MA3? (WindSensor Module)
+    Module_GPS          gps;
+    Module_CMPS12       compass;
+    Module_Wind_Sensor  wind;
 
     //INIT ALL MODULES
 
+    
+    
+    
     //#Read our (Temp?) textfile which has wind and destination data
     //This way we dont have to recompile each time we want to change those variables
 

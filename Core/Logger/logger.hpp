@@ -13,7 +13,5 @@ class Logger
         
         void                log(LOG packet);
         int                 get_amount_of_entries();
-        LOG                 get_entry(int id);
-        std::vector<LOG>    get_all_logs();
 }
 #endif//__LOGGER_HPP__
