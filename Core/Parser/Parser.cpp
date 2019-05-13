@@ -1,4 +1,7 @@
 #include "Parser.hpp"
+#include <iostream>
+#include <fstream>
+#include <sstream>
 std::vector<std::string> Parser::remove_comments(std::vector<std::string> data)
 {
     int iterations = data.size();
