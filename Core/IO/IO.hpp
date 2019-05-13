@@ -2,19 +2,18 @@
 #define __IO_HPP__
 #include <vector>
 #include <string>
+
 class IO
 {
-private:
+  private:
 
 
-public:
-    IO();
-    ~IO();
+  public:
+      IO();
+      ~IO();
 
-    std::vector<std::string> read_file(std::string filepath);
-    std::vector<std::string> remove_comments(std::vector<std::string> data);
-    std::vector<std::string> split_string(std::string line, char delimiter);
-    void write_file();
+      std::vector<std::string> read_file(std::string filepath);
+      void write_file(std::string data);
 
 
 };

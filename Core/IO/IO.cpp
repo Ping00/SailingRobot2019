@@ -4,6 +4,7 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include "../../Utilities/Data_Containers/LOG.hpp"
 IO::IO()
 {
 
@@ -33,42 +34,23 @@ std::vector<std::string> IO::read_file(std::string file)
         file_data.push_back(text_line);
     }
 
-    std::vector<std::string> cleaned = remove_comments(file_data);
-
-    return cleaned;
+    return file_data;
 }
 
-void IO::write_file()
+
+void IO::write_file(std::string data)
 {
-
-}
-
-std::vector<std::string> IO::remove_comments(std::vector<std::string> data)
-{
-    int iterations = data.size();
-    std::vector<std::string> parsed_data;
-
-
-    for(int i = 0; i < iterations; i++)
+    std::fstream log_info("log.txt", std::ios::out | std::ios::app);
+    if(log_info.is_open())
     {
-        if(data[i][0] != '#')
-        {
-            parsed_data.push_back(data[i]);
-        }
+        std::cout << "SUCCESS!" << std::endl;
+        log_info << data << std::endl;
+        log_info.close();
     }
-
-    return parsed_data;
-}
-
-std::vector<std::string> IO::split_string(std::string line, char delimiter)
-{
-    std::vector<std::string> tokens;
-    std::string token;
-    std::istringstream tokenStream(line);
-    while (std::getline(tokenStream, token, delimiter))
+    else
     {
-        tokens.push_back(token);
+        std::cout << "FAILED TO CREATE/OPEN FILE" << std::endl;
     }
-    return tokens;
 }
+
 

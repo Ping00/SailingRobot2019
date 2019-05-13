@@ -8,14 +8,6 @@ int main(void)
 
     IO io;
 
-    std::vector<std::string> testing = io.read_file("test.txt");
-
-    std::cout << "SIZE OF FILE (NO COMMENTS (1)) : " << testing.size() << std::endl;
-
-    std::vector<std::string> split = io.split_string(testing[0], ',');
-
-    std::cout << "SIZE OF FILE (SPLIT (2)) : " << split.size() << std::endl;
-
 
     return 0;
 }
