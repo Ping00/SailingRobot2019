@@ -2,6 +2,7 @@
 #define __CONTROL_UNIT_HPP__
 #include <queue>
 #include <string>
+#include "../../Utilities/Data_Containers/GPS_POSITION.hpp"
 class Control_Unit
 {
     private:
@@ -34,14 +35,11 @@ class Control_Unit
         //If the old one hasnt been reached
         double        m_time_threshold;
 
-        long int      m_data_tick;
-
     public:
         Control_Unit();
         bool    is_active();
 
-        bool    init();
-        bool    init(std::string file);
+        bool    init(std::string destination, std::string settings);
 
         void    set_waypoint(GPS_POSITION waypoint);
         GPS_POSITION get_destination();

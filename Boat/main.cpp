@@ -1,17 +1,36 @@
 #include <iostream>
 #include <thread>
 #include <chrono>
+#include "../Modules/Control_Unit/control_unit.hpp"
+#include "../Utilities/Data_Containers/GPS_POSITION.hpp"
+#include "../Modules/Calculation_Unit/calculation_unit.hpp"
+#include "../Modules/Servo/Module_SERVO.hpp"
+
+#define RUDDER_CHANNEL 1
+#define SAIL_CHANNEL 0
+
+#define RUDDER_LOWER_THRESHOLD -1
+#define RUDDER_UPPER_THRESHOLD 1
+
+#define SAIL_LOWER_THRESHOLD 0
+#define SAIL_UPPER_THRESHOLD 1
 //Multithreaded for polling devices at different time-intervals
 //Thread for driving rudder
 void drive_rudder()
 {
+  while(true)
+  {
 
+  }
 }
 
 //Thread for driving sail
 void drive_sail()
 {
+  while(true)
+  {
 
+  }
 }
 
 //Thread for polling wind sensor
@@ -19,8 +38,8 @@ void poll_wind_sensor()
 {
   while(true)
   {
-    std::cout << "Polling Wind Sensor!" << std::endl;
-    std::this_thread::sleep_for(std::chrono::milliseconds(200));
+    //std::cout << "Polling Wind Sensor!" << std::endl;
+    //std::this_thread::sleep_for(std::chrono::milliseconds(200));
   }
 }
 
@@ -29,8 +48,8 @@ void poll_gps_sensor()
 {
   while(true)
   {
-    std::cout << "Polling GPS!" << std::endl;
-    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+    //std::cout << "Polling GPS!" << std::endl;
+    //std::this_thread::sleep_for(std::chrono::milliseconds(2000));
   }
 }
 
@@ -39,8 +58,8 @@ void poll_compass()
 {
   while(true)
   {
-    std::cout << "Polling Compass!" << std::endl;
-    std::this_thread::sleep_for(std::chrono::milliseconds(500));
+    //std::cout << "Polling Compass!" << std::endl;
+    //std::this_thread::sleep_for(std::chrono::milliseconds(100));
   }
 }
 
@@ -48,24 +67,30 @@ int main(int argc, char* argv[])
 {
     //--------------------------------
     //#These will help us determine where we go
-    //Control_Unit      control_unit;
-    //Calculation_Unit  calculation_unit;
+    Control_Unit control_unit;
+    Calculation_Unit calculation_unit;
 
     //#These will control our boat
-    //Module_SERVO      servo_rudder;
-    //Module_SERVO      servo_sail;
+    Module_SERVO servo_rudder(
+      RUDDER_LOWER_THRESHOLD,
+      RUDDER_UPPER_THRESHOLD,
+      RUDDER_CHANNEL);
 
-    //#These will get us our desired data
+    Module_SERVO servo_sail(
+      SAIL_LOWER_THRESHOLD,
+      SAIL_UPPER_THRESHOLD,
+      SAIL_CHANNEL);
+
+    //#These will poll data for us
     //Module_GPS          gps;
     //Module_CMPS12       compass;
     //Module_Wind_Sensor  wind;
 
     //INIT ALL MODULES
+    //IF ALL MODULES OK
+    //ELSE ERROR OUT
 
-
-
-
-    //#Read our (Temp?) textfile which has wind and destination data
+    //#Read our textfile which has wind and destination data
     //This way we dont have to recompile each time we want to change those variables
 
     //Check if all modules were initialized properly
@@ -76,17 +101,21 @@ int main(int argc, char* argv[])
     std::thread t1(poll_wind_sensor);
     std::thread t2(poll_compass);
     std::thread t3(poll_gps_sensor);
+    std::thread t4(drive_rudder);
+    std::thread t5(drive_sail);
 
     //IF NO then cancel program and print errorlog.
     //#Launch our Servo threads
 
     while(system_active)
     {
-        std::cout << "Main Loop" << std::endl;
-        std::this_thread::sleep_for(std::chrono::milliseconds(300));
-        //Step 1: FETCH FRESH DATA
-        //When we fetch data, each item should possess the same data_tick +- a threshold
-        //This tells us that our data is fresh enough to be used (Aka, we dont want a GPS of tick 10, a compass tick of 50)
+        //Take a nap
+        std::this_thread::sleep_for(std::chrono::milliseconds(1));
+
+
+        //Data is polled constantly, all we need to do is retrieve it
+
+        //Check
 
 
         //If we dont have a waypoint (IF WAYPOINT SET = FALSE)

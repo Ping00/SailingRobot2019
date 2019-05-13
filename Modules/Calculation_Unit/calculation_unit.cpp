@@ -20,13 +20,13 @@ double Calculation_Unit::calculate_rudder_position(VEC2 vector)
         //TURN RIGHT
         if(vector.x >= 0)
         {
-            std::cout << "WRONG SIDE : TURN RIGHT " << std::endl;
+            //std::cout << "WRONG SIDE : TURN RIGHT " << std::endl;
             return 1;
         }
         //TURN LEFT
         else if(vector.x < 0)
         {
-            std::cout << "RONG SIDE : TURN LEFT" << std::endl;
+            //std::cout << "RONG SIDE : TURN LEFT" << std::endl;
             return -1;
         }
     }
@@ -34,11 +34,11 @@ double Calculation_Unit::calculate_rudder_position(VEC2 vector)
     else
     {
         double threshold = RUDDER_DEAD_ZONE - abs(vector.x);
-        std::cout << "DEADZONE: " << threshold << std::endl;
+        //std::cout << "DEADZONE: " << threshold << std::endl;
         if(threshold >= 0)
         {
                 //GO STRAIGHT
-                std::cout << "THRESHOLD REACHED GO STRAIGHT!!" << std::endl;
+                //std::cout << "THRESHOLD REACHED GO STRAIGHT!!" << std::endl;
                 return 0;
         }
         else
@@ -46,13 +46,13 @@ double Calculation_Unit::calculate_rudder_position(VEC2 vector)
             //TURN RIGHT
             if(vector.x >= 0)
             {
-                std::cout << "CORRECT SIDE : TURN RIGHT " << std::endl;
+                //std::cout << "CORRECT SIDE : TURN RIGHT " << std::endl;
                 return 0.5;
             }
             //TURN LEFT
             else if(vector.x < 0)
             {
-                std::cout << "CORRECT SIDE : TURN LEFT" << std::endl;
+                //std::cout << "CORRECT SIDE : TURN LEFT" << std::endl;
                 return -0.5;
             }
         }
@@ -74,7 +74,7 @@ double Calculation_Unit::calculate_sail_position(VEC2 vector)
     double sail = vector.y;
 
     double sail_power = Utilities::convert_coordinates(-1,1,0, 1, sail);
-    std::cout << "SAILS ARE AT: " << sail_power*100 << " Percentage" << std::endl;
+    //std::cout << "SAILS ARE AT: " << sail_power*100 << " Percentage" << std::endl;
     //POS NEG X IS IRRELEVANT AS SAIL CAN SWING AROUND TO OTHER SIDE
     return sail_power;
 }
@@ -85,7 +85,7 @@ double Calculation_Unit::calculate_angle_of_approach(double destination_bearing,
     //slightly to the side for good measure
     const double upper_angle_discrepancy = 45.0;
     const double lower_angle_discrepancy = 5.0;
-    const double max_angle = 90.0;
+    //const double max_angle = 90.0;
 
     //Calculate single side of our bearings (To get other side just flip)
     double offset = abs(destination_bearing - wind_bearing);
@@ -109,7 +109,7 @@ double Calculation_Unit::calculate_angle_of_approach(double destination_bearing,
 
 GPS_POSITION Calculation_Unit::calculate_waypoint(GPS_POSITION current_position, double distance, double direction)
 {
-    //STOLEN FROM THE INTERNET (Hende d, c, they did not specifiy what they meant)
+    //STOLEN FROM THE INTERNET (Hence d, c, they did not specifiy what they meant)
 
 
     //LATITUDE
