@@ -40,3 +40,8 @@ bool Control_Unit::is_active()
 {
     return m_active;
 }
+
+bool Control_Unit::validate_inits()
+{
+    return true;
+}

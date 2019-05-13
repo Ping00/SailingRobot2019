@@ -93,18 +93,32 @@ int main(int argc, char* argv[])
     Module_CMPS12       compass;
     Module_Wind_Sensor  wind(WIND_SENSOR_SPI_CHANNEL);
 
-    //Init All Modules
-    
-
-
-    //#Read our textfile which has wind and destination data
-    //This way we dont have to recompile each time we want to change those variables
+    //Init All Modules & Servos
+    std::vector<bool> init_status;
+    init_status.reserve(6);
 
     //Check if all modules were initialized properly
+    bool components_initialized = control_unit.validate_inits();
+    if(components_initialized)
+    {
+        //#Read our textfile which has our destination data
+        //This way we dont have to recompile each time we want to change those variables
+        std::string settings = "settings.txt";
+        std::string destination = "destination.txt";
+        bool final_status = control_unit.init(destination,settings);
+        if(final_status)
+        {
+            std::cout << "- SETTINGS OK -" << std::endl;
+        }
+        else
+        {
+            std::cout << "- SETTINGS FAILED -" << std::endl;
+            return -1;
+        }
+    }
 
 
-    //IF all modules were initialize properly
-    bool system_active = true;
+    //IF all modules were initialize properly we launch our threads
     std::thread t1(poll_wind_sensor);
     std::thread t2(poll_compass);
     std::thread t3(poll_gps_sensor);

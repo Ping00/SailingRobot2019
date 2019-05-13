@@ -35,5 +35,7 @@ class Control_Unit
         void    set_threshold(double value);
         double  get_threshold();
 
+        bool validate_inits();
+
 };
 #endif//__CONTROL_UNIT_HPP__
