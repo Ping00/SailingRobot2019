@@ -51,8 +51,15 @@ GPS_DATA GPS::read()
 		}
 		else
 		{
-			std::string time_string = "TEST";
+			time_t raw_time = gps_raw_data->fix.time;
+			char timeiso[sizeof("2011-10-08T07:07:09Z")];
+			strftime(timeiso, sizeof timeiso, "%FT%TZ", gmtime(&raw_time));
+
+
+			std::string time_string(timeiso);
 			double time_reading = 2000;
+
+			std::cout << "Time: " << time_string << std::endl;
 
 			data_reading.set_valid(true);
 			data_reading.set_latitude(gps_raw_data->fix.latitude);
