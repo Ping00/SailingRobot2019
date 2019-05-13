@@ -1,50 +1,11 @@
 #include <iostream>
-#include <thread>
-#include <chrono>
-//Multithreaded for polling devices at different time-intervals
-//Thread for driving rudder
-void drive_rudder()
-{
 
-}
+//Multithreaded for sail servo control
 
-//Thread for driving sail
-void drive_sail()
-{
-
-}
-
-//Thread for polling wind sensor
-void poll_wind_sensor()
-{
-    std::this_thread::sleep_for(std::chrono::milliseconds(200));
-}
-
-//Thread for polling gps
-void poll_gps_sensor()
-{
-
-}
-
-//Thread for polling compass
-void poll_compass()
-{
-
-}
-
-
-/*
-void sail_servo(Module_SERVO sail)
-{
-    sail.run();
-}
 
 //Multithreadning for rudder servo control
-void rudder_servo(Module_SERVO rudder)
-{
-    rudder.run();
-}
-*/
+
+
 
 int main(int argc, char* argv[])
 {
@@ -63,7 +24,7 @@ int main(int argc, char* argv[])
     //Module_Wind_Sensor  wind;
 
     //INIT ALL MODULES
-
+    int data = 2;
 
 
 
@@ -75,16 +36,13 @@ int main(int argc, char* argv[])
 
     //IF all modules were initialize properly
     bool system_active = true;
-    int data = 2;
-    std::thread t1(test_thread, std::ref(data));
 
     //IF NO then cancel program and print errorlog.
+
     //#Launch our Servo threads
 
-    while(system_active)
+    while(control_unit.is_active())
     {
-        std::cout << "Main Loop" << std::endl;
-        std::this_thread::sleep_for(std::chrono::milliseconds(300));
         //Step 1: FETCH FRESH DATA
         //When we fetch data, each item should possess the same data_tick +- a threshold
         //This tells us that our data is fresh enough to be used (Aka, we dont want a GPS of tick 10, a compass tick of 50)
