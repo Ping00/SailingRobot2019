@@ -7,6 +7,7 @@ GPS_DATA::GPS_DATA()
 	m_longitude = 0;
 	m_speed 		= 0;
 	m_time = "";
+    m_time_value = 0;
 }
 
 void GPS_DATA::set_latitude(double latitude)
@@ -57,4 +58,14 @@ double GPS_DATA::get_speed()
 void GPS_DATA::set_speed(double speed)
 {
 	m_speed = speed;
+}
+
+void GPS_DATA::set_time_value(double value)
+{
+    m_time_value = value;
+}
+
+double GPS_DATA::get_time_value()
+{
+    return m_time_value;
 }

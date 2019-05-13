@@ -4,11 +4,12 @@
 class GPS_DATA
 {
 	private:
-		bool					m_valid;
+		bool				m_valid;
 		double				m_latitude;
 		double				m_longitude;
 		double				m_speed;
-		std::string 	m_time;
+        double              m_time_value;
+		std::string 	    m_time;
 
 	public:
 		GPS_DATA();
@@ -16,6 +17,7 @@ class GPS_DATA
 		void set_latitude(double latitude);
 		void set_longitude(double longitude);
 		void set_timestamp(std::string timestamp);
+        void set_time_value(double value);
 
 		void set_valid(bool valid);
 		bool get_valid();
@@ -23,7 +25,8 @@ class GPS_DATA
 		double get_latitude();
 		double get_longitude();
 		std::string get_time();
-
+        double get_time_value();
+        
 		void set_speed(double speed);
 		double get_speed();
 };

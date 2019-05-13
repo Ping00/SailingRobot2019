@@ -16,6 +16,9 @@ class Module_CMPS12
       //Is this module initialized
       bool                      m_initialized;
       
+      //Have we read the latest reading already?
+      bool                      m_data_ready;
+      
 
     public:
       Module_CMPS12();
