@@ -58,9 +58,10 @@ GPS_DATA GPS::read()
 			//RESET
 
 			std::string time_string(timeiso);
-			double time_reading = 2000;
+			int time_reading = static_cast<int>(raw_time);
 
 			std::cout << "Time: " << time_string << std::endl;
+			std::cout << "Time: " << time_reading << std::endl;
 
 			data_reading.set_valid(true);
 			data_reading.set_latitude(gps_raw_data->fix.latitude);
