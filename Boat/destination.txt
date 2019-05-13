@@ -1,1 +1,5 @@
- 
+# Coordinates for our goal
+# Latitude Longitude
+# (NOTE THE Delimiter ',')
+1.2345,1.2345
+2.3456,2.3456
