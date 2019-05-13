@@ -54,7 +54,7 @@ GPS_DATA GPS::read()
 			time_t raw_time = gps_raw_data->fix.time;
 			char timeiso[sizeof("2011-10-08T07:07:09Z")];
 			strftime(timeiso, sizeof timeiso, "%FT%TZ", gmtime(&raw_time));
-
+			//RESET
 
 			std::string time_string(timeiso);
 			double time_reading = 2000;
