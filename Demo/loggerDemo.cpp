@@ -8,6 +8,7 @@ int main(void)
 
     IO io;
 
+    io.write_file("THIS IS JUST A TEST");
 
     return 0;
 }
