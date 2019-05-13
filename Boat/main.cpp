@@ -17,34 +17,32 @@ void drive_sail()
 //Thread for polling wind sensor
 void poll_wind_sensor()
 {
+  while(true)
+  {
+    std::cout << "Polling Wind Sensor!" << std::endl;
     std::this_thread::sleep_for(std::chrono::milliseconds(200));
+  }
 }
 
 //Thread for polling gps
 void poll_gps_sensor()
 {
-
+  while(true)
+  {
+    std::cout << "Polling GPS!" << std::endl;
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+  }
 }
 
 //Thread for polling compass
 void poll_compass()
 {
-
+  while(true)
+  {
+    std::cout << "Polling Compass!" << std::endl;
+    std::this_thread::sleep_for(std::chrono::milliseconds(500));
+  }
 }
-
-
-/*
-void sail_servo(Module_SERVO sail)
-{
-    sail.run();
-}
-
-//Multithreadning for rudder servo control
-void rudder_servo(Module_SERVO rudder)
-{
-    rudder.run();
-}
-*/
 
 int main(int argc, char* argv[])
 {
