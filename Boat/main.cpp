@@ -73,8 +73,9 @@ int main(int argc, char* argv[])
 
     //IF all modules were initialize properly
     bool system_active = true;
-    int data = 2;
-    std::thread t1(test_thread, std::ref(data));
+    std::thread t1(poll_wind_sensor);
+    std::thread t2(poll_compass);
+    std::thread t3(poll_gps_sensor);
 
     //IF NO then cancel program and print errorlog.
     //#Launch our Servo threads
