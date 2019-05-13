@@ -16,20 +16,20 @@
 #define SAIL_UPPER_THRESHOLD 1
 //Multithreaded for polling devices at different time-intervals
 //Thread for driving rudder
-void drive_rudder()
+void drive_rudder(Module_SERVO& rudder)
 {
   while(true)
   {
-
+      rudder.run();
   }
 }
 
 //Thread for driving sail
-void drive_sail()
+void drive_sail(Module_SERVO& sail)
 {
   while(true)
   {
-
+      sail.run();
   }
 }
 
@@ -86,6 +86,7 @@ int main(int argc, char* argv[])
     //Module_CMPS12       compass;
     //Module_Wind_Sensor  wind;
 
+
     //INIT ALL MODULES
     //IF ALL MODULES OK
     //ELSE ERROR OUT
@@ -101,8 +102,8 @@ int main(int argc, char* argv[])
     std::thread t1(poll_wind_sensor);
     std::thread t2(poll_compass);
     std::thread t3(poll_gps_sensor);
-    std::thread t4(drive_rudder);
-    std::thread t5(drive_sail);
+    std::thread t4(drive_rudder,std::ref(servo_rudder));
+    std::thread t5(drive_sail,std::ref(servo_sail));
 
     //IF NO then cancel program and print errorlog.
     //#Launch our Servo threads
@@ -110,7 +111,7 @@ int main(int argc, char* argv[])
     while(system_active)
     {
         //Take a nap
-        std::this_thread::sleep_for(std::chrono::milliseconds(1));
+        std::this_thread::sleep_for(std::chrono::milliseconds(10000));
 
 
         //Data is polled constantly, all we need to do is retrieve it
