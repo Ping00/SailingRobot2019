@@ -1,8 +1,12 @@
 #include <iostream>
 #include <thread>
 #include <chrono>
-#include "../Modules/Control_Unit/control_unit.hpp"
 #include "../Utilities/Data_Containers/GPS_POSITION.hpp"
+
+#include "../Modules/Compass/Module_CMPS12.hpp"
+#include "../Modules/GPS/Module_GPS.hpp"
+#include "../Modules/Wind_Sensor/Module_Wind_Sensor.hpp"
+#include "../Modules/Control_Unit/control_unit.hpp"
 #include "../Modules/Calculation_Unit/calculation_unit.hpp"
 #include "../Modules/Servo/Module_SERVO.hpp"
 
@@ -14,6 +18,9 @@
 
 #define SAIL_LOWER_THRESHOLD 0
 #define SAIL_UPPER_THRESHOLD 1
+
+#define WIND_SENSOR_SPI_CHANNEL 0
+
 //Multithreaded for polling devices at different time-intervals
 //Thread for driving rudder
 void drive_rudder(Module_SERVO& rudder)
@@ -82,14 +89,13 @@ int main(int argc, char* argv[])
       SAIL_CHANNEL);
 
     //#These will poll data for us
-    //Module_GPS          gps;
-    //Module_CMPS12       compass;
-    //Module_Wind_Sensor  wind;
+    Module_GPS          gps;
+    Module_CMPS12       compass;
+    Module_Wind_Sensor  wind(WIND_SENSOR_SPI_CHANNEL);
 
+    //Init All Modules
+    
 
-    //INIT ALL MODULES
-    //IF ALL MODULES OK
-    //ELSE ERROR OUT
 
     //#Read our textfile which has wind and destination data
     //This way we dont have to recompile each time we want to change those variables
