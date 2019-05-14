@@ -204,6 +204,7 @@ int main(int argc, char* argv[])
     while(control_unit.is_active())
     {
         //Take a nap
+        std::cout << "------------------" << std::endl;
         std::this_thread::sleep_for(std::chrono::milliseconds(200));
 
         //GRAB A SET OF ITERATION DATA AT THIS MOMENT IN TIME
@@ -372,7 +373,7 @@ int main(int argc, char* argv[])
         //Check how close we are to our Checkpoint(Goal)
         double checkpoint_distance = calculation_unit.calculate_distance(current_position,checkpoint);
         std::cout << "Distance to Checkpoint: " << checkpoint_distance*1000 << " meters"<<  std::endl;
-        std::cout << "DISTANCE THRESHOLD: " << goal_threshold*1000 << std::endl;
+        std::cout << "DISTANCE THRESHOLD: " << goal_threshold*1000 << " meters"<<std::endl;
 
         //HAVE WE GOTTEN CLOSE ENOUGH TO THE CHECKPOINT
         if(checkpoint_distance < goal_threshold)
