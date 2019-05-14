@@ -1,12 +1,12 @@
 #ifndef __LOG_HPP__
 #define __LOG_HPP__
 #include <string>
-class Log
+class LOG
 {
     private:
 
     public:
-        Log();
+        LOG();
 
         int             m_entry_id;
         double          m_bearing;

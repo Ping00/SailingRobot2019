@@ -6,13 +6,13 @@ class Logger
 {
     private:
         int                 m_entries;
-
+        LOG                 log;
         std::string         m_file_path;
 
     public:
-        Logger();
+        Logger(std::string path);
 
-        void                publish();
-        void                log();
+        void log_data(LOG packet);
+        void publish();
 };
 #endif//__LOGGER_HPP__

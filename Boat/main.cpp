@@ -2,10 +2,7 @@
 #include <thread>
 #include <chrono>
 
-#include "../Core/Logger/logger.hpp"
-
 #include "../Utilities/Data_Containers/GPS_POSITION.hpp"
-#include "../Utilities/Data_Containers/LOG.hpp"
 
 #include "../Modules/Compass/Module_CMPS12.hpp"
 #include "../Modules/GPS/Module_GPS.hpp"
@@ -13,6 +10,8 @@
 #include "../Modules/Control_Unit/control_unit.hpp"
 #include "../Modules/Calculation_Unit/calculation_unit.hpp"
 #include "../Modules/Servo/Module_SERVO.hpp"
+
+#include "../Core/Logger/logger.hpp"
 
 #define RUDDER_CHANNEL 1
 #define SAIL_CHANNEL 0
@@ -99,7 +98,7 @@ int main(int argc, char* argv[])
     Module_Wind_Sensor  wind(WIND_SENSOR_SPI_CHANNEL);
 
     //Data Logger
-    Logger logger;
+    Logger logger("contest.txt");
 
     //Init All Modules & Servos
     std::vector<bool> init_status;
