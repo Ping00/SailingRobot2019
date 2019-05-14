@@ -77,6 +77,7 @@ void poll_compass()
 int main(int argc, char* argv[])
 {
     //--------------------------------
+
     //#These will help us determine where we go
     Control_Unit control_unit;
     Calculation_Unit calculation_unit;
@@ -92,6 +93,7 @@ int main(int argc, char* argv[])
       SAIL_UPPER_THRESHOLD,
       SAIL_CHANNEL);
 
+
     //#These will poll data for us
     Module_GPS          module_gps;
     Module_CMPS12       module_compass;
@@ -102,13 +104,18 @@ int main(int argc, char* argv[])
 
     //Init All Modules & Servos
     std::vector<bool> init_status;
-    init_status.reserve(5);
+    int modules = 5;
+    //Set all of them to false for safety
+    for(int i = 0; i < modules; i++)
+    {
+        init_status.push_back(false);
+    }
 
-    init_status[0] = servo_rudder.init();
-    init_status[1] = servo_sail.init();
-    init_status[2] = module_gps.init();
-    init_status[3] = module_compass.init();
-    init_status[4] = module_wind.init();
+    //init_status[0] = servo_rudder.init();
+    //init_status[1] = servo_sail.init();
+    //init_status[2] = module_gps.init();
+    //init_status[3] = module_compass.init();
+    //init_status[4] = module_wind.init();
 
 
     //Check if all modules were initialized properly
@@ -130,20 +137,25 @@ int main(int argc, char* argv[])
             return -1;
         }
     }
+    else
+    {
+        std::cout << "Some Components Failed To Initialize" << std::endl;
+        return -1;
+    }
 
 
     //IF all modules were initialize properly we launch our threads
-    std::thread t1(poll_wind_sensor);
-    std::thread t2(poll_compass);
-    std::thread t3(poll_gps_sensor);
-    std::thread t4(drive_rudder,std::ref(servo_rudder));
-    std::thread t5(drive_sail,std::ref(servo_sail));
+    //std::thread t1(poll_wind_sensor);
+    //std::thread t2(poll_compass);
+    //std::thread t3(poll_gps_sensor);
+    //std::thread t4(drive_rudder,std::ref(servo_rudder));
+    //std::thread t5(drive_sail,std::ref(servo_sail));
 
     while(true)
     {
         //Take a nap
-        std::this_thread::sleep_for(std::chrono::milliseconds(10000));
-
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
+        std::cout << "Loopin " << std::endl;
 
         //Data is polled constantly, all we need to do is retrieve it
 

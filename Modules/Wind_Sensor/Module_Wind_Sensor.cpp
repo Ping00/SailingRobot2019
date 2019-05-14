@@ -4,7 +4,7 @@
 #define OFFSET 205
 Module_Wind_Sensor::Module_Wind_Sensor(int spi_channel)
 {
-    std::cout << "Constructing Wind Sensor" << std::endl;
+    std::cout << "Constructing [Module] Wind Sensor" << std::endl;
 	m_initialized = false;
     m_new_data_available = false;
 	m_spi_channel = spi_channel;

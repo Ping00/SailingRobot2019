@@ -1,5 +1,6 @@
 #include "control_unit.hpp"
 #include <iostream>
+#include "../../Core/IO/IO.hpp"
 Control_Unit::Control_Unit()
 {
   m_active                  = false;
@@ -17,16 +18,8 @@ Control_Unit::Control_Unit()
 
 bool Control_Unit::init(std::string destination, std::string settings)
 {
-    if(m_destination_set)
-    {
-        m_active = true;
-        return true;
-    }
-    else
-    {
-        std::cout << "DESTINATION HAS NOT BEEN SET" << std::endl;
-        return false;
-    }
+    IO io;
+    return true;
 }
 
 void Control_Unit::set_waypoint(GPS_POSITION waypoint)
@@ -43,6 +36,57 @@ bool Control_Unit::is_active()
 
 bool Control_Unit::validate_inits(std::vector<bool> statuses)
 {
+    std::cout << "TESTING AUTO SUCCEED WITH TEST VALUES: [REMOVE WHEN FINISHED TESTING]" << std::endl;
+    return true;
+
+
+    if(statuses[0])
+    {
+        std::cout << "[OK] : Servo Rudder" << std::endl;
+    }
+    else
+    {
+        std::cout << "[ERROR] : Servo Rudder" << std::endl;
+    }
+
+    if(statuses[1])
+    {
+        std::cout << "[OK] : Servo Sail" << std::endl;
+    }
+    else
+    {
+        std::cout << "[ERROR] : Servo Sail" << std::endl;
+    }
+
+    if(statuses[2])
+    {
+        std::cout << "[OK] : Module GPS" << std::endl;
+    }
+    else
+    {
+        std::cout << "[ERROR] : Module GPS" << std::endl;
+    }
+
+    if(statuses[3])
+    {
+        std::cout << "[OK] : Module Compass" << std::endl;
+    }
+    else
+    {
+        std::cout << "[ERROR] : Module Compass" << std::endl;
+    }
+
+    if(statuses[4])
+    {
+        std::cout << "[OK] : Module Wind Sensor" << std::endl;
+    }
+    else
+    {
+        std::cout << "[ERROR] : Module Wind Sensor" << std::endl;
+    }
+
+
+
 
     return true;
 }

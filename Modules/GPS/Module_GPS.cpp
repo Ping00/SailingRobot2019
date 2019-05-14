@@ -2,7 +2,7 @@
 #include <iostream>
 Module_GPS::Module_GPS()
 {
-	std::cout << "Constructing GPS Module" << std::endl;
+	std::cout << "Constructing [Module] GPS Module" << std::endl;
 	m_initialized = false;
     m_new_data_available = false;
 }
