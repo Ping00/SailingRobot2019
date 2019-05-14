@@ -125,10 +125,7 @@ int main(int argc, char* argv[])
     std::thread t4(drive_rudder,std::ref(servo_rudder));
     std::thread t5(drive_sail,std::ref(servo_sail));
 
-    //IF NO then cancel program and print errorlog.
-    //#Launch our Servo threads
-
-    while(system_active)
+    while(true)
     {
         //Take a nap
         std::this_thread::sleep_for(std::chrono::milliseconds(10000));

@@ -2,7 +2,9 @@
 #include <iostream>
 Module_GPS::Module_GPS()
 {
-	
+	std::cout << "Constructing GPS Module" << std::endl;
+	m_initialized = false;
+    m_new_data_available = false;
 }
 
 bool Module_GPS::init()
@@ -38,4 +40,9 @@ void Module_GPS::report()
 	std::cout << "GPS LAT : " << m_data_reading.get_latitude() << std::endl;
 	std::cout << "GPS LON : " << m_data_reading.get_longitude() << std::endl;
 	std::cout << "GPS TIME: " << m_data_reading.get_time() << std::endl;
+}
+
+bool Module_GPS::isNewDataAvailable()
+{
+    return m_new_data_available;
 }

@@ -13,7 +13,7 @@ class Module_Wind_Sensor
 		int m_reading;
 
 		//Have we read the latest reading already?
-		bool m_data_ready;
+		bool m_new_data_available;
 
 	public:
 		Module_Wind_Sensor(int spi_channel);
@@ -21,5 +21,6 @@ class Module_Wind_Sensor
 		void 	run();
 		int 	get_reading();
 		void 	report();
+        bool    isNewDataAvailable();
 };
 #endif//__MODULE_WIND_SENSOR_HPP__

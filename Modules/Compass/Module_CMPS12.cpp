@@ -5,6 +5,7 @@ Module_CMPS12::Module_CMPS12()
 {
     std::cout << "Constructing [Module] : CMPS12" << std::endl;
     m_initialized = false;
+    m_new_data_available = false;
 }
 
 Module_CMPS12::~Module_CMPS12()
@@ -54,4 +55,9 @@ void Module_CMPS12::report()
     std::cout << "Bearing: " << m_CMPS12_data_reading.get_entry(DATA_SET_COMPASS_BEARING_DEGREES_16) << std::endl;
     std::cout << "Pitch  : " << m_CMPS12_data_reading.get_entry(DATA_SET_PITCH_ANGLE_8) << std::endl;
     std::cout << "Roll   : " << m_CMPS12_data_reading.get_entry(DATA_SET_ROLL_ANGLE_8) << std::endl;
+}
+
+bool Module_CMPS12::isNewDataAvailable()
+{
+    return m_new_data_available;
 }
