@@ -13,7 +13,7 @@ class IO
       ~IO();
 
       std::vector<std::string> read_file(std::string filepath);
-      void write_file(std::string data);
+      void write_file(std::string data, std::string path);
 
 
 };

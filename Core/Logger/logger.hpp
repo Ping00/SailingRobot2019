@@ -2,11 +2,12 @@
 #define __LOGGER_HPP__
 #include <string>
 #include "../../Utilities/Data_Containers/LOG.hpp"
+#include "../../Utilities/Data_Containers/GPS_POSITION.hpp"
 class Logger
 {
     private:
         int                 m_entries;
-        LOG                 log;
+        LOG                 m_log;
         std::string         m_file_path;
 
     public:
@@ -14,5 +15,6 @@ class Logger
 
         void log_data(LOG packet);
         void publish();
+        void publish_waypoint(GPS_POSITION position);
 };
 #endif//__LOGGER_HPP__

@@ -38,9 +38,9 @@ std::vector<std::string> IO::read_file(std::string file)
 }
 
 
-void IO::write_file(std::string data)
+void IO::write_file(std::string data, std::string path)
 {
-    std::fstream log_info("log.txt", std::ios::out | std::ios::app);
+    std::fstream log_info(path, std::ios::out | std::ios::app);
     if(log_info.is_open())
     {
         std::cout << "SUCCESS!" << std::endl;

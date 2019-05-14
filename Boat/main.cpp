@@ -115,6 +115,10 @@ int main(int argc, char* argv[])
     Logger data_logger("Logs/contest.txt");
     Logger waypoint_logger("Logs/waypoint.txt");
 
+    //NOTE TESTING LOGGERS REMOVE 
+    data_logger.publish();
+    waypoint_logger.publish();
+
     //Init All Modules & Servos
     std::vector<bool> init_status;
     int modules = 5;
