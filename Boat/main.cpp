@@ -115,10 +115,6 @@ int main(int argc, char* argv[])
     Logger data_logger("Logs/contest.txt");
     Logger waypoint_logger("Logs/waypoint.txt");
 
-    //NOTE TESTING LOGGERS REMOVE 
-    data_logger.publish();
-    waypoint_logger.publish();
-
     //Init All Modules & Servos
     std::vector<bool> init_status;
     int modules = 5;
@@ -128,6 +124,7 @@ int main(int argc, char* argv[])
         init_status.push_back(false);
     }
 
+    //NOTE RE-ENABLE ON PI AS IT IS THE ONLY ONE WITH PROPER SPI / I2C CONNECTIONS
     //init_status[0] = servo_rudder.init();
     //init_status[1] = servo_sail.init();
     //init_status[2] = module_gps.init();
@@ -139,18 +136,17 @@ int main(int argc, char* argv[])
     bool components_initialized = control_unit.validate_inits(init_status);
     if(components_initialized)
     {
-        //#Read our textfile which has our destination data
-        //This way we dont have to recompile each time we want to change those variables
-        std::string settings = "Settings/settings.txt";
+        //Read our Data files which determine our goals and other details
         std::string destination = "Settings/destination.txt";
+        std::string settings = "Settings/settings.txt";
         bool final_status = control_unit.init(destination,settings);
         if(final_status)
         {
-            std::cout << "- SETTINGS OK -" << std::endl;
+            std::cout << "[ OK ]    : DESTINATION SET" << std::endl;
         }
         else
         {
-            std::cout << "- SETTINGS FAILED -" << std::endl;
+            std::cout << "[ ERROR ] : DESTINATION SET"  << std::endl;
             return -1;
         }
     }
@@ -175,8 +171,24 @@ int main(int argc, char* argv[])
     while(control_unit.is_active())
     {
         //Take a nap
-        std::this_thread::sleep_for(std::chrono::milliseconds(100));
-        std::cout << "Loopin " << std::endl;
+        std::this_thread::sleep_for(std::chrono::milliseconds(200));
+
+        std::cout << "Primary Loop" << std::endl;
+
+        //IF WE DONT HAVE A WAYPOINT SET.
+
+        //  -> SELECT WAYPOINT
+
+        if(control_unit.is_waypoint_set() == false)
+        {
+            std::cout << "We Dont have a waypoint at this moment" << std::endl;
+            //Generate waypoint
+            
+        }
+
+
+
+
 
         //Data is polled constantly, all we need to do is retrieve it
 

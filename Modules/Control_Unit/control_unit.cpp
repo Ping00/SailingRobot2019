@@ -15,6 +15,8 @@ Control_Unit::Control_Unit()
 
   m_distance_threshold      = 0;
   m_time_threshold          = 0;
+
+  m_heading = RIGHT;
 }
 
 bool Control_Unit::init(std::string destination, std::string settings)
@@ -97,29 +99,32 @@ bool Control_Unit::validate_inits(std::vector<bool> statuses)
 
     if(statuses[0])
     {
-        std::cout << "[OK] : Servo Rudder" << std::endl;
+        std::cout << "[ OK ]    : Servo Rudder" << std::endl;
     }
     else
     {
-        std::cout << "[ERROR] : Servo Rudder" << std::endl;
+        std::cout << "[ ERROR ] : Servo Rudder" << std::endl;
+        return false;
     }
 
     if(statuses[1])
     {
-        std::cout << "[OK] : Servo Sail" << std::endl;
+        std::cout << "[ OK ]    : Servo Sail" << std::endl;
     }
     else
     {
-        std::cout << "[ERROR] : Servo Sail" << std::endl;
+        std::cout << "[ ERROR ] : Servo Sail" << std::endl;
+        return false;
     }
 
     if(statuses[2])
     {
-        std::cout << "[OK] : Module GPS" << std::endl;
+        std::cout << "[ OK ]    : Module GPS" << std::endl;
     }
     else
     {
-        std::cout << "[ERROR] : Module GPS" << std::endl;
+        std::cout << "[ ERROR ] : Module GPS" << std::endl;
+        return false;
     }
 
     if(statuses[3])
@@ -129,6 +134,7 @@ bool Control_Unit::validate_inits(std::vector<bool> statuses)
     else
     {
         std::cout << "[ERROR] : Module Compass" << std::endl;
+        return false;
     }
 
     if(statuses[4])
@@ -138,10 +144,16 @@ bool Control_Unit::validate_inits(std::vector<bool> statuses)
     else
     {
         std::cout << "[ERROR] : Module Wind Sensor" << std::endl;
+        return false;
     }
 
 
 
 
     return true;
+}
+
+bool Control_Unit::is_waypoint_set()
+{
+    return m_waypoint_set;
 }

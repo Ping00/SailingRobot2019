@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include "../../Utilities/Data_Containers/GPS_POSITION.hpp"
+#include "ORIENTATION.hpp"
 class Control_Unit
 {
     private:
@@ -21,6 +22,8 @@ class Control_Unit
 
         double                    m_time_threshold;             //How long should we wait until we establish a new waypoint If the old one hasnt been reached
 
+        ORIENTATION               m_heading;
+
     public:
         Control_Unit();
 
@@ -29,7 +32,7 @@ class Control_Unit
 
         GPS_POSITION  get_destination();
         void          set_destination(GPS_POSITION destination);
-        
+
         GPS_POSITION  get_waypoint();
         void          set_waypoint(GPS_POSITION waypoint);
 
@@ -37,6 +40,7 @@ class Control_Unit
         double        get_threshold();
 
         bool          validate_inits(std::vector<bool> statuses);
+        bool          is_waypoint_set();
 
 };
 #endif//__CONTROL_UNIT_HPP__
