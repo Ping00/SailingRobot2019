@@ -77,7 +77,7 @@ bool Control_Unit::init(std::string destination, std::string settings)
           m_time_threshold = std::atof(settings_clean[2].c_str());
           m_distance_factor = std::atof(settings_clean[4].c_str());
           m_waypoint_distance_creation_threshold = std::atof(settings_clean[6].c_str()) / 1000;
-          m_calculated_threshold = m_distance_threshold / m_distance_factor;
+          m_calculated_threshold = m_distance_threshold / 1000;
     }
 
     std::cout << "Distance (M) : " << m_distance_threshold << std::endl;

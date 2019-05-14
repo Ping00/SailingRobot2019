@@ -299,8 +299,13 @@ int main(int argc, char* argv[])
 
 
         //General CONTROL SECTION
-        std::cout << "Wind Bearing IS: " << wind_reading << std::endl;
-        std::cout << "Boat Bearing Is: " << compass_reading.get_entry(DATA_SET_COMPASS_BEARING_DEGREES_16) << std::endl;
+
+        int wind_bearing = wind_reading;
+        int compass_bearing = compass_reading.get_entry(DATA_SET_COMPASS_BEARING_DEGREES_16);
+
+        std::cout << "Wind Bearing IS: " << wind_bearing << std::endl;
+        std::cout << "Boat Bearing Is: " << compass_bearing << std::endl;
+
 
         //Grab our current position and waypoint details
         GPS_POSITION current_position  = Utilities::extract_position_from_data(gps_reading);
@@ -319,13 +324,17 @@ int main(int argc, char* argv[])
           waypoint_position.latitude,
           waypoint_position.longitude);
 
-        std::cout << "Waypoint Bearing: " << std::endl;
+        std::cout << "Waypoint Bearing: " << waypoint_bearing << std::endl;
+
+        //Calculate the directional offset of our waypoint
+        int waypoint_offset = waypoint_bearing - compass_bearing;
+
+        std::cout << "Waypoint Offset: " << waypoint_offset << std::endl;
 
 
-
-        //Generate Vectors to use in our calculation of positions
-        VEC2 rudder_vector = Utilities::degrees_to_vector(0);
-        VEC2 sail_vector   = Utilities::degrees_to_vector(0);
+        //Generate Vectors to use in our calculation of positions (NOTE THE OFFSET IS 90)
+        VEC2 rudder_vector = Utilities::degrees_to_vector(waypoint_offset + OFFSET);
+        VEC2 sail_vector   = Utilities::degrees_to_vector(wind_bearing   + OFFSET);
 
         //Calculate our settings
         double rudder_setting = calculation_unit.calculate_rudder_position(rudder_vector);
@@ -339,10 +348,48 @@ int main(int argc, char* argv[])
         servo_sail.set_target(sail_setting);
 
 
-        //Check if we are near our destination;
+        //DESTINATION CALCULATIONS
 
+        double waypoint_distance = calculation_unit.calculate_distance(current_position,waypoint_position);
+        double goal_threshold = control_unit.get_calculated_threshold();
+        std::cout << "We are " << waypoint_distance*1000 << " meters from our waypoint" << std::endl;
 
-        std::this_thread::sleep_for(std::chrono::milliseconds(8000));
+        std::cout << "DISTANCE THRESHOLD: " << goal_threshold << std::endl;
+        std::cout << "WAYPOINT DISTANCE : " << waypoint_distance << std::endl;
+
+        //HAVE WE GOTTEN CLOSE ENOUGH TO OUR WAYPOINT
+        if(waypoint_distance < control_unit.get_calculated_threshold())
+        {
+            std::cout << "We Are close enough to our destination, grab a new waypoint" << std::endl;
+            //Set our message in our custom logger to be "Waypoint Reached"
+        }
+
+        //Grab our goal (Checkpoint)
+        GPS_POSITION checkpoint = control_unit.get_destination();
+        std::cout << "Checkpoint Lat: " << checkpoint.latitude << std::endl;
+        std::cout << "Checkpoint Lon: " << checkpoint.longitude << std::endl;
+
+        //Check how close we are to our Checkpoint(Goal)
+        double checkpoint_distance = calculation_unit.calculate_distance(current_position,checkpoint);
+        std::cout << "Distance to Checkpoint: " << checkpoint_distance*1000 << " meters"<<  std::endl;
+        std::cout << "DISTANCE THRESHOLD: " << goal_threshold*1000 << std::endl;
+
+        //HAVE WE GOTTEN CLOSE ENOUGH TO THE CHECKPOINT
+        if(checkpoint_distance < goal_threshold)
+        {
+            std::cout << "CHECKPOINT REACHED" << std::endl;
+
+        }
+
+        //HAS TOO MUCH TIME PASSED SINCE WE ESTABLISHED THE WAYPOINT
+        int gps_time = gps_reading.get_time_value();
+        std::cout << "GPS TIME: " << gps_time << std::endl;
+        if(control_unit.time_discrepency_reached(gps_time))
+        {
+            std::cout << "TOO MUCH TIME HAS PASSED!" << std::endl;
+        }
+
+        TEMP_GPS_DATA.set_time_value(gps_time++);
 
 
         /*
