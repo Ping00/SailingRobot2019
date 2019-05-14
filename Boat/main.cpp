@@ -33,7 +33,7 @@ void drive_rudder(Module_SERVO& rudder)
 {
   while(true)
   {
-      rudder.run();
+      //rudder.run();
   }
 }
 
@@ -42,37 +42,37 @@ void drive_sail(Module_SERVO& sail)
 {
   while(true)
   {
-      sail.run();
+      //sail.run();
   }
 }
 
 //Thread for polling wind sensor
-void poll_wind_sensor()
+void poll_wind_sensor(Module_Wind_Sensor& wind)
 {
   while(true)
   {
     //std::cout << "Polling Wind Sensor!" << std::endl;
-    //std::this_thread::sleep_for(std::chrono::milliseconds(200));
+    std::this_thread::sleep_for(std::chrono::milliseconds(200));
   }
 }
 
 //Thread for polling gps
-void poll_gps_sensor()
+void poll_gps_sensor(Module_GPS& gps)
 {
   while(true)
   {
     //std::cout << "Polling GPS!" << std::endl;
-    //std::this_thread::sleep_for(std::chrono::milliseconds(1500));
+    std::this_thread::sleep_for(std::chrono::milliseconds(1200));
   }
 }
 
 //Thread for polling compass
-void poll_compass()
+void poll_compass(Module_CMPS12& compass)
 {
   while(true)
   {
     //std::cout << "Polling Compass!" << std::endl;
-    //std::this_thread::sleep_for(std::chrono::milliseconds(100));
+    std::this_thread::sleep_for(std::chrono::milliseconds(100));
   }
 }
 
@@ -80,7 +80,7 @@ void poll_compass()
 void log_data()
 {
     //Wait for initial time so we have time to do all setup beforehand
-    std::this_thread::sleep_for(std::chrono::milliseconds(4000));
+    std::this_thread::sleep_for(std::chrono::milliseconds(3000));
     while(true)
     {
         //std::cout << "Logging Data!" << std::endl;
@@ -161,16 +161,12 @@ int main(int argc, char* argv[])
 
     std::cout << "Activating Threads..." << std::endl;
     //IF all modules were initialize properly we launch our threads
-    //std::thread t1(poll_wind_sensor);
-    //std::thread t2(poll_compass);
-    //std::thread t3(poll_gps_sensor);
-    //std::thread t4(drive_rudder,std::ref(servo_rudder));
-    //std::thread t5(drive_sail,std::ref(servo_sail));
+    std::thread t1(poll_wind_sensor,std::ref(module_wind));
+    std::thread t2(poll_compass,std::ref(module_compass));
+    std::thread t3(poll_gps_sensor,std::ref(module_gps));
+    std::thread t4(drive_rudder,std::ref(servo_rudder));
+    std::thread t5(drive_sail,std::ref(servo_sail));
     //std::thread t6(log_data,std::ref(data_logger))
-
-    //NOTE TEMP VARIABLES
-    bool valid_gps_reading = true;
-    bool valid_wind_reading = true;
 
     //Wait for modules to collect initial set of data
     std::cout << " - Collecting Initial Dataset - " << std::endl;
@@ -186,6 +182,10 @@ int main(int argc, char* argv[])
         std::this_thread::sleep_for(std::chrono::milliseconds(400));
 
         std::cout << "Primary Loop" << std::endl;
+
+
+
+
         /*
         //IF WE DONT HAVE A WAYPOINT SET.
         if(control_unit.is_waypoint_set() == false)
