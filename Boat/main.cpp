@@ -187,17 +187,26 @@ int main(int argc, char* argv[])
     //INITIAL READINGS
 
     //SCHOOL TEMP
-    GPS_POSITION TEMP_POSITION;
-    TEMP_POSITION.latitude = 60.10347832490164;
-    TEMP_POSITION.longitude = 19.928544759750366;
+    GPS_DATA TEMP_DATA;
+    TEMP_DATA.set_valid(true);
+    TEMP_DATA.set_latitude(60.10347832490164);
+    TEMP_DATA.set_longitude(19.928544759750366);
+    TEMP_DATA.set_speed(0);
+    TEMP_DATA.set_time_value(5235);
+    TEMP_DATA.set_timestamp("12:00:00");
     int TEMP_TIME = 23;
-
     int TEMP_WIND = 5;
+    int TEMP_COMPASS = 34;
 
     while(control_unit.is_active())
     {
         //Take a nap
         std::this_thread::sleep_for(std::chrono::milliseconds(800));
+
+        //GRAB A SET OF ITERATION DATA AT THIS MOMENT IN TIME
+        GPS_DATA  gps_reading     = TEMP_DATA;
+        int       compass_reading = TEMP_COMPASS;
+        int       wind_reading    = TEMP_WIND;
 
         //std::cout << "Primary Loop" << std::endl;
 
@@ -268,13 +277,29 @@ int main(int argc, char* argv[])
                 std::cout << "New Distance is: " << waypoint_distance*1000 << " meters" <<std::endl;
             }
 
+            //Generate new waypoint
+            GPS_POSITION new_waypoint = calculation_unit.calculate_waypoint(current_position,waypoint_distance,waypoint_angle);
+            std::cout << "Waypoint Lat: " << new_waypoint.latitude << std::endl;
+            std::cout << "Waypoint Lon: " << new_waypoint.longitude << std::endl;
+
+            //Set the waypoint
+            control_unit.set_waypoint(new_waypoint);
+
             //Set our time unit for our timeout
             control_unit.set_time_value(time_unit);
 
-            control_unit.set_waypoint_status(true);
+            //Register Status in Journey LOG
+            //TODO REGISTER
             std::cout << "Waypoint set" << std::endl;
         }
-        //GPS_DATA
+
+
+        //General CONTROL SECTION
+
+
+
+
+        //Check if we are near our destination;
 
 
 
