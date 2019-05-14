@@ -4,3 +4,6 @@
 # Time Threshold (How long should we wait before we establish a new waypoint
 # (If we dont manage to get to our current one in time) [Seconds]
 30
+
+# Distance Factor (How far away should waypoints be)
+4.0

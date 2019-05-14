@@ -3,6 +3,7 @@
 #include <chrono>
 
 #include "../Utilities/Data_Containers/GPS_POSITION.hpp"
+#include "../Utilities/utilities.hpp"
 
 #include "../Modules/Compass/Module_CMPS12.hpp"
 #include "../Modules/GPS/Module_GPS.hpp"
@@ -59,7 +60,7 @@ void poll_gps_sensor()
   while(true)
   {
     //std::cout << "Polling GPS!" << std::endl;
-    //std::this_thread::sleep_for(std::chrono::milliseconds(2000));
+    //std::this_thread::sleep_for(std::chrono::milliseconds(1500));
   }
 }
 
@@ -77,7 +78,7 @@ void poll_compass()
 void log_data()
 {
     //Wait for initial time so we have time to do all setup beforehand
-    std::this_thread::sleep_for(std::chrono::milliseconds(3000));
+    std::this_thread::sleep_for(std::chrono::milliseconds(4000));
     while(true)
     {
         //std::cout << "Logging Data!" << std::endl;
@@ -165,9 +166,19 @@ int main(int argc, char* argv[])
     //std::thread t5(drive_sail,std::ref(servo_sail));
     //std::thread t6(log_data,std::ref(data_logger))
 
+    //NOTE TEMP VARIABLES
+    bool valid_gps_reading = true;
+    bool valid_wind_reading = true;
+
     //Wait for modules to collect initial set of data
     std::cout << " - Collecting Initial Dataset - " << std::endl;
-    std::this_thread::sleep_for(std::chrono::milliseconds(2000));
+    std::this_thread::sleep_for(std::chrono::milliseconds(3000));
+
+    //Publish Initial Log of journey
+    //INITIAL WAYPOINT (START)
+    //INITIAL READINGS
+
+
     while(control_unit.is_active())
     {
         //Take a nap
@@ -176,14 +187,40 @@ int main(int argc, char* argv[])
         std::cout << "Primary Loop" << std::endl;
 
         //IF WE DONT HAVE A WAYPOINT SET.
-
-        //  -> SELECT WAYPOINT
-
         if(control_unit.is_waypoint_set() == false)
         {
+            //  -> SELECT WAYPOINT
             std::cout << "We Dont have a waypoint at this moment" << std::endl;
-            //Generate waypoint
-            
+
+            //Check if data sets are valid
+            bool gps_reading  = valid_gps_reading;
+            bool wind_reading = valid_wind_reading;
+
+            //If both are valid we determine our AOA
+            if(gps_reading && wind_reading)
+            {
+                std::cout << "Both Readings OK!" << std::endl;
+
+                double wind_bearing; // = VALUE FROM SENSOR
+                GPS_POSITION current_position; // = VALUE FROM GPS (USE UTILITIES TO EXTRACT FROM DATA)
+
+                GPS_POSITION destination = control_unit.get_destination();
+
+                std::cout << "DLAT:" << destination.latitude << std::endl;
+                std::cout << "DLON:" << destination.longitude << std::endl;
+
+                double destination_bearing = Utilities::coordinates_to_degrees(
+                  current_position.latitude,
+                  current_position.longitude,
+                  destination.latitude,
+                  destination.longitude);
+
+                //OUR DESIRED ANGLE OF APPORACH TO TARGET
+                double AOA = 0.0;
+                
+
+            }
+
         }
 
 

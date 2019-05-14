@@ -19,7 +19,7 @@ void Logger::publish()
     io.write_file("THIS IS JUST A TEST",m_file_path);
 }
 
-void Logger::publish_waypoint(GPS_POSITION position)
+void Logger::publish_waypoint(GPS_POSITION position, std::string message)
 {
 
 }

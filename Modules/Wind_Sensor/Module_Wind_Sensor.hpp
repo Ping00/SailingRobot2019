@@ -21,6 +21,6 @@ class Module_Wind_Sensor
 		void 	run();
 		int 	get_reading();
 		void 	report();
-    bool  isNewDataAvailable();
+    bool  is_new_data_avilable();
 };
 #endif//__MODULE_WIND_SENSOR_HPP__

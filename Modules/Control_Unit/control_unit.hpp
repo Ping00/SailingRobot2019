@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 #include "../../Utilities/Data_Containers/GPS_POSITION.hpp"
-#include "ORIENTATION.hpp"
+#include "ANGLE.hpp"
 class Control_Unit
 {
     private:
@@ -21,8 +21,9 @@ class Control_Unit
         double                    m_distance_threshold;         //The distance we are allowed to be away from the waypoint to consider it reached (Meters)
 
         double                    m_time_threshold;             //How long should we wait until we establish a new waypoint If the old one hasnt been reached
+        double                    m_distance_factor;            //How far away should waypoints be from our initial position
 
-        ORIENTATION               m_heading;
+        ANGLE                     m_angle_direction;
 
     public:
         Control_Unit();
@@ -41,6 +42,9 @@ class Control_Unit
 
         bool          validate_inits(std::vector<bool> statuses);
         bool          is_waypoint_set();
+
+        void          alternate_angle();
+        ANGLE         get_angle_direction();
 
 };
 #endif//__CONTROL_UNIT_HPP__

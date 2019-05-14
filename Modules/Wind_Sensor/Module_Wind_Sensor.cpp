@@ -38,7 +38,7 @@ void Module_Wind_Sensor::report()
 }
 
 
-bool Module_Wind_Sensor::isNewDataAvailable()
+bool Module_Wind_Sensor::is_new_data_avilable()
 {
     return m_new_data_available;
 }

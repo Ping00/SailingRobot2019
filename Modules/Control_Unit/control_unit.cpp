@@ -15,8 +15,9 @@ Control_Unit::Control_Unit()
 
   m_distance_threshold      = 0;
   m_time_threshold          = 0;
+  m_distance_factor         = 0;
 
-  m_heading = RIGHT;
+  m_angle_direction = STARBOARD;
 }
 
 bool Control_Unit::init(std::string destination, std::string settings)
@@ -31,9 +32,9 @@ bool Control_Unit::init(std::string destination, std::string settings)
     std::cout << "We Have #" << checkpoints << " Checkpoints to travel to" << std::endl;
 
     //Store each checkpoints in reverse (FIFO, we want our first one to be on top of the stack)
-    for(int i = checkpoints; i > 0; i--)
+    for(int i = 0; i < checkpoints; i++)
     {
-        std::vector<std::string> split = parser.split_string(data_clean[i-1],',');
+        std::vector<std::string> split = parser.split_string(data_clean[i],',');
         if(split.size() == 2)
         {
             GPS_POSITION pin;
@@ -63,31 +64,43 @@ bool Control_Unit::init(std::string destination, std::string settings)
         std::cout << "SETTINGS FILE CORRUPT / MISSING: DEFAULTING TO STANDARD VALUES (0/0)" << std::endl;
         m_distance_threshold = 0;
         m_time_threshold = 0;
+        m_distance_factor = 1.0;
     }
     else
     {
           //NOTE WE DONT REMOVE EMPTY LINES SO WE SKIP [1] AS IT IS EMPTY
           m_distance_threshold = std::atof(settings_clean[0].c_str());
           m_time_threshold = std::atof(settings_clean[2].c_str());
+          m_distance_factor = std::atof(settings_clean[4].c_str());
     }
 
     std::cout << "Distance (M) : " << m_distance_threshold << std::endl;
     std::cout << "Time     (S) : " << m_time_threshold << std::endl;
+    std::cout << "Factor   (U) : " << m_distance_factor << std::endl;
 
     m_active = true;
     return true;
+}
+
+bool Control_Unit::is_active()
+{
+    return m_active;
+}
+
+GPS_POSITION  Control_Unit::get_destination()
+{
+    return m_destination.front();
+}
+
+GPS_POSITION  Control_Unit::get_waypoint()
+{
+    return m_waypoint;
 }
 
 void Control_Unit::set_waypoint(GPS_POSITION waypoint)
 {
     m_waypoint = waypoint;
     m_waypoint_set = true;
-}
-
-
-bool Control_Unit::is_active()
-{
-    return m_active;
 }
 
 bool Control_Unit::validate_inits(std::vector<bool> statuses)
@@ -156,4 +169,21 @@ bool Control_Unit::validate_inits(std::vector<bool> statuses)
 bool Control_Unit::is_waypoint_set()
 {
     return m_waypoint_set;
+}
+
+void Control_Unit::alternate_angle()
+{
+    if(m_angle_direction == STARBOARD)
+    {
+      m_angle_direction = PORT;
+    }
+    else
+    {
+      m_angle_direction = STARBOARD;
+    }
+}
+
+ANGLE Control_Unit::get_angle_direction()
+{
+    return m_angle_direction;
 }

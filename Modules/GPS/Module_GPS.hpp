@@ -10,20 +10,20 @@ class Module_GPS
 
 		GPS					m_gps_hardware_connection;
 
-		GPS_DATA		    m_data_reading;
+		GPS_DATA		m_data_reading;
 
 		//Have we read the latest reading already?
-		bool                m_new_data_available;
+		bool        m_new_data_available;
 
 	public:
 		Module_GPS();
-        
+
 		bool init();
 
 		void run();
 		GPS_DATA get_reading();
 
 		void report();
-        bool isNewDataAvailable();
+    bool isNewDataAvailable();
 };
 #endif//__MODULE_GPS_HPP__
