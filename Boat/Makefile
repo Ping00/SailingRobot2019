@@ -26,7 +26,8 @@ SOURCES = main.cpp \
 ../Hardware/MA3/MA3.cpp \
 ../Hardware/GPS/GPS.cpp \
 ../Core/Logger/logger.cpp\
-../Core/IO/IO.cpp
+../Core/IO/IO.cpp\
+../Core/Parser/Parser.cpp
 
 
 all : $(TARGET)
