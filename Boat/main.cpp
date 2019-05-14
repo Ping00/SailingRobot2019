@@ -178,11 +178,13 @@ int main(int argc, char* argv[])
     //INITIAL WAYPOINT (START)
     //INITIAL READINGS
 
+    //TODO REMOVE TEST
+    int time_test = 0;
 
     while(control_unit.is_active())
     {
         //Take a nap
-        std::this_thread::sleep_for(std::chrono::milliseconds(200));
+        std::this_thread::sleep_for(std::chrono::milliseconds(400));
 
         std::cout << "Primary Loop" << std::endl;
 
@@ -201,8 +203,11 @@ int main(int argc, char* argv[])
             {
                 std::cout << "Both Readings OK!" << std::endl;
 
-                double wind_bearing; // = VALUE FROM SENSOR
+                double wind_bearing = 0.0; // = VALUE FROM SENSOR
+                GPS_DATA gps_data; //=READING FROM SENSOR
                 GPS_POSITION current_position; // = VALUE FROM GPS (USE UTILITIES TO EXTRACT FROM DATA)
+                int time_unit = time_test; //FETCH FROM GPS DATA (TIME TEST IS TEMP)
+                control_unit.set_time_value(time_unit);
 
                 GPS_POSITION destination = control_unit.get_destination();
 
@@ -217,15 +222,47 @@ int main(int argc, char* argv[])
 
                 //OUR DESIRED ANGLE OF APPORACH TO TARGET
                 double AOA = 0.0;
-                
+                if(control_unit.get_angle_direction() == STARBOARD)
+                {
+                    std::cout << "Heading Starboard" << std::endl;
+                    AOA = calculation_unit.calculate_angle_of_approach(destination_bearing,wind_bearing);
+                    control_unit.alternate_angle();
+                }
+                else if(control_unit.get_angle_direction() == PORT)
+                {
+                    std::cout << "Heading Port" << std::endl;
+                    AOA = Utilities::flip_degrees(calculation_unit.calculate_angle_of_approach(destination_bearing,wind_bearing));
+                    control_unit.alternate_angle();
+                }
+
+                //Add our Approach angle to our bearing angle and normalize it
+                double waypoint_angle = Utilities::normalize(AOA+destination_bearing);
+
+                //Calculate the distance to our current checkpoint-pin
+                double checkpoint_distance = calculation_unit.calculate_distance(current_position,destination);
+
+                //Calculate how far away our waypoint should be
+                double waypoint_distance = checkpoint_distance / control_unit.get_distance_factor();
+
+                //TODO ADD CONSTRAINT SO THAT IF DISTANCE BECOMES TOO SMALL, TRUNCATE IT
+
+                //Generate waypoint coordinates
+                GPS_POSITION new_waypoint = calculation_unit.calculate_waypoint(current_position,waypoint_distance,waypoint_angle);
+
+                control_unit.set_waypoint(new_waypoint);
+                //LOG THESE DETAILS
 
             }
 
         }
+        std::cout << "Time: " << time_test << std::endl;
+        if(control_unit.time_discrepency_reached(time_test))
+        {
+            std::cout << "TIME REACHED, RESET!" << std::endl;
+            control_unit.set_waypoint_status(false);
+        }
 
-
-
-
+        time_test++;
 
         //Data is polled constantly, all we need to do is retrieve it
 

@@ -19,9 +19,9 @@ class Control_Unit
         GPS_POSITION              m_waypoint;                   //Our current waypoint
 
         double                    m_distance_threshold;         //The distance we are allowed to be away from the waypoint to consider it reached (Meters)
-
         double                    m_time_threshold;             //How long should we wait until we establish a new waypoint If the old one hasnt been reached
         double                    m_distance_factor;            //How far away should waypoints be from our initial position
+        double                    m_time_value;
 
         ANGLE                     m_angle_direction;
 
@@ -42,9 +42,16 @@ class Control_Unit
 
         bool          validate_inits(std::vector<bool> statuses);
         bool          is_waypoint_set();
+        void          set_waypoint_status(bool status);
 
         void          alternate_angle();
         ANGLE         get_angle_direction();
+
+        double        get_distance_factor();
+
+        bool          time_discrepency_reached(int time_value);
+
+        void          set_time_value(int value);
 
 };
 #endif//__CONTROL_UNIT_HPP__

@@ -99,7 +99,8 @@ GPS_POSITION  Control_Unit::get_waypoint()
 
 void Control_Unit::set_waypoint(GPS_POSITION waypoint)
 {
-    m_waypoint = waypoint;
+    m_waypoint.latitude = waypoint.latitude;
+    m_waypoint.longitude = waypoint.longitude;
     m_waypoint_set = true;
 }
 
@@ -186,4 +187,30 @@ void Control_Unit::alternate_angle()
 ANGLE Control_Unit::get_angle_direction()
 {
     return m_angle_direction;
+}
+
+double Control_Unit::get_distance_factor()
+{
+    return m_distance_factor;
+}
+
+bool Control_Unit::time_discrepency_reached(int time_value)
+{
+    if(time_value - m_time_value >= m_time_threshold)
+    {
+        std::cout << "TIME LIMIT REACHED" << std::endl;
+        return true;
+    }
+    return false;
+
+}
+
+void Control_Unit::set_time_value(int value)
+{
+    m_time_value = value;
+}
+
+void Control_Unit::set_waypoint_status(bool status)
+{
+    m_waypoint_set = status;
 }

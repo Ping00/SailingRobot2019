@@ -15,6 +15,7 @@ SOURCES = main.cpp \
 ../Modules/Servo/Module_SERVO.cpp \
 ../Modules/Wind_Sensor/Module_Wind_Sensor.cpp \
 ../Modules/Compass/Module_CMPS12.cpp \
+../Modules/Calculation_Unit/calculation_unit.cpp\
 ../Utilities/utilities.cpp \
 ../Utilities/Data_Containers/GPS_POSITION.cpp \
 ../Utilities/Data_Containers/VEC2.cpp \
