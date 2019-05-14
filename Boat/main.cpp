@@ -33,7 +33,7 @@ void drive_rudder(Module_SERVO& rudder)
 {
   while(true)
   {
-      rudder.run();
+      //rudder.run();
   }
 }
 
@@ -42,7 +42,7 @@ void drive_sail(Module_SERVO& sail)
 {
   while(true)
   {
-      sail.run();
+      //sail.run();
   }
 }
 
@@ -128,11 +128,11 @@ int main(int argc, char* argv[])
     }
 
     //NOTE RE-ENABLE ON PI AS IT IS THE ONLY ONE WITH PROPER SPI / I2C CONNECTIONS
-    init_status[0] = servo_rudder.init();
-    init_status[1] = servo_sail.init();
-    init_status[2] = module_gps.init();
-    init_status[3] = module_compass.init();
-    init_status[4] = module_wind.init();
+    //init_status[0] = servo_rudder.init();
+    //init_status[1] = servo_sail.init();
+    //init_status[2] = module_gps.init();
+    //init_status[3] = module_compass.init();
+    //init_status[4] = module_wind.init();
 
 
     //Check if all modules were initialized properly
@@ -162,7 +162,7 @@ int main(int argc, char* argv[])
     //Default our Servos to their Default positions from start
     servo_sail.set_target(0);
     servo_rudder.set_target(0);
-    
+
     std::cout << "Activating Threads..." << std::endl;
     //IF all modules were initialize properly we launch our threads
     std::thread t1(poll_wind_sensor,std::ref(module_wind));
@@ -180,24 +180,77 @@ int main(int argc, char* argv[])
     //INITIAL WAYPOINT (START)
     //INITIAL READINGS
 
+    //SCHOOL TEMP
+    GPS_POSITION TEMP_POSITION;
+    TEMP_POSITION.latitude = 60.10347832490164;
+    TEMP_POSITION.longitude = 19.928544759750366;
+    int TEMP_TIME = 23;
+
+    int TEMP_WIND = 23;
+
     while(control_unit.is_active())
     {
         //Take a nap
-        std::this_thread::sleep_for(std::chrono::milliseconds(400));
+        std::this_thread::sleep_for(std::chrono::milliseconds(800));
 
-        std::cout << "Primary Loop" << std::endl;
+        //std::cout << "Primary Loop" << std::endl;
 
-        //GRAB WAYPOINT
-        
-        int wind_bearing;
-        int boat_bearing;
+        //Set a waypoint if there is none
+        if(control_unit.is_waypoint_set() == false)
+        {
+            std::cout << "No Waypoint set" << std::endl;
+
+            GPS_DATA current_reading; //FETCH FROM GPS
+            int wind_bearing = TEMP_WIND; ////GRAB FROM SENSOR
+            GPS_POSITION current_position = TEMP_POSITION; //GRAB FROM GPS AND UTILITIES TO FORMAT
+            int time_unit = TEMP_TIME; //GRAB FROM GPS AND REFORMAT
+
+            std::cout << "Wind Bearing Is: " << wind_bearing << std::endl;
+
+            std::cout << "Current Lat: " << TEMP_POSITION.latitude << std::endl;
+            std::cout << "Current Lon: " << TEMP_POSITION.longitude << std::endl;
+
+            //Grab our destination from our control unit
+            GPS_POSITION destination = control_unit.get_destination();
+            std::cout << "Destination Lat: " << destination.latitude << std::endl;
+            std::cout << "Destination Lon: " << destination.longitude << std::endl;
+
+            //Calulate destination bearing
+            double destination_bearing = Utilities::coordinates_to_degrees(
+              current_position.latitude,
+              current_position.longitude,
+              destination.latitude,
+              destination.longitude);
+
+            std::cout << "Destination Bearing: " << destination_bearing << std::endl;
+
+            //Calculate our angle of approach (AOA)
+            double AOA = 0.0;
+            if(control_unit.get_angle_direction() == STARBOARD)
+            {
+                std::cout << "Heading Starboard" << std::endl;
+                AOA = calculation_unit.calculate_angle_of_approach(destination_bearing,wind_bearing);
+                control_unit.alternate_angle();
+            }
+            else if(control_unit.get_angle_direction() == PORT)
+            {
+                std::cout << "Heading Port" << std::endl;
+                AOA = Utilities::flip_degrees(calculation_unit.calculate_angle_of_approach(destination_bearing,wind_bearing));
+                control_unit.alternate_angle();
+            }
+
+            std::cout << "Reccommended AOA IS: " << AOA << std::endl;
+
+            //Set our time unit for our timeout
+            control_unit.set_time_value(time_unit);
+
+            control_unit.set_waypoint_status(true);
+            std::cout << "Waypoint set" << std::endl;
+        }
         //GPS_DATA
-        
-        GPS_POSITION current_waypoint = control_unit.get_waypoint();
-        std::cout << "Current Waypoint" << std::endl;
-        std::cout << "Lat: " << current_waypoint.latitude << std::endl;
-        std::cout << "Lon: " << current_waypoint.longitude << std::endl;
-        
+
+
+
 
 
         /*
@@ -311,8 +364,8 @@ int main(int argc, char* argv[])
         double checkpoint_distance = calculation_unit.calculate_distance(current_position,waypoint_position);
 
         */
-        
-    
+
+
 
     }
 
