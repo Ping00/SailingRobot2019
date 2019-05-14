@@ -2,6 +2,7 @@
 #define __CONTROL_UNIT_HPP__
 #include <queue>
 #include <string>
+#include <vector>
 #include "../../Utilities/Data_Containers/GPS_POSITION.hpp"
 class Control_Unit
 {
@@ -35,7 +36,7 @@ class Control_Unit
         void    set_threshold(double value);
         double  get_threshold();
 
-        bool validate_inits();
+        bool validate_inits(std::vector<bool> statuses);
 
 };
 #endif//__CONTROL_UNIT_HPP__

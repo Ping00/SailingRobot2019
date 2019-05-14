@@ -93,19 +93,26 @@ int main(int argc, char* argv[])
       SAIL_CHANNEL);
 
     //#These will poll data for us
-    Module_GPS          gps;
-    Module_CMPS12       compass;
-    Module_Wind_Sensor  wind(WIND_SENSOR_SPI_CHANNEL);
+    Module_GPS          module_gps;
+    Module_CMPS12       module_compass;
+    Module_Wind_Sensor  module_wind(WIND_SENSOR_SPI_CHANNEL);
 
     //Data Logger
-    Logger logger("contest.txt");
+    Logger data_logger("contest.txt");
 
     //Init All Modules & Servos
     std::vector<bool> init_status;
-    init_status.reserve(6);
+    init_status.reserve(5);
+
+    init_status[0] = servo_rudder.init();
+    init_status[1] = servo_sail.init();
+    init_status[2] = module_gps.init();
+    init_status[3] = module_compass.init();
+    init_status[4] = module_wind.init();
+
 
     //Check if all modules were initialized properly
-    bool components_initialized = control_unit.validate_inits();
+    bool components_initialized = control_unit.validate_inits(init_status);
     if(components_initialized)
     {
         //#Read our textfile which has our destination data

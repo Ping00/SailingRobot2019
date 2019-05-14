@@ -41,7 +41,8 @@ bool Control_Unit::is_active()
     return m_active;
 }
 
-bool Control_Unit::validate_inits()
+bool Control_Unit::validate_inits(std::vector<bool> statuses)
 {
+
     return true;
 }
