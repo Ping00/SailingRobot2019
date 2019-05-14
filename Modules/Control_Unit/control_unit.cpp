@@ -64,8 +64,9 @@ bool Control_Unit::init(std::string destination, std::string settings)
     }
     else
     {
+          //NOTE WE DONT REMOVE EMPTY LINES SO WE SKIP [1] AS IT IS EMPTY
           m_distance_threshold = std::atof(settings_clean[0].c_str());
-          m_time_threshold = std::atof(settings_clean[1].c_str());
+          m_time_threshold = std::atof(settings_clean[2].c_str());
     }
 
     std::cout << "Distance (M) : " << m_distance_threshold << std::endl;

@@ -73,13 +73,15 @@ void poll_compass()
   }
 }
 
+//thread for logging competition data at regular intervals
 void log_data()
 {
     //Wait for initial time so we have time to do all setup beforehand
     std::this_thread::sleep_for(std::chrono::milliseconds(3000));
     while(true)
     {
-
+        //std::cout << "Logging Data!" << std::endl;
+        //std::this_thread::sleep_for(std::chrono::milliseconds(2000));
     }
 }
 
@@ -154,7 +156,7 @@ int main(int argc, char* argv[])
         return -1;
     }
 
-
+    std::cout << "Activating Threads..." << std::endl;
     //IF all modules were initialize properly we launch our threads
     //std::thread t1(poll_wind_sensor);
     //std::thread t2(poll_compass);
@@ -164,8 +166,9 @@ int main(int argc, char* argv[])
     //std::thread t6(log_data,std::ref(data_logger))
 
     //Wait for modules to collect initial set of data
+    std::cout << " - Collecting Initial Dataset - " << std::endl;
     std::this_thread::sleep_for(std::chrono::milliseconds(2000));
-    while(true)
+    while(control_unit.is_active())
     {
         //Take a nap
         std::this_thread::sleep_for(std::chrono::milliseconds(100));
