@@ -7,7 +7,7 @@ GPS_DATA::GPS_DATA()
 	m_longitude = 0;
 	m_speed 		= 0;
 	m_time = "";
-    m_time_value = 0;
+  m_time_value = 0;
 }
 
 void GPS_DATA::set_latitude(double latitude)

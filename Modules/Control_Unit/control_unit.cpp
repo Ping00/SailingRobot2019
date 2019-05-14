@@ -126,6 +126,7 @@ void Control_Unit::update_journey()
     else
     {
         std::cout << "JOURNEY COMPLETE!" << std::endl;
+        m_active = false;
     }
 }
 

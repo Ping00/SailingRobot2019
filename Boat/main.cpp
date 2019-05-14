@@ -213,6 +213,18 @@ int main(int argc, char* argv[])
         int           wind_reading    = TEMP_WIND;
 
         //TODO REPORT IF ANY DATA IS UNAVAILABLE
+        //IF ALL DATA IS OK
+        //TODO GENERATE LOG OF ALL DATA
+        LOG fresh_log;
+        fresh_log.m_entry_id                    = 0;
+        fresh_log.m_bearing                     = 0;
+        fresh_log.m_latitude                    = 0;
+        fresh_log.m_longitude                   = 0;
+        fresh_log.m_speed                       = 0;
+        fresh_log.m_timestamp                   = "";
+        fresh_log.m_distance_from_waypoint      = 0;
+        fresh_log.m_distance_from_destination   = 0;
+        data_logger.log_data(fresh_log);
 
         std::cout << "Primary Loop" << std::endl;
 
@@ -362,6 +374,8 @@ int main(int argc, char* argv[])
         if(waypoint_distance < control_unit.get_calculated_threshold())
         {
             std::cout << "We Are close enough to our destination, grab a new waypoint" << std::endl;
+            control_unit.set_waypoint_status(false);
+            //TODO LOG EVENT
             //Set our message in our custom logger to be "Waypoint Reached"
         }
 
@@ -379,6 +393,9 @@ int main(int argc, char* argv[])
         if(checkpoint_distance < goal_threshold)
         {
             std::cout << "CHECKPOINT REACHED" << std::endl;
+            //Pops the top checkpoint off and turns itself off if at end.
+            //TODO LOG EVENT
+            control_unit.update_journey();
 
         }
 
@@ -388,9 +405,10 @@ int main(int argc, char* argv[])
         if(control_unit.time_discrepency_reached(gps_time))
         {
             std::cout << "TOO MUCH TIME HAS PASSED!" << std::endl;
+            //Set flag to false to generate new waypoint
+            control_unit.set_waypoint_status(false);
         }
 
-        TEMP_GPS_DATA.set_time_value(gps_time++);
 
 
         /*
