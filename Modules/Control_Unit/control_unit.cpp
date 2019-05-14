@@ -1,6 +1,7 @@
 #include "control_unit.hpp"
 #include <iostream>
 #include "../../Core/IO/IO.hpp"
+#include "../../Core/Parser/Parser.hpp"
 Control_Unit::Control_Unit()
 {
   m_active                  = false;
@@ -19,6 +20,11 @@ Control_Unit::Control_Unit()
 bool Control_Unit::init(std::string destination, std::string settings)
 {
     IO io;
+    Parser parser;
+
+    std::vector<std::string> destination_data = io.read_file(destination);
+    std::cout << "Lines: " << destination_data.size() << std::endl;
+
     return true;
 }
 
@@ -36,6 +42,7 @@ bool Control_Unit::is_active()
 
 bool Control_Unit::validate_inits(std::vector<bool> statuses)
 {
+    //TODO REMOVE THE TWO LINES BELOW AFTER TESTING IS DONE
     std::cout << "TESTING AUTO SUCCEED WITH TEST VALUES: [REMOVE WHEN FINISHED TESTING]" << std::endl;
     return true;
 

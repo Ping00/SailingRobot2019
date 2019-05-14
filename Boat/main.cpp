@@ -73,6 +73,16 @@ void poll_compass()
   }
 }
 
+void log_data()
+{
+    //Wait for initial time so we have time to do all setup beforehand
+    std::this_thread::sleep_for(std::chrono::milliseconds(3000));
+    while(true)
+    {
+
+    }
+}
+
 
 int main(int argc, char* argv[])
 {
@@ -100,7 +110,7 @@ int main(int argc, char* argv[])
     Module_Wind_Sensor  module_wind(WIND_SENSOR_SPI_CHANNEL);
 
     //Data Logger
-    Logger data_logger("contest.txt");
+    Logger data_logger("Logs/contest.txt");
 
     //Init All Modules & Servos
     std::vector<bool> init_status;
@@ -124,8 +134,8 @@ int main(int argc, char* argv[])
     {
         //#Read our textfile which has our destination data
         //This way we dont have to recompile each time we want to change those variables
-        std::string settings = "settings.txt";
-        std::string destination = "destination.txt";
+        std::string settings = "Settings/settings.txt";
+        std::string destination = "Settings/destination.txt";
         bool final_status = control_unit.init(destination,settings);
         if(final_status)
         {
@@ -150,7 +160,10 @@ int main(int argc, char* argv[])
     //std::thread t3(poll_gps_sensor);
     //std::thread t4(drive_rudder,std::ref(servo_rudder));
     //std::thread t5(drive_sail,std::ref(servo_sail));
+    //std::thread t6(log_data,std::ref(data_logger))
 
+    //Wait for modules to collect initial set of data
+    std::this_thread::sleep_for(std::chrono::milliseconds(2000));
     while(true)
     {
         //Take a nap
