@@ -186,7 +186,7 @@ int main(int argc, char* argv[])
         std::this_thread::sleep_for(std::chrono::milliseconds(400));
 
         std::cout << "Primary Loop" << std::endl;
-
+        /*
         //IF WE DONT HAVE A WAYPOINT SET.
         if(control_unit.is_waypoint_set() == false)
         {
@@ -258,51 +258,49 @@ int main(int argc, char* argv[])
 
         //CONTROL BOAT
         //CALCULATE BEARING FROM CURRENT POSITION AND WAYPOINT;
-        GPS_POSITION current_position;
-        GPS_POSITION waypoint_position;
+        GPS_DATA current_gps_reading;
+        int time_value = 0;
+        GPS_POSITION current_position;  //FETCH FROM GPS
+        current_position.latitude = 60.10347765644805;
+        current_position.longitude = 19.928544759750366;
+        GPS_POSITION waypoint_position; //FETCH FROM CONROL UNIT
+        waypoint_position.latitude = 60.10599161445948;
+        waypoint_position.longitude = 19.928770065307617;
 
         int wind_bearing    = 0;  //FETCH DATA FROM MODULES
         int compass_bearing = 0;  //FETCH DATA FROM MODULES
 
-        int waypoint_bearing = 0;
+        int waypoint_bearing = Utilities::coordinates_to_degrees(
+          current_position.latitude,
+          current_position.longitude,
+          waypoint_position.latitude,
+          waypoint_position.longitude);
 
 
-        //Data is polled constantly, all we need to do is retrieve it
+        int destination_offset = waypoint_bearing - compass_bearing;
+        std::cout << "DESTINATION BEARING : " << destination_offset << std::endl;
 
-        //Check
+        VEC2 destination_vector = Utilities::degrees_to_vector(destination_offset + OFFSET);
+        VEC2 wind_vector = Utilities::degrees_to_vector(wind_bearing + OFFSET);
 
+        //Calculate rudder & Sail Positions
+        double sail_setting = calculation_unit.calculate_sail_position(wind_vector);
+        double rudder_setting = calculation_unit.calculate_rudder_position(destination_vector);
 
-        //If we dont have a waypoint (IF WAYPOINT SET = FALSE)
-        //If our data is fresh enough to be used
-        //Get new waypoint
-        //->  Use destination and wind to calculate our AOA
-        //    Grab distance to destination
-        //    Make our waypoint distance half of that (negotiable)
-        //    Grab coordinate of waypoint
-        //    Set waypoint
-
-        //NOTE REMEMBER TO ADD OFFSET OF 90 DEGREES TO MAKE Y +1 NORTH IN OUR VEC2
-
-        //Calculate offset to waypoint
-        //Waypoint - Current bearing = RUDDER OFFSET;
-
-        //Make VEC2 of above, (ADD THE 90 DEGREE SHIFT)
-
-        //GRAB RUDDER POSITION FROM THIS VECTOR BASED ON OUR CU
-        //Wind - Current bearing = WIND OFFSET (Add 90 shift in VEC2)
-        //Use the wind offset to get the sails proper position
-
-        //Set the rudder value (thread will move part by itself)
-        //Set the sail value (thread will move part by itself)
+        //Set Servos to these values
+        servo_sail.set_target(sail_setting);
+        servo_rudder.set_target(rudder_setting);
 
 
+        //Check if we have reached our target
+        //Calculate Distance between our current point and waypoint
+        double checkpoint_distance = calculation_unit.calculate_distance(current_position,waypoint_position);
 
+        */
 
-        //INCREMENT DATA TICK
     }
 
-
-
+    std::cout << "JOURNEY DONE!" << std::endl;
 
     return 0;
 }

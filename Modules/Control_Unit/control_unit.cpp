@@ -16,6 +16,7 @@ Control_Unit::Control_Unit()
   m_distance_threshold      = 0;
   m_time_threshold          = 0;
   m_distance_factor         = 0;
+  m_calculated_threshold    = 0;
 
   m_angle_direction = STARBOARD;
 }
@@ -65,6 +66,7 @@ bool Control_Unit::init(std::string destination, std::string settings)
         m_distance_threshold = 0;
         m_time_threshold = 0;
         m_distance_factor = 1.0;
+        m_calculated_threshold = m_distance_threshold / m_distance_factor;
     }
     else
     {
@@ -72,6 +74,7 @@ bool Control_Unit::init(std::string destination, std::string settings)
           m_distance_threshold = std::atof(settings_clean[0].c_str());
           m_time_threshold = std::atof(settings_clean[2].c_str());
           m_distance_factor = std::atof(settings_clean[4].c_str());
+          m_calculated_threshold = m_distance_threshold / m_distance_factor;
     }
 
     std::cout << "Distance (M) : " << m_distance_threshold << std::endl;
@@ -95,6 +98,26 @@ GPS_POSITION  Control_Unit::get_destination()
 GPS_POSITION  Control_Unit::get_waypoint()
 {
     return m_waypoint;
+}
+
+double Control_Unit::get_distance_threshold()
+{
+    return m_distance_threshold;
+}
+
+void Control_Unit::update_journey()
+{
+    if(m_destination.size() > 0)
+    {
+        m_destination.pop();
+        m_waypoint_set = false;
+        m_waypoint.latitude = 0;
+        m_waypoint.longitude = 0;
+    }
+    else
+    {
+        std::cout << "JOURNEY COMPLETE!" << std::endl;
+    }
 }
 
 void Control_Unit::set_waypoint(GPS_POSITION waypoint)
@@ -213,4 +236,9 @@ void Control_Unit::set_time_value(int value)
 void Control_Unit::set_waypoint_status(bool status)
 {
     m_waypoint_set = status;
+}
+
+double Control_Unit::get_calculated_threshold()
+{
+    return m_calculated_threshold;
 }
