@@ -25,6 +25,8 @@
 
 #define WIND_SENSOR_SPI_CHANNEL 0
 
+#define OFFSET 90
+
 //Multithreaded for polling devices at different time-intervals
 //Thread for driving rudder
 void drive_rudder(Module_SERVO& rudder)
@@ -178,9 +180,6 @@ int main(int argc, char* argv[])
     //INITIAL WAYPOINT (START)
     //INITIAL READINGS
 
-    //TODO REMOVE TEST
-    int time_test = 0;
-
     while(control_unit.is_active())
     {
         //Take a nap
@@ -203,10 +202,10 @@ int main(int argc, char* argv[])
             {
                 std::cout << "Both Readings OK!" << std::endl;
 
-                double wind_bearing = 0.0; // = VALUE FROM SENSOR
+                int wind_bearing = 0.0; // = VALUE FROM SENSOR
                 GPS_DATA gps_data; //=READING FROM SENSOR
                 GPS_POSITION current_position; // = VALUE FROM GPS (USE UTILITIES TO EXTRACT FROM DATA)
-                int time_unit = time_test; //FETCH FROM GPS DATA (TIME TEST IS TEMP)
+                int time_unit = 0; //FETCH FROM GPS DATA
                 control_unit.set_time_value(time_unit);
 
                 GPS_POSITION destination = control_unit.get_destination();
@@ -251,18 +250,22 @@ int main(int argc, char* argv[])
 
                 control_unit.set_waypoint(new_waypoint);
                 //LOG THESE DETAILS
+                //WAYPOINT LOG TO JOURNEY LOG
 
             }
 
         }
-        std::cout << "Time: " << time_test << std::endl;
-        if(control_unit.time_discrepency_reached(time_test))
-        {
-            std::cout << "TIME REACHED, RESET!" << std::endl;
-            control_unit.set_waypoint_status(false);
-        }
 
-        time_test++;
+        //CONTROL BOAT
+        //CALCULATE BEARING FROM CURRENT POSITION AND WAYPOINT;
+        GPS_POSITION current_position;
+        GPS_POSITION waypoint_position;
+
+        int wind_bearing    = 0;  //FETCH DATA FROM MODULES
+        int compass_bearing = 0;  //FETCH DATA FROM MODULES
+
+        int waypoint_bearing = 0;
+
 
         //Data is polled constantly, all we need to do is retrieve it
 
