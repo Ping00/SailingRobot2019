@@ -179,51 +179,55 @@ int main(int argc, char* argv[])
     //std::thread t6(log_data,std::ref(data_logger))
 
     //Wait for modules to collect initial set of data
+    std::this_thread::sleep_for(std::chrono::milliseconds(200));
     std::cout << " - Collecting Initial Dataset - " << std::endl;
-    std::this_thread::sleep_for(std::chrono::milliseconds(3000));
+    std::this_thread::sleep_for(std::chrono::milliseconds(5000));
 
     //Publish Initial Log of journey
     //INITIAL WAYPOINT (START)
     //INITIAL READINGS
 
     //SCHOOL TEMP
-    GPS_DATA TEMP_DATA;
-    TEMP_DATA.set_valid(true);
-    TEMP_DATA.set_latitude(60.10347832490164);
-    TEMP_DATA.set_longitude(19.928544759750366);
-    TEMP_DATA.set_speed(0);
-    TEMP_DATA.set_time_value(5235);
-    TEMP_DATA.set_timestamp("12:00:00");
-    int TEMP_TIME = 23;
+    GPS_DATA TEMP_GPS_DATA;
+    TEMP_GPS_DATA.set_valid(true);
+    TEMP_GPS_DATA.set_latitude(60.10347832490164);
+    TEMP_GPS_DATA.set_longitude(19.928544759750366);
+    TEMP_GPS_DATA.set_speed(0);
+    TEMP_GPS_DATA.set_time_value(5235);
+    TEMP_GPS_DATA.set_timestamp("12:00:00");
+
+    CMPS12_DATA TEMP_COMPASS_DATA;
+    TEMP_COMPASS_DATA.set_entry(DATA_SET_COMPASS_BEARING_DEGREES_16,122);
+
     int TEMP_WIND = 5;
-    int TEMP_COMPASS = 34;
 
     while(control_unit.is_active())
     {
         //Take a nap
-        std::this_thread::sleep_for(std::chrono::milliseconds(800));
+        std::this_thread::sleep_for(std::chrono::milliseconds(200));
 
         //GRAB A SET OF ITERATION DATA AT THIS MOMENT IN TIME
-        GPS_DATA  gps_reading     = TEMP_DATA;
-        int       compass_reading = TEMP_COMPASS;
-        int       wind_reading    = TEMP_WIND;
+        GPS_DATA      gps_reading     = TEMP_GPS_DATA;
+        CMPS12_DATA   compass_reading = TEMP_COMPASS_DATA;
+        int           wind_reading    = TEMP_WIND;
 
-        //std::cout << "Primary Loop" << std::endl;
+        //TODO REPORT IF ANY DATA IS UNAVAILABLE
+
+        std::cout << "Primary Loop" << std::endl;
 
         //Set a waypoint if there is none
         if(control_unit.is_waypoint_set() == false)
         {
             std::cout << "No Waypoint set" << std::endl;
 
-            GPS_DATA current_reading; //FETCH FROM GPS
-            int wind_bearing = TEMP_WIND; ////GRAB FROM SENSOR
-            GPS_POSITION current_position = TEMP_POSITION; //GRAB FROM GPS AND UTILITIES TO FORMAT
-            int time_unit = TEMP_TIME; //GRAB FROM GPS AND REFORMAT
+            int wind_bearing = wind_reading;
+            GPS_POSITION current_position = Utilities::extract_position_from_data(gps_reading); //GRAB FROM GPS AND UTILITIES TO FORMAT
+            int time_unit = gps_reading.get_time_value(); //GRAB FROM GPS AND REFORMAT
 
             std::cout << "Wind Bearing Is: " << wind_bearing << std::endl;
 
-            std::cout << "Current Lat: " << TEMP_POSITION.latitude << std::endl;
-            std::cout << "Current Lon: " << TEMP_POSITION.longitude << std::endl;
+            std::cout << "Current Lat: " << current_position.latitude << std::endl;
+            std::cout << "Current Lon: " << current_position.longitude << std::endl;
 
             //Grab our destination from our control unit
             GPS_POSITION destination = control_unit.get_destination();
@@ -295,14 +299,50 @@ int main(int argc, char* argv[])
 
 
         //General CONTROL SECTION
+        std::cout << "Wind Bearing IS: " << wind_reading << std::endl;
+        std::cout << "Boat Bearing Is: " << compass_reading.get_entry(DATA_SET_COMPASS_BEARING_DEGREES_16) << std::endl;
+
+        //Grab our current position and waypoint details
+        GPS_POSITION current_position  = Utilities::extract_position_from_data(gps_reading);
+        GPS_POSITION waypoint_position = control_unit.get_waypoint();
+
+        std::cout << "Current Lat: " << current_position.latitude << std::endl;
+        std::cout << "Current Lon: " << current_position.longitude << std::endl;
+
+        std::cout << "Waypoint Lat: " << waypoint_position.latitude << std::endl;
+        std::cout << "Waypoint Lon: " << waypoint_position.longitude << std::endl;
+
+        //Get Bearing to waypoint
+        double waypoint_bearing = Utilities::coordinates_to_degrees(
+          current_position.latitude,
+          current_position.longitude,
+          waypoint_position.latitude,
+          waypoint_position.longitude);
+
+        std::cout << "Waypoint Bearing: " << std::endl;
 
 
+
+        //Generate Vectors to use in our calculation of positions
+        VEC2 rudder_vector = Utilities::degrees_to_vector(0);
+        VEC2 sail_vector   = Utilities::degrees_to_vector(0);
+
+        //Calculate our settings
+        double rudder_setting = calculation_unit.calculate_rudder_position(rudder_vector);
+        double sail_setting   = calculation_unit.calculate_sail_position(sail_vector);
+
+        std::cout << "Rudder Settings: " << rudder_setting << std::endl;
+        std::cout << "Sail   Settings: " << sail_setting << std::endl;
+
+        //Set our servos with our calculated targets
+        servo_rudder.set_target(rudder_setting);
+        servo_sail.set_target(sail_setting);
 
 
         //Check if we are near our destination;
 
 
-
+        std::this_thread::sleep_for(std::chrono::milliseconds(8000));
 
 
         /*
