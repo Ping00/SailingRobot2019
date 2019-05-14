@@ -109,8 +109,9 @@ int main(int argc, char* argv[])
     Module_CMPS12       module_compass;
     Module_Wind_Sensor  module_wind(WIND_SENSOR_SPI_CHANNEL);
 
-    //Data Logger
+    //Data Loggers (One for competition, other for journey debugging)
     Logger data_logger("Logs/contest.txt");
+    Logger waypoint_logger("Logs/waypoint.txt");
 
     //Init All Modules & Servos
     std::vector<bool> init_status;
