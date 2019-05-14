@@ -23,6 +23,7 @@ class Control_Unit
         double                    m_distance_factor;            //How far away should waypoints be from our initial position
         double                    m_time_value;
         double                    m_calculated_threshold;
+        double                    m_waypoint_distance_creation_threshold;
 
         ANGLE                     m_angle_direction;
 
@@ -55,6 +56,8 @@ class Control_Unit
         void          set_time_value(int value);
         double        get_calculated_threshold();
         void          update_journey();
+
+        double        get_waypoint_creation_threshold();
 
 };
 #endif//__CONTROL_UNIT_HPP__

@@ -31,6 +31,7 @@
 //Thread for driving rudder
 void drive_rudder(Module_SERVO& rudder)
 {
+  std::cout << "Starting Automatic Rudder Servo"<< std::endl;
   while(true)
   {
       //rudder.run();
@@ -40,6 +41,7 @@ void drive_rudder(Module_SERVO& rudder)
 //Thread for driving sail
 void drive_sail(Module_SERVO& sail)
 {
+  std::cout << "Starting Automatic Sail Servo"<< std::endl;
   while(true)
   {
       //sail.run();
@@ -49,6 +51,7 @@ void drive_sail(Module_SERVO& sail)
 //Thread for polling wind sensor
 void poll_wind_sensor(Module_Wind_Sensor& wind)
 {
+      std::cout << "Starting Automatic Wind Sensor"<< std::endl;
   while(true)
   {
     //std::cout << "Polling Wind Sensor!" << std::endl;
@@ -59,6 +62,7 @@ void poll_wind_sensor(Module_Wind_Sensor& wind)
 //Thread for polling gps
 void poll_gps_sensor(Module_GPS& gps)
 {
+  std::cout << "Starting Automatic GPS"<< std::endl;
   while(true)
   {
     //std::cout << "Polling GPS!" << std::endl;
@@ -69,6 +73,7 @@ void poll_gps_sensor(Module_GPS& gps)
 //Thread for polling compass
 void poll_compass(Module_CMPS12& compass)
 {
+  std::cout << "Starting Automatic Compass"<< std::endl;
   while(true)
   {
     //std::cout << "Polling Compass!" << std::endl;
@@ -79,6 +84,7 @@ void poll_compass(Module_CMPS12& compass)
 //thread for logging competition data at regular intervals
 void log_data()
 {
+    std::cout << "Starting Automatic Logger"<< std::endl;
     //Wait for initial time so we have time to do all setup beforehand
     std::this_thread::sleep_for(std::chrono::milliseconds(3000));
     while(true)
@@ -186,7 +192,7 @@ int main(int argc, char* argv[])
     TEMP_POSITION.longitude = 19.928544759750366;
     int TEMP_TIME = 23;
 
-    int TEMP_WIND = 23;
+    int TEMP_WIND = 5;
 
     while(control_unit.is_active())
     {
@@ -240,6 +246,27 @@ int main(int argc, char* argv[])
             }
 
             std::cout << "Reccommended AOA IS: " << AOA << std::endl;
+
+            //Calculate our angle to the new waypoint according to the AOA
+            double waypoint_angle = Utilities::normalize(AOA+destination_bearing);
+
+            std::cout << "Waypoint Angle Is: " << waypoint_angle << std::endl;
+
+            //Calculate the distance to our destination
+            double destination_distance = calculation_unit.calculate_distance(current_position,destination);
+
+            std::cout << "Distance to destination is: " << destination_distance*1000 << " meters" << std::endl;
+
+            //Calculate how far away our waypoint should be
+            double waypoint_distance = destination_distance / control_unit.get_distance_factor();
+
+            std::cout << "Waypoint Distance is: " << waypoint_distance*1000 << " meters" << std::endl;
+            if(waypoint_distance < control_unit.get_waypoint_creation_threshold())
+            {
+                std::cout << "Threshold Reached, limiting waypoint" << std::endl;
+                waypoint_distance = control_unit.get_waypoint_creation_threshold();
+                std::cout << "New Distance is: " << waypoint_distance*1000 << " meters" <<std::endl;
+            }
 
             //Set our time unit for our timeout
             control_unit.set_time_value(time_unit);

@@ -17,6 +17,7 @@ Control_Unit::Control_Unit()
   m_time_threshold          = 0;
   m_distance_factor         = 0;
   m_calculated_threshold    = 0;
+  m_waypoint_distance_creation_threshold = 0;
 
   m_angle_direction = STARBOARD;
 }
@@ -66,6 +67,7 @@ bool Control_Unit::init(std::string destination, std::string settings)
         m_distance_threshold = 0;
         m_time_threshold = 0;
         m_distance_factor = 1.0;
+        m_waypoint_distance_creation_threshold = 0;
         m_calculated_threshold = m_distance_threshold / m_distance_factor;
     }
     else
@@ -74,12 +76,14 @@ bool Control_Unit::init(std::string destination, std::string settings)
           m_distance_threshold = std::atof(settings_clean[0].c_str());
           m_time_threshold = std::atof(settings_clean[2].c_str());
           m_distance_factor = std::atof(settings_clean[4].c_str());
+          m_waypoint_distance_creation_threshold = std::atof(settings_clean[6].c_str()) / 1000;
           m_calculated_threshold = m_distance_threshold / m_distance_factor;
     }
 
     std::cout << "Distance (M) : " << m_distance_threshold << std::endl;
     std::cout << "Time     (S) : " << m_time_threshold << std::endl;
     std::cout << "Factor   (U) : " << m_distance_factor << std::endl;
+    std::cout << "Factor   (G) : " << m_waypoint_distance_creation_threshold << std::endl;
 
     m_active = true;
     return true;
@@ -103,6 +107,11 @@ GPS_POSITION  Control_Unit::get_waypoint()
 double Control_Unit::get_distance_threshold()
 {
     return m_distance_threshold;
+}
+
+double Control_Unit::get_waypoint_creation_threshold()
+{
+    return m_waypoint_distance_creation_threshold;
 }
 
 void Control_Unit::update_journey()
@@ -130,7 +139,7 @@ void Control_Unit::set_waypoint(GPS_POSITION waypoint)
 bool Control_Unit::validate_inits(std::vector<bool> statuses)
 {
     return true;
-    
+
     if(statuses[0])
     {
         std::cout << "[ OK ]    : Servo Rudder" << std::endl;
