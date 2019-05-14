@@ -1,7 +1,11 @@
 #include <iostream>
 #include <thread>
 #include <chrono>
+
+#include "../Core/Logger/logger.hpp"
+
 #include "../Utilities/Data_Containers/GPS_POSITION.hpp"
+#include "../Utilities/Data_Containers/LOG.hpp"
 
 #include "../Modules/Compass/Module_CMPS12.hpp"
 #include "../Modules/GPS/Module_GPS.hpp"
@@ -70,6 +74,7 @@ void poll_compass()
   }
 }
 
+
 int main(int argc, char* argv[])
 {
     //--------------------------------
@@ -92,6 +97,9 @@ int main(int argc, char* argv[])
     Module_GPS          gps;
     Module_CMPS12       compass;
     Module_Wind_Sensor  wind(WIND_SENSOR_SPI_CHANNEL);
+
+    //Data Logger
+    Logger logger;
 
     //Init All Modules & Servos
     std::vector<bool> init_status;
