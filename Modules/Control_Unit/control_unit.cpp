@@ -139,7 +139,7 @@ void Control_Unit::set_waypoint(GPS_POSITION waypoint)
 
 bool Control_Unit::validate_inits(std::vector<bool> statuses)
 {
-    return true;
+    bool result = true;
 
     if(statuses[0])
     {
@@ -148,7 +148,7 @@ bool Control_Unit::validate_inits(std::vector<bool> statuses)
     else
     {
         std::cout << "[ ERROR ] : Servo Rudder" << std::endl;
-        return false;
+        result = false;
     }
 
     if(statuses[1])
@@ -158,7 +158,7 @@ bool Control_Unit::validate_inits(std::vector<bool> statuses)
     else
     {
         std::cout << "[ ERROR ] : Servo Sail" << std::endl;
-        return false;
+        result = false;
     }
 
     if(statuses[2])
@@ -168,7 +168,7 @@ bool Control_Unit::validate_inits(std::vector<bool> statuses)
     else
     {
         std::cout << "[ ERROR ] : Module GPS" << std::endl;
-        return false;
+        result = false;
     }
 
     if(statuses[3])
@@ -178,7 +178,7 @@ bool Control_Unit::validate_inits(std::vector<bool> statuses)
     else
     {
         std::cout << "[ERROR] : Module Compass" << std::endl;
-        return false;
+        result = false;
     }
 
     if(statuses[4])
@@ -188,13 +188,13 @@ bool Control_Unit::validate_inits(std::vector<bool> statuses)
     else
     {
         std::cout << "[ERROR] : Module Wind Sensor" << std::endl;
-        return false;
+        result = false;
     }
 
 
 
 
-    return true;
+    return result;
 }
 
 bool Control_Unit::is_waypoint_set()
