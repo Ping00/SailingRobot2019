@@ -139,6 +139,10 @@ void Control_Unit::set_waypoint(GPS_POSITION waypoint)
 
 bool Control_Unit::validate_inits(std::vector<bool> statuses)
 {
+    //TEMP
+    return true;
+
+
     bool result = true;
 
     if(statuses[0])
