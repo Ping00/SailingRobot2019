@@ -55,6 +55,7 @@ void poll_wind_sensor(Module_Wind_Sensor& wind)
   while(true)
   {
     //std::cout << "Polling Wind Sensor!" << std::endl;
+    wind.run();
     std::this_thread::sleep_for(std::chrono::milliseconds(200));
   }
 }
@@ -66,6 +67,7 @@ void poll_gps_sensor(Module_GPS& gps)
   while(true)
   {
     //std::cout << "Polling GPS!" << std::endl;
+    gps.run();
     std::this_thread::sleep_for(std::chrono::milliseconds(1200));
   }
 }
@@ -77,6 +79,7 @@ void poll_compass(Module_CMPS12& compass)
   while(true)
   {
     //std::cout << "Polling Compass!" << std::endl;
+    compass.run();
     std::this_thread::sleep_for(std::chrono::milliseconds(100));
   }
 }
@@ -203,9 +206,17 @@ int main(int argc, char* argv[])
 
     while(control_unit.is_active())
     {
+      std::this_thread::sleep_for(std::chrono::milliseconds(200));
+      module_compass.report();
+      module_gps.report();
+      module_wind.report();
+
+
+      /*
         //Take a nap
-        std::cout << "------------------" << std::endl;
         std::this_thread::sleep_for(std::chrono::milliseconds(200));
+        std::cout << "Primary Loop" << std::endl;
+        std::cout << "------------------" << std::endl;
 
         //GRAB A SET OF ITERATION DATA AT THIS MOMENT IN TIME
         GPS_DATA      gps_reading     = TEMP_GPS_DATA;
@@ -226,9 +237,8 @@ int main(int argc, char* argv[])
         fresh_log.m_distance_from_destination   = 0;
         data_logger.log_data(fresh_log);
 
-        std::cout << "Primary Loop" << std::endl;
-
         //Set a waypoint if there is none
+        //NOTE Replace with DO-WHILE?
         if(control_unit.is_waypoint_set() == false)
         {
             std::cout << "No Waypoint set" << std::endl;
@@ -312,7 +322,6 @@ int main(int argc, char* argv[])
 
 
         //General CONTROL SECTION
-
         int wind_bearing = wind_reading;
         int compass_bearing = compass_reading.get_entry(DATA_SET_COMPASS_BEARING_DEGREES_16);
 
@@ -362,7 +371,6 @@ int main(int argc, char* argv[])
 
 
         //DESTINATION CALCULATIONS
-
         double waypoint_distance = calculation_unit.calculate_distance(current_position,waypoint_position);
         double goal_threshold = control_unit.get_calculated_threshold();
         std::cout << "We are " << waypoint_distance*1000 << " meters from our waypoint" << std::endl;
@@ -409,6 +417,7 @@ int main(int argc, char* argv[])
             control_unit.set_waypoint_status(false);
         }
 
+        */
 
 
         /*
