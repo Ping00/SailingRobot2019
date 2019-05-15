@@ -15,22 +15,22 @@ class Module_CMPS12
 
       //Is this module initialized
       bool                      m_initialized;
-      
+
       //Have we read the latest reading already?
       bool                      m_new_data_available;
-      
+
 
     public:
       Module_CMPS12();
       ~Module_CMPS12();
-      
+
       bool init();
       void run();
       bool getInitialized();
       CMPS12_DATA get_reading();
       void report();
-      
-      bool isNewDataAvailable();
+
+      bool is_new_data_avilable();
 
 };
 #endif//__MODULE_CMPS12_HPP__

@@ -31,6 +31,7 @@ void Module_CMPS12::run()
         if(data.get_valid())
         {
             m_CMPS12_data_reading = data;
+            m_new_data_available = true;
         }
         else
         {
@@ -51,13 +52,20 @@ CMPS12_DATA Module_CMPS12::get_reading()
 
 void Module_CMPS12::report()
 {
-    std::cout << "-------------------------" << std::endl;
-    std::cout << "Bearing: " << m_CMPS12_data_reading.get_entry(DATA_SET_COMPASS_BEARING_DEGREES_16) << std::endl;
-    std::cout << "Pitch  : " << m_CMPS12_data_reading.get_entry(DATA_SET_PITCH_ANGLE_8) << std::endl;
-    std::cout << "Roll   : " << m_CMPS12_data_reading.get_entry(DATA_SET_ROLL_ANGLE_8) << std::endl;
+    if(m_new_data_available)
+    {
+        std::cout << "- - COMPASS SENSOR - -" << std::endl;
+        std::cout << "Bearing: " << m_CMPS12_data_reading.get_entry(DATA_SET_COMPASS_BEARING_DEGREES_16) << std::endl;
+        std::cout << "Pitch  : " << m_CMPS12_data_reading.get_entry(DATA_SET_PITCH_ANGLE_8) << std::endl;
+        std::cout << "Roll   : " << m_CMPS12_data_reading.get_entry(DATA_SET_ROLL_ANGLE_8) << std::endl;
+        std::cout << "----------------------" << std::endl;
+        m_new_data_available = false;
+    }
+
+
 }
 
-bool Module_CMPS12::isNewDataAvailable()
+bool Module_CMPS12::is_new_data_avilable()
 {
     return m_new_data_available;
 }

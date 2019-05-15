@@ -24,6 +24,7 @@ void 	Module_Wind_Sensor::run()
 	int reading = m_hardware_connection_MA3.read(m_spi_channel);
 	int bearing_uncorrected = Utilities::convert_coordinates(2,1020,0,359,reading);
 	m_reading = Utilities::normalize(bearing_uncorrected - OFFSET);
+  m_new_data_available = true;
 
 }
 
@@ -34,7 +35,13 @@ int 	Module_Wind_Sensor::get_reading()
 
 void Module_Wind_Sensor::report()
 {
-		std::cout << "Wind Bearing: " << m_reading << std::endl;
+    if(m_new_data_available)
+    {
+        std::cout << "- - WIND SENSOR - -" << std::endl;
+        std::cout << "Wind Bearing: " << m_reading << std::endl;
+        std::cout << "-------------------" << std::endl;
+        m_new_data_available = false;
+    }
 }
 
 

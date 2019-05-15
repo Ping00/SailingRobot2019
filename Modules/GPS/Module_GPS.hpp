@@ -24,6 +24,6 @@ class Module_GPS
 		GPS_DATA get_reading();
 
 		void report();
-    bool isNewDataAvailable();
+    bool is_new_data_avilable();
 };
 #endif//__MODULE_GPS_HPP__
