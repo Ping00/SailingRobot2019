@@ -204,6 +204,13 @@ int main(int argc, char* argv[])
 
     int TEMP_WIND = 5;
     
+    //TEMP WAYPOINT TEST DATA
+    GPS_POSITION TEMP_WAYPOINT;
+    TEMP_WAYPOINT.latitude = 60.105879322635616;
+    TEMP_WAYPOINT.longitude = 19.926559925079346;
+    
+    control_unit.set_waypoint(TEMP_WAYPOINT);
+    
     while(control_unit.is_active())
     {
       std::this_thread::sleep_for(std::chrono::milliseconds(600));
@@ -216,12 +223,20 @@ int main(int argc, char* argv[])
         std::this_thread::sleep_for(std::chrono::milliseconds(200));
         std::cout << "Primary Loop" << std::endl;
         std::cout << "------------------" << std::endl;
-
+        */
+      
         //GRAB A SET OF ITERATION DATA AT THIS MOMENT IN TIME
-        GPS_DATA      gps_reading     = TEMP_GPS_DATA;
-        CMPS12_DATA   compass_reading = TEMP_COMPASS_DATA;
-        int           wind_reading    = TEMP_WIND;
-
+        //GPS_DATA      gps_reading     = TEMP_GPS_DATA;
+        //CMPS12_DATA   compass_reading = TEMP_COMPASS_DATA;
+        //int           wind_reading    = TEMP_WIND;
+        
+        //GRAB A SET OF ITERATION DATA AT THIS MOMENT IN TIME
+        GPS_DATA      gps_reading     = module_gps.get_reading();
+        CMPS12_DATA   compass_reading = module_compass.get_reading();
+        int           wind_reading    = module_wind.get_reading();
+        
+        
+        /*
         //TODO REPORT IF ANY DATA IS UNAVAILABLE
         //IF ALL DATA IS OK
         //TODO GENERATE LOG OF ALL DATA
@@ -319,7 +334,10 @@ int main(int argc, char* argv[])
             std::cout << "Waypoint set" << std::endl;
         }
 
-
+        */
+        
+        //TEST 1 (WAYPOINT GUIDANCE)
+        
         //General CONTROL SECTION
         int wind_bearing = wind_reading;
         int compass_bearing = compass_reading.get_entry(DATA_SET_COMPASS_BEARING_DEGREES_16);
@@ -368,7 +386,8 @@ int main(int argc, char* argv[])
         servo_rudder.set_target(rudder_setting);
         servo_sail.set_target(sail_setting);
 
-
+        
+        /*
         //DESTINATION CALCULATIONS
         double waypoint_distance = calculation_unit.calculate_distance(current_position,waypoint_position);
         double goal_threshold = control_unit.get_calculated_threshold();
@@ -419,6 +438,7 @@ int main(int argc, char* argv[])
         */
 
 
+        //------ OLD CODE --------
         /*
         //IF WE DONT HAVE A WAYPOINT SET.
         if(control_unit.is_waypoint_set() == false)
