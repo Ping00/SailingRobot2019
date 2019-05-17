@@ -1,19 +1,30 @@
 #include "Module_Wind_Sensor.hpp"
 #include "../../Utilities/utilities.hpp"
+#include "../../Core/IO/IO.hpp"
+#include "../../Core/Parser/Parser.hpp"
 #include <iostream>
-#define OFFSET 20
+#include <vector>
 Module_Wind_Sensor::Module_Wind_Sensor(int spi_channel)
 {
-    std::cout << "Constructing [Module] Wind Sensor" << std::endl;
-	m_initialized = false;
-    m_new_data_available = false;
-	m_spi_channel = spi_channel;
+      std::cout << "Constructing [Module] Wind Sensor" << std::endl;
+	   m_initialized = false;
+     m_new_data_available = false;
+	   m_spi_channel = spi_channel;
+     m_internal_offset = 0;
 }
 
 bool	Module_Wind_Sensor::init()
 {
 		bool result = m_hardware_connection_MA3.init(m_spi_channel);
 		m_initialized = result;
+
+
+    IO io;
+    Parser parser;
+    std::vector<std::string> data_raw = io.read_file("../../Boat/Settings/sensor_config.txt");
+    std::vector<std::string> data_clean = parser.remove_comments(data_raw);
+    m_internal_offset = std::atof(data_clean[2].c_str());
+
 		return result;
 }
 
@@ -23,7 +34,7 @@ void 	Module_Wind_Sensor::run()
 	//(Initial values are between 2-1020, we want 0 - 359
 	int reading = m_hardware_connection_MA3.read(m_spi_channel);
 	int bearing_uncorrected = Utilities::convert_coordinates(2,1020,0,359,reading);
-	m_reading = Utilities::normalize(bearing_uncorrected - OFFSET);
+	m_reading = Utilities::normalize(bearing_uncorrected - m_internal_offset);
   m_new_data_available = true;
 
 }

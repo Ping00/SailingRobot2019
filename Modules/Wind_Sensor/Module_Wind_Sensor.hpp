@@ -12,6 +12,8 @@ class Module_Wind_Sensor
 
 		int m_reading;
 
+		double m_internal_offset;
+
 		//Have we read the latest reading already?
 		bool m_new_data_available;
 

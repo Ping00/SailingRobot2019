@@ -1,6 +1,8 @@
 #include <iostream>
 #include "Module_CMPS12.hpp"
-//#include "../../Hardware/CMPS12/CMPS12_DATA_registry.hpp"
+#include "../../Core/IO/IO.hpp"
+#include "../../Core/Parser/Parser.hpp"
+#include "../../Utilities/utilities.hpp"
 Module_CMPS12::Module_CMPS12()
 {
     std::cout << "Constructing [Module] : CMPS12" << std::endl;
@@ -19,6 +21,13 @@ bool Module_CMPS12::init()
 
     bool state = m_CMPS12_hardware_connection.init();
     m_initialized = state;
+
+    IO io;
+    Parser parser;
+    std::vector<std::string> data_raw = io.read_file("../../Boat/Settings/sensor_config.txt");
+    std::vector<std::string> data_clean = parser.remove_comments(data_raw);
+    m_internal_offset = std::atof(data_clean[0].c_str());
+
     return state;
 }
 
@@ -32,6 +41,10 @@ void Module_CMPS12::run()
         {
             m_CMPS12_data_reading = data;
             m_new_data_available = true;
+            int bearing = m_CMPS12_data_reading.get_entry(DATA_SET_COMPASS_BEARING_DEGREES_16);
+            int calibrated = Utilities::normalize(bearing - m_internal_offset);
+            m_CMPS12_data_reading.set_entry(DATA_SET_COMPASS_BEARING_DEGREES_16, calibrated);
+
         }
         else
         {

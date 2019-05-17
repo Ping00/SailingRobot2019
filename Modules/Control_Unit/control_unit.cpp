@@ -173,21 +173,21 @@ bool Control_Unit::validate_inits(std::vector<bool> statuses)
 
     if(statuses[3])
     {
-        std::cout << "[OK] : Module Compass" << std::endl;
+        std::cout << "[ OK ] : Module Compass" << std::endl;
     }
     else
     {
-        std::cout << "[ERROR] : Module Compass" << std::endl;
+        std::cout << "[ ERROR ] : Module Compass" << std::endl;
         result = false;
     }
 
     if(statuses[4])
     {
-        std::cout << "[OK] : Module Wind Sensor" << std::endl;
+        std::cout << "[ OK ] : Module Wind Sensor" << std::endl;
     }
     else
     {
-        std::cout << "[ERROR] : Module Wind Sensor" << std::endl;
+        std::cout << "[ ERROR ] : Module Wind Sensor" << std::endl;
         result = false;
     }
 

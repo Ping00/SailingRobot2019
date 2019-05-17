@@ -19,6 +19,7 @@ class Module_CMPS12
       //Have we read the latest reading already?
       bool                      m_new_data_available;
 
+      double                    m_internal_offset;
 
     public:
       Module_CMPS12();
