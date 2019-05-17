@@ -169,7 +169,7 @@ int main(int argc, char* argv[])
     }
 
     //Default our Servos to their Default positions from start
-    servo_sail.set_target(0);
+    servo_sail.set_target(0.5);
     servo_rudder.set_target(0);
 
     std::cout << "Activating Threads..." << std::endl;
@@ -208,15 +208,9 @@ int main(int argc, char* argv[])
     GPS_POSITION TEMP_WAYPOINT;
     TEMP_WAYPOINT.latitude = 60.105879322635616;
     TEMP_WAYPOINT.longitude = 19.926559925079346;
-<<<<<<< HEAD
 
-    control_unit.set_waypoint(TEMP_WAYPOINT);
-
-=======
-    
     //control_unit.set_waypoint(TEMP_WAYPOINT);
-    
->>>>>>> 1c09a53e085445879b9577b629ce7b399a53921d
+
     while(control_unit.is_active())
     {
       //std::this_thread::sleep_for(std::chrono::milliseconds(600));
@@ -224,20 +218,12 @@ int main(int argc, char* argv[])
       //module_gps.report();
       //module_wind.report();
 
-      
+
         //Take a nap
         std::this_thread::sleep_for(std::chrono::milliseconds(200));
-<<<<<<< HEAD
-        std::cout << "Primary Loop" << std::endl;
-        std::cout << "------------------" << std::endl;
-        */
-
-=======
         //std::cout << "Primary Loop" << std::endl;
         //std::cout << "------------------" << std::endl;
-        
-      
->>>>>>> 1c09a53e085445879b9577b629ce7b399a53921d
+
         //GRAB A SET OF ITERATION DATA AT THIS MOMENT IN TIME
         GPS_DATA      gps_reading     = TEMP_GPS_DATA;
         CMPS12_DATA   compass_reading = TEMP_COMPASS_DATA;
@@ -275,7 +261,7 @@ int main(int argc, char* argv[])
         fresh_log.m_distance_from_destination   = 0;
         data_logger.log_data(fresh_log);
         */
-         
+
         //Set a waypoint if there is none
         //NOTE Replace with DO-WHILE?
         if(control_unit.is_waypoint_set() == false)
@@ -359,13 +345,6 @@ int main(int argc, char* argv[])
             std::cout << "Waypoint set" << std::endl;
         }
 
-<<<<<<< HEAD
-        */
-
-=======
-        
-        
->>>>>>> 1c09a53e085445879b9577b629ce7b399a53921d
         //TEST 1 (WAYPOINT GUIDANCE)
 
         //General CONTROL SECTION
@@ -416,13 +395,7 @@ int main(int argc, char* argv[])
         servo_rudder.set_target(rudder_setting);
         servo_sail.set_target(sail_setting);
 
-<<<<<<< HEAD
 
-        /*
-=======
-        
-        
->>>>>>> 1c09a53e085445879b9577b629ce7b399a53921d
         //DESTINATION CALCULATIONS
         double waypoint_distance = calculation_unit.calculate_distance(current_position,waypoint_position);
         double goal_threshold = control_unit.get_calculated_threshold();
@@ -470,121 +443,6 @@ int main(int argc, char* argv[])
             control_unit.set_waypoint_status(false);
         }
 
-        
-
-
-        //------ OLD CODE --------
-        /*
-        //IF WE DONT HAVE A WAYPOINT SET.
-        if(control_unit.is_waypoint_set() == false)
-        {
-            //  -> SELECT WAYPOINT
-            std::cout << "We Dont have a waypoint at this moment" << std::endl;
-
-            //Check if data sets are valid
-            bool gps_reading  = valid_gps_reading;
-            bool wind_reading = valid_wind_reading;
-
-            //If both are valid we determine our AOA
-            if(gps_reading && wind_reading)
-            {
-                std::cout << "Both Readings OK!" << std::endl;
-
-                int wind_bearing = 0.0; // = VALUE FROM SENSOR
-                GPS_DATA gps_data; //=READING FROM SENSOR
-                GPS_POSITION current_position; // = VALUE FROM GPS (USE UTILITIES TO EXTRACT FROM DATA)
-                int time_unit = 0; //FETCH FROM GPS DATA
-                control_unit.set_time_value(time_unit);
-
-                GPS_POSITION destination = control_unit.get_destination();
-
-                std::cout << "DLAT:" << destination.latitude << std::endl;
-                std::cout << "DLON:" << destination.longitude << std::endl;
-
-                double destination_bearing = Utilities::coordinates_to_degrees(
-                  current_position.latitude,
-                  current_position.longitude,
-                  destination.latitude,
-                  destination.longitude);
-
-                //OUR DESIRED ANGLE OF APPORACH TO TARGET
-                double AOA = 0.0;
-                if(control_unit.get_angle_direction() == STARBOARD)
-                {
-                    std::cout << "Heading Starboard" << std::endl;
-                    AOA = calculation_unit.calculate_angle_of_approach(destination_bearing,wind_bearing);
-                    control_unit.alternate_angle();
-                }
-                else if(control_unit.get_angle_direction() == PORT)
-                {
-                    std::cout << "Heading Port" << std::endl;
-                    AOA = Utilities::flip_degrees(calculation_unit.calculate_angle_of_approach(destination_bearing,wind_bearing));
-                    control_unit.alternate_angle();
-                }
-
-                //Add our Approach angle to our bearing angle and normalize it
-                double waypoint_angle = Utilities::normalize(AOA+destination_bearing);
-
-                //Calculate the distance to our current checkpoint-pin
-                double checkpoint_distance = calculation_unit.calculate_distance(current_position,destination);
-
-                //Calculate how far away our waypoint should be
-                double waypoint_distance = checkpoint_distance / control_unit.get_distance_factor();
-
-                //TODO ADD CONSTRAINT SO THAT IF DISTANCE BECOMES TOO SMALL, TRUNCATE IT
-
-                //Generate waypoint coordinates
-                GPS_POSITION new_waypoint = calculation_unit.calculate_waypoint(current_position,waypoint_distance,waypoint_angle);
-
-                control_unit.set_waypoint(new_waypoint);
-                //LOG THESE DETAILS
-                //WAYPOINT LOG TO JOURNEY LOG
-
-            }
-
-        }
-
-        //CONTROL BOAT
-        //CALCULATE BEARING FROM CURRENT POSITION AND WAYPOINT;
-        GPS_DATA current_gps_reading;
-        int time_value = 0;
-        GPS_POSITION current_position;  //FETCH FROM GPS
-        current_position.latitude = 60.10347765644805;
-        current_position.longitude = 19.928544759750366;
-        GPS_POSITION waypoint_position; //FETCH FROM CONROL UNIT
-        waypoint_position.latitude = 60.10599161445948;
-        waypoint_position.longitude = 19.928770065307617;
-
-        int wind_bearing    = 0;  //FETCH DATA FROM MODULES
-        int compass_bearing = 0;  //FETCH DATA FROM MODULES
-
-        int waypoint_bearing = Utilities::coordinates_to_degrees(
-          current_position.latitude,
-          current_position.longitude,
-          waypoint_position.latitude,
-          waypoint_position.longitude);
-
-
-        int destination_offset = waypoint_bearing - compass_bearing;
-        std::cout << "DESTINATION BEARING : " << destination_offset << std::endl;
-
-        VEC2 destination_vector = Utilities::degrees_to_vector(destination_offset + OFFSET);
-        VEC2 wind_vector = Utilities::degrees_to_vector(wind_bearing + OFFSET);
-
-        //Calculate rudder & Sail Positions
-        double sail_setting = calculation_unit.calculate_sail_position(wind_vector);
-        double rudder_setting = calculation_unit.calculate_rudder_position(destination_vector);
-
-        //Set Servos to these values
-        servo_sail.set_target(sail_setting);
-        servo_rudder.set_target(rudder_setting);
-
-
-        //Check if we have reached our target
-        //Calculate Distance between our current point and waypoint
-        double checkpoint_distance = calculation_unit.calculate_distance(current_position,waypoint_position);
-
-        */
 
     }
 

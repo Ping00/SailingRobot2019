@@ -3,11 +3,8 @@
 #include "../../Core/IO/IO.hpp"
 #include "../../Core/Parser/Parser.hpp"
 #include <iostream>
-<<<<<<< HEAD
 #include <vector>
-=======
-#define OFFSET -185
->>>>>>> 1c09a53e085445879b9577b629ce7b399a53921d
+
 Module_Wind_Sensor::Module_Wind_Sensor(int spi_channel)
 {
       std::cout << "Constructing [Module] Wind Sensor" << std::endl;
@@ -28,7 +25,7 @@ bool	Module_Wind_Sensor::init()
     std::vector<std::string> data_raw = io.read_file("../../Boat/Settings/sensor_config.txt");
     std::vector<std::string> data_clean = parser.remove_comments(data_raw);
     m_internal_offset = std::atof(data_clean[2].c_str());
-
+    std::cout << "Internal Offset (WIND SENSOR): " << m_internal_offset << std::endl;
 		return result;
 }
 
