@@ -1,6 +1,7 @@
 #include "logger.hpp"
 #include <string>
 #include "../IO/IO.hpp"
+#include "../../Hardware/GPS/GPS_data.hpp"
 #include <iostream>
 #include <iomanip>
 #include <sstream>
@@ -21,8 +22,6 @@ void Logger::publish()
 {
     if(m_available)
     {
-
-        int id                  = m_log.m_entry_id;
         int bearing             = m_log.m_bearing;
         double latitude         = m_log.m_latitude;
         double longitude        = m_log.m_longitude;
@@ -32,13 +31,15 @@ void Logger::publish()
         double checkpoint       = m_log.m_distance_from_destination;
 
         std::stringstream stream;
-        stream << timestamp << " " << std::setprecision(10) << latitude << " " << std::setprecision(10) << longitude <<std::endl;
+        stream << timestamp << " " << std::setprecision(10) << latitude << " " << std::setprecision(10) << longitude <<
+        " || { [SPEED] : " << speed << "} || { [BEARING] : " << bearing <<
+        "} || { [WAYPOINT] : " << waypoint << "} || { [CHECKPOINT] : " << checkpoint;
 
-        std::string data = stream.str();
+        std::string output = stream.str();
 
 
         IO io;
-        io.write_file(data,m_file_path);
+        io.write_file(output,m_file_path);
         m_entries++;
         m_available = false;
     }
@@ -48,22 +49,19 @@ void Logger::publish()
     }
 }
 
-void Logger::publish_waypoint(GPS_POSITION position, std::string message)
+void Logger::publish_waypoint(GPS_DATA data, std::string message)
 {
-    if(m_available)
-    {
+      std::string timestamp = data.get_time();
+      double lat = data.get_latitude();
+      double lon = data.get_longitude();
 
-      std::string data = "";
-
-
+      std::stringstream stream;
+      stream << timestamp << " : " << std::setprecision(10) << lat << "," << std::setprecision(10) << lon;
+      std::string output = stream.str();
 
       IO io;
-      io.write_file("THIS IS JUST A TEST : " + message ,m_file_path);
+      io.write_file(output + " : "+ message ,m_file_path);
       m_entries++;
       m_available = false;
-    }
-    else
-    {
-        std::cout << "NO NEW LOG AVAILABLE" << std::endl;
-    }
+
 }

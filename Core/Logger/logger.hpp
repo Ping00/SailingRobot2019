@@ -3,6 +3,7 @@
 #include <string>
 #include "../../Utilities/Data_Containers/LOG.hpp"
 #include "../../Utilities/Data_Containers/GPS_POSITION.hpp"
+#include "../../Hardware/GPS/GPS_data.hpp"
 class Logger
 {
     private:
@@ -16,6 +17,6 @@ class Logger
 
         void log_data(LOG packet);
         void publish();
-        void publish_waypoint(GPS_POSITION position, std::string message);
+        void publish_waypoint(GPS_DATA data, std::string message);
 };
 #endif//__LOGGER_HPP__

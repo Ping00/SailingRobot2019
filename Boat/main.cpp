@@ -126,7 +126,7 @@ int main(int argc, char* argv[])
 
     //Data Loggers (One for competition, other for journey debugging)
     Logger data_logger("Logs/contest.txt");
-    Logger waypoint_logger("Logs/waypoint.txt");
+    Logger debug_logger("Logs/waypoint.txt");
 
     //Init All Modules & Servos
     std::vector<bool> init_status;
@@ -317,6 +317,7 @@ int main(int argc, char* argv[])
 
             //Register Status in Journey LOG
             //TODO REGISTER
+            debug_logger.publish_waypoint(gps_reading, "[NEW WAYPOINT SET]");
             std::cout << "Waypoint set" << std::endl;
         }
 
@@ -385,6 +386,7 @@ int main(int argc, char* argv[])
             std::cout << "We Are close enough to our destination, grab a new waypoint" << std::endl;
             control_unit.set_waypoint_status(false);
             //TODO LOG EVENT
+            debug_logger.publish_waypoint(gps_reading, "[REACHED WAYPOINT, GRAB NEW ONE!]");
             //Set our message in our custom logger to be "Waypoint Reached"
         }
 
@@ -404,6 +406,7 @@ int main(int argc, char* argv[])
             std::cout << "CHECKPOINT REACHED" << std::endl;
             //Pops the top checkpoint off and turns itself off if at end.
             //TODO LOG EVENT
+            debug_logger.publish_waypoint(gps_reading, "[CHECKPOINT REACHED]");
             control_unit.update_journey();
 
         }
@@ -415,6 +418,7 @@ int main(int argc, char* argv[])
         {
             std::cout << "TOO MUCH TIME HAS PASSED!" << std::endl;
             //Set flag to false to generate new waypoint
+            debug_logger.publish_waypoint(gps_reading, "[Too much time has passed to reach waypoint]");
             control_unit.set_waypoint_status(false);
         }
 
