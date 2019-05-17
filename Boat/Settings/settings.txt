@@ -1,6 +1,6 @@
 # Distance Threshold (Meters)
 # How far should we be to our waypoints before getting a new one
-6
+3
 
 # Time Threshold (How long should we wait before we establish a new waypoint
 # (If we dont manage to get to our current one in time) [Seconds]

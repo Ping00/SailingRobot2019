@@ -9,6 +9,7 @@ class Logger
         int                 m_entries;
         LOG                 m_log;
         std::string         m_file_path;
+        bool                m_available;
 
     public:
         Logger(std::string path);

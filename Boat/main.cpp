@@ -85,15 +85,16 @@ void poll_compass(Module_CMPS12& compass)
 }
 
 //thread for logging competition data at regular intervals
-void log_data()
+void log_data(Logger& data_logger)
 {
     std::cout << "Starting Automatic Logger"<< std::endl;
     //Wait for initial time so we have time to do all setup beforehand
-    std::this_thread::sleep_for(std::chrono::milliseconds(3000));
+    std::this_thread::sleep_for(std::chrono::milliseconds(5000));
     while(true)
     {
-        //std::cout << "Logging Data!" << std::endl;
-        //std::this_thread::sleep_for(std::chrono::milliseconds(2000));
+        std::cout << "Logging Data!" << std::endl;
+        data_logger.publish();
+        std::this_thread::sleep_for(std::chrono::milliseconds(1500));
     }
 }
 
@@ -179,7 +180,7 @@ int main(int argc, char* argv[])
     std::thread t3(poll_gps_sensor,std::ref(module_gps));
     std::thread t4(drive_rudder,std::ref(servo_rudder));
     std::thread t5(drive_sail,std::ref(servo_sail));
-    //std::thread t6(log_data,std::ref(data_logger))
+    std::thread t6(log_data,std::ref(data_logger));
 
     //Wait for modules to collect initial set of data
     std::this_thread::sleep_for(std::chrono::milliseconds(200));
@@ -210,57 +211,31 @@ int main(int argc, char* argv[])
     TEMP_WAYPOINT.longitude = 19.926559925079346;
 
     //control_unit.set_waypoint(TEMP_WAYPOINT);
+    long int entry = 0;
 
     while(control_unit.is_active())
     {
-      //std::this_thread::sleep_for(std::chrono::milliseconds(600));
-      //module_compass.report();
-      //module_gps.report();
-      //module_wind.report();
+        //std::this_thread::sleep_for(std::chrono::milliseconds(600));
+        //module_compass.report();
+        //module_gps.report();
+        //module_wind.report();
 
 
         //Take a nap
-        std::this_thread::sleep_for(std::chrono::milliseconds(200));
+        std::this_thread::sleep_for(std::chrono::milliseconds(500));
         //std::cout << "Primary Loop" << std::endl;
         //std::cout << "------------------" << std::endl;
 
         //GRAB A SET OF ITERATION DATA AT THIS MOMENT IN TIME
-        GPS_DATA      gps_reading     = TEMP_GPS_DATA;
-        CMPS12_DATA   compass_reading = TEMP_COMPASS_DATA;
-        int           wind_reading    = TEMP_WIND;
+        //GPS_DATA      gps_reading     = TEMP_GPS_DATA;
+        //CMPS12_DATA   compass_reading = TEMP_COMPASS_DATA;
+        //int           wind_reading    = TEMP_WIND;
 
         //GRAB A SET OF ITERATION DATA AT THIS MOMENT IN TIME
-        //GPS_DATA      gps_reading     = module_gps.get_reading();
-        //CMPS12_DATA   compass_reading = module_compass.get_reading();
-        //int           wind_reading    = module_wind.get_reading();
+        GPS_DATA      gps_reading     = module_gps.get_reading();
+        CMPS12_DATA   compass_reading = module_compass.get_reading();
+        int           wind_reading    = module_wind.get_reading();
 
-        LOG fresh_log;
-        fresh_log.m_entry_id                    = 0;
-        fresh_log.m_bearing                     = 0;
-        fresh_log.m_latitude                    = 0;
-        fresh_log.m_longitude                   = 0;
-        fresh_log.m_speed                       = 0;
-        fresh_log.m_timestamp                   = "";
-        fresh_log.m_distance_from_waypoint      = 0;
-        fresh_log.m_distance_from_destination   = 0;
-        data_logger.log_data(fresh_log);
-
-
-        /*
-        //TODO REPORT IF ANY DATA IS UNAVAILABLE
-        //IF ALL DATA IS OK
-        //TODO GENERATE LOG OF ALL DATA
-        LOG fresh_log;
-        fresh_log.m_entry_id                    = 0;
-        fresh_log.m_bearing                     = 0;
-        fresh_log.m_latitude                    = 0;
-        fresh_log.m_longitude                   = 0;
-        fresh_log.m_speed                       = 0;
-        fresh_log.m_timestamp                   = "";
-        fresh_log.m_distance_from_waypoint      = 0;
-        fresh_log.m_distance_from_destination   = 0;
-        data_logger.log_data(fresh_log);
-        */
 
         //Set a waypoint if there is none
         //NOTE Replace with DO-WHILE?
@@ -442,6 +417,19 @@ int main(int argc, char* argv[])
             //Set flag to false to generate new waypoint
             control_unit.set_waypoint_status(false);
         }
+
+
+        //GENERATE LOG
+        LOG fresh_log;
+        fresh_log.m_entry_id                    = entry++;
+        fresh_log.m_bearing                     = compass_bearing;
+        fresh_log.m_latitude                    = gps_reading.get_latitude();
+        fresh_log.m_longitude                   = gps_reading.get_longitude();
+        fresh_log.m_speed                       = gps_reading.get_speed();
+        fresh_log.m_timestamp                   = gps_reading.get_time();
+        fresh_log.m_distance_from_waypoint      = waypoint_distance*1000;
+        fresh_log.m_distance_from_destination   = checkpoint_distance*1000;
+        data_logger.log_data(fresh_log);
 
 
     }
