@@ -211,6 +211,8 @@ int main(int argc, char* argv[])
     
     control_unit.set_waypoint(TEMP_WAYPOINT);
     
+    long int iteration = 0;
+    
     while(control_unit.is_active())
     {
       std::this_thread::sleep_for(std::chrono::milliseconds(600));
@@ -226,14 +228,25 @@ int main(int argc, char* argv[])
         */
       
         //GRAB A SET OF ITERATION DATA AT THIS MOMENT IN TIME
-        //GPS_DATA      gps_reading     = TEMP_GPS_DATA;
-        //CMPS12_DATA   compass_reading = TEMP_COMPASS_DATA;
-        //int           wind_reading    = TEMP_WIND;
+        GPS_DATA      gps_reading     = TEMP_GPS_DATA;
+        CMPS12_DATA   compass_reading = TEMP_COMPASS_DATA;
+        int           wind_reading    = TEMP_WIND;
         
         //GRAB A SET OF ITERATION DATA AT THIS MOMENT IN TIME
-        GPS_DATA      gps_reading     = module_gps.get_reading();
-        CMPS12_DATA   compass_reading = module_compass.get_reading();
-        int           wind_reading    = module_wind.get_reading();
+        //GPS_DATA      gps_reading     = module_gps.get_reading();
+        //CMPS12_DATA   compass_reading = module_compass.get_reading();
+        //int           wind_reading    = module_wind.get_reading();
+        
+        LOG fresh_log;
+        fresh_log.m_entry_id                    = 0;
+        fresh_log.m_bearing                     = 0;
+        fresh_log.m_latitude                    = 0;
+        fresh_log.m_longitude                   = 0;
+        fresh_log.m_speed                       = 0;
+        fresh_log.m_timestamp                   = "";
+        fresh_log.m_distance_from_waypoint      = 0;
+        fresh_log.m_distance_from_destination   = 0;
+        data_logger.log_data(fresh_log);
         
         
         /*
@@ -550,8 +563,6 @@ int main(int argc, char* argv[])
         double checkpoint_distance = calculation_unit.calculate_distance(current_position,waypoint_position);
 
         */
-
-
 
     }
 
