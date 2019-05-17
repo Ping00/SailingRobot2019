@@ -3,7 +3,11 @@
 #include "../../Core/IO/IO.hpp"
 #include "../../Core/Parser/Parser.hpp"
 #include <iostream>
+<<<<<<< HEAD
 #include <vector>
+=======
+#define OFFSET -185
+>>>>>>> 1c09a53e085445879b9577b629ce7b399a53921d
 Module_Wind_Sensor::Module_Wind_Sensor(int spi_channel)
 {
       std::cout << "Constructing [Module] Wind Sensor" << std::endl;
