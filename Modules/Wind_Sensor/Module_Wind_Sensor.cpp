@@ -35,7 +35,7 @@ void 	Module_Wind_Sensor::run()
 	//(Initial values are between 2-1020, we want 0 - 359
 	int reading = m_hardware_connection_MA3.read(m_spi_channel);
 	int bearing_uncorrected = Utilities::convert_coordinates(2,1020,0,359,reading);
-	m_reading = Utilities::normalize(bearing_uncorrected - m_internal_offset);
+	m_reading = Utilities::normalize(bearing_uncorrected + m_internal_offset);
   m_new_data_available = true;
 
 }

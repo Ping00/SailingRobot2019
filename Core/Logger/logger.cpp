@@ -31,7 +31,7 @@ void Logger::publish()
         double checkpoint       = m_log.m_distance_from_destination;
 
         std::stringstream stream;
-        stream << timestamp << " " << std::setprecision(10) << latitude << " " << std::setprecision(10) << longitude <<
+        stream << timestamp << " " << std::setprecision(10) << latitude << " " << std::setprecision(10) << longitude << std::setw(5) <<
         " || { [SPEED] : " << speed << "} || { [BEARING] : " << bearing <<
         "} || { [WAYPOINT] : " << waypoint << "} || { [CHECKPOINT] : " << checkpoint;
 
@@ -64,4 +64,13 @@ void Logger::publish_waypoint(GPS_DATA data, std::string message)
       m_entries++;
       m_available = false;
 
+}
+
+void Logger::write(std::string message)
+{
+    std::stringstream stream;
+    stream << message;
+
+    IO io;
+    io.write_file(message ,m_file_path);
 }

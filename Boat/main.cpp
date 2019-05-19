@@ -190,7 +190,7 @@ int main(int argc, char* argv[])
     //Publish Initial Log of journey
     //INITIAL WAYPOINT (START)
     //INITIAL READINGS
-
+    /*
     //SCHOOL TEMP
     GPS_DATA TEMP_GPS_DATA;
     TEMP_GPS_DATA.set_valid(true);
@@ -209,9 +209,12 @@ int main(int argc, char* argv[])
     GPS_POSITION TEMP_WAYPOINT;
     TEMP_WAYPOINT.latitude = 60.105879322635616;
     TEMP_WAYPOINT.longitude = 19.926559925079346;
-
+    */
     //control_unit.set_waypoint(TEMP_WAYPOINT);
     long int entry = 0;
+
+    data_logger.write(" - - - BEGINNING NEW JOURNEY - - - ");
+    debug_logger.write(" - - - BEGINNING NEW JOURNEY - - - ");
 
     while(control_unit.is_active())
     {

@@ -42,7 +42,7 @@ void Module_CMPS12::run()
             m_CMPS12_data_reading = data;
             m_new_data_available = true;
             int bearing = m_CMPS12_data_reading.get_entry(DATA_SET_COMPASS_BEARING_DEGREES_16);
-            int calibrated = Utilities::normalize(bearing - m_internal_offset);
+            int calibrated = Utilities::normalize(bearing + m_internal_offset);
             m_CMPS12_data_reading.set_entry(DATA_SET_COMPASS_BEARING_DEGREES_16, calibrated);
 
         }
