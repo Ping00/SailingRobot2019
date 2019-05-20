@@ -332,7 +332,7 @@ int main(int argc, char* argv[])
 
 if(wind_bearing < 0)
 {
-          Utilities::flip_degrees(Utilities::normalize(wind_bearing));
+          wind_bearing = Utilities::flip_degrees(Utilities::normalize(wind_bearing));
 }
 
         std::cout << "Wind Bearing IS: " << wind_bearing << std::endl;
