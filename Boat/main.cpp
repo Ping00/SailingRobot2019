@@ -439,7 +439,7 @@ int main(int argc, char* argv[])
         fresh_log.m_distance_from_destination   = checkpoint_distance;
         data_logger.log_data(fresh_log);
  
-   std::cout << "LOG: " << fresh_log.latitude << std::endl;
+   std::cout << "LOG: " << fresh_log.m_latitude << std::endl;
 
     }
 
