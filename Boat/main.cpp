@@ -356,13 +356,15 @@ int main(int argc, char* argv[])
 
         //Calculate the directional offset of our waypoint
         int waypoint_offset = waypoint_bearing - compass_bearing;
+	int wind_offset = compass_bearing - wind_bearing;
 
-        std::cout << "Waypoint Offset: " << waypoint_offset << std::endl;
+        std::cout << "!! Waypoint Offset: " << waypoint_offset << std::endl;
+        std::cout << "!! Wind offset: " << wind_offset << std::endl;
 
 
         //Generate Vectors to use in our calculation of positions (NOTE THE OFFSET IS 90)
         VEC2 rudder_vector = Utilities::degrees_to_vector(waypoint_offset + OFFSET);
-        VEC2 sail_vector   = Utilities::degrees_to_vector(waypoint_offset   + OFFSET);
+        VEC2 sail_vector   = Utilities::degrees_to_vector(wind_offset   + OFFSET);
 
         //Calculate our settings
         double rudder_setting = calculation_unit.calculate_rudder_position(rudder_vector);
