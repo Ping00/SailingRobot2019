@@ -328,8 +328,9 @@ int main(int argc, char* argv[])
 
         //General CONTROL SECTION
         int compass_bearing = compass_reading.get_entry(DATA_SET_COMPASS_BEARING_DEGREES_16);
-        int wind_bearing = wind_reading - compass_bearing;
-
+        
+         const int TEMP_READING = 350;
+         int wind_bearing = TEMP_READING;
 
 
         std::cout << "Wind Bearing IS: " << wind_bearing << std::endl;
