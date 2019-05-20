@@ -328,7 +328,7 @@ int main(int argc, char* argv[])
 
         //General CONTROL SECTION
         int compass_bearing = compass_reading.get_entry(DATA_SET_COMPASS_BEARING_DEGREES_16);
-        int wind_bearing = Utilities::normalize(Utilities::normalize(wind_reading - compass_bearing) - 180));
+        int wind_bearing = Utilities::normalize(Utilities::normalize(wind_reading - compass_bearing) - 180);
 
         std::cout << "Wind Bearing IS: " << wind_bearing << std::endl;
         std::cout << "Boat Bearing Is: " << compass_bearing << std::endl;
