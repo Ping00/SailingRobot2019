@@ -443,6 +443,9 @@ int main(int argc, char* argv[])
 
     }
 
+	
+servo_sail.set_target(0.1);
+    servo_rudder.set_target(0);
     std::cout << "JOURNEY DONE!" << std::endl;
 
     return 0;
