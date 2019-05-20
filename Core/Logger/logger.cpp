@@ -31,9 +31,7 @@ void Logger::publish()
         double checkpoint       = m_log.m_distance_from_destination;
 
         std::stringstream stream;
-        stream << timestamp << " " << std::setprecision(10) << latitude << " " << std::setprecision(10) << longitude << std::setw(5) <<
-        " || { [SPEED] : " << speed << "} || { [BEARING] : " << bearing <<
-        "} || { [WAYPOINT] : " << waypoint << "} || { [CHECKPOINT] : " << checkpoint;
+        stream << timestamp << " " << std::setprecision(15) << latitude << " " << std::setprecision(15) << longitude;
 
         std::string output = stream.str();
 
