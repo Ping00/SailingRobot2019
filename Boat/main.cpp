@@ -232,12 +232,12 @@ int main(int argc, char* argv[])
         //GRAB A SET OF ITERATION DATA AT THIS MOMENT IN TIME
         //GPS_DATA      gps_reading     = TEMP_GPS_DATA;
         //CMPS12_DATA   compass_reading = TEMP_COMPASS_DATA;
-        //int           wind_reading    = TEMP_WIND;
+        int           wind_reading    = 250;
 
         //GRAB A SET OF ITERATION DATA AT THIS MOMENT IN TIME
         GPS_DATA      gps_reading     = module_gps.get_reading();
         CMPS12_DATA   compass_reading = module_compass.get_reading();
-        int           wind_reading    = module_wind.get_reading();
+        //int           wind_reading    = module_wind.get_reading();
 
 
         //Set a waypoint if there is none
@@ -328,9 +328,7 @@ int main(int argc, char* argv[])
 
         //General CONTROL SECTION
         int compass_bearing = compass_reading.get_entry(DATA_SET_COMPASS_BEARING_DEGREES_16);
-        
-         const int TEMP_READING = 350;
-         int wind_bearing = TEMP_READING;
+         int wind_bearing = wind_reading;
 
 
         std::cout << "Wind Bearing IS: " << wind_bearing << std::endl;
