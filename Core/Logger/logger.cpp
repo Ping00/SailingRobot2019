@@ -14,7 +14,10 @@ Logger::Logger(std::string path)
 
 void Logger::log_data(LOG packet)
 {
-    m_log = packet;
+    	m_log.m_latitude = packet.m_latitude;
+	m_log.m_longitude = packet.m_longitude;
+	m_log.m_timestamp = packet.m_timestamp;
+
     m_available = true;
 }
 
