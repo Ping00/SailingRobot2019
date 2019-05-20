@@ -328,7 +328,7 @@ int main(int argc, char* argv[])
 
         //General CONTROL SECTION
         int compass_bearing = compass_reading.get_entry(DATA_SET_COMPASS_BEARING_DEGREES_16);
-         int wind_bearing = wind_reading;
+        int wind_bearing = wind_reading;
 
 
         std::cout << "Wind Bearing IS: " << wind_bearing << std::endl;
@@ -362,7 +362,7 @@ int main(int argc, char* argv[])
 
         //Generate Vectors to use in our calculation of positions (NOTE THE OFFSET IS 90)
         VEC2 rudder_vector = Utilities::degrees_to_vector(waypoint_offset + OFFSET);
-        VEC2 sail_vector   = Utilities::degrees_to_vector(wind_bearing   + OFFSET);
+        VEC2 sail_vector   = Utilities::degrees_to_vector(waypoint_offset   + OFFSET);
 
         //Calculate our settings
         double rudder_setting = calculation_unit.calculate_rudder_position(rudder_vector);
@@ -444,7 +444,7 @@ int main(int argc, char* argv[])
     }
 
 	
-servo_sail.set_target(0.1);
+    servo_sail.set_target(0.1);
     servo_rudder.set_target(0);
     std::cout << "JOURNEY DONE!" << std::endl;
 

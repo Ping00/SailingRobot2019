@@ -71,11 +71,10 @@ double Calculation_Unit::calculate_sail_position(VEC2 vector)
     //Y AXIS DETERMINES HOW HARD WE NEED TO SWING OUR SAILS
     //-1 MIN
     //+1 MAX
-	double x_factor = 3.0
-    double sail = vector.y / x_factor;
+    double sail = vector.y;
 
     double sail_power = Utilities::convert_coordinates(-1,1,0, 1, sail);
-    //std::cout << "SAILS ARE AT: " << sail_power*100 << " Percentage" << std::endl;
+    std::cout << "SAILS ARE AT: " << sail_power*100 << " Percentage" << std::endl;
     //POS NEG X IS IRRELEVANT AS SAIL CAN SWING AROUND TO OTHER SIDE
     return sail_power;
 }
