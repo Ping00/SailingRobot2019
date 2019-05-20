@@ -232,7 +232,7 @@ int main(int argc, char* argv[])
         //GRAB A SET OF ITERATION DATA AT THIS MOMENT IN TIME
         //GPS_DATA      gps_reading     = TEMP_GPS_DATA;
         //CMPS12_DATA   compass_reading = TEMP_COMPASS_DATA;
-        int           wind_reading    = 350;
+        int           wind_reading    = 0;
 
         //GRAB A SET OF ITERATION DATA AT THIS MOMENT IN TIME
         GPS_DATA      gps_reading     = module_gps.get_reading();
