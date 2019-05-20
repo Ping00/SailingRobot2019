@@ -330,6 +330,11 @@ int main(int argc, char* argv[])
         int compass_bearing = compass_reading.get_entry(DATA_SET_COMPASS_BEARING_DEGREES_16);
         int wind_bearing = wind_reading - compass_bearing;
 
+if(wind_bearing < 0)
+{
+          Utilities::flip_degrees(Utilities::normalize(wind_bearing));
+}
+
         std::cout << "Wind Bearing IS: " << wind_bearing << std::endl;
         std::cout << "Boat Bearing Is: " << compass_bearing << std::endl;
 
