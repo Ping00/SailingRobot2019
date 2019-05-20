@@ -435,10 +435,11 @@ int main(int argc, char* argv[])
         fresh_log.m_longitude                   = gps_reading.get_longitude();
         fresh_log.m_speed                       = gps_reading.get_speed();
         fresh_log.m_timestamp                   = gps_reading.get_time();
-        fresh_log.m_distance_from_waypoint      = waypoint_distance*1000;
-        fresh_log.m_distance_from_destination   = checkpoint_distance*1000;
+        fresh_log.m_distance_from_waypoint      = waypoint_distance;
+        fresh_log.m_distance_from_destination   = checkpoint_distance;
         data_logger.log_data(fresh_log);
-
+ 
+   std::cout << "LOG: " << fresh_log.latitude << std::endl;
 
     }
 
