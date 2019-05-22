@@ -218,6 +218,7 @@ int main(int argc, char* argv[])
 
     while(control_unit.is_active())
     {
+		std::cout << "INDEX #" << entry << std::endl;
         //std::this_thread::sleep_for(std::chrono::milliseconds(600));
         //module_compass.report();
         //module_gps.report();
@@ -448,6 +449,8 @@ int main(int argc, char* argv[])
         fresh_log.m_distance_from_destination   = checkpoint_distance;
         data_logger.log_data(fresh_log);
 
+
+		entry++;
 		std::cout << " -.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.- " << std::endl;
     }
 
