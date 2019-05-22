@@ -320,7 +320,7 @@ int main(int argc, char* argv[])
 
             //Register Status in Journey LOG
             //TODO REGISTER
-            debug_logger.publish_waypoint(gps_reading,new_waypoint, "[NEW WAYPOINT SET]");
+            debug_logger.publish_waypoint(gps_reading, new_waypoint, "[NEW WAYPOINT SET]");
             std::cout << "Waypoint set" << std::endl;
         }
 
