@@ -3,7 +3,7 @@
 #include <chrono>
 
 #include "../Utilities/Data_Containers/GPS_POSITION.hpp"
-#include "../Utilities/utilities.hpp"
+#include "../Utilities/ind.hpp"
 
 #include "../Modules/Compass/Module_CMPS12.hpp"
 #include "../Modules/GPS/Module_GPS.hpp"
@@ -439,7 +439,7 @@ int main(int argc, char* argv[])
 
         //GENERATE LOG
         LOG fresh_log;
-        fresh_log.m_entry_id                    = entry++;
+        fresh_log.m_entry_id                    = entry;
         fresh_log.m_bearing                     = compass_bearing;
         fresh_log.m_latitude                    = gps_reading.get_latitude();
         fresh_log.m_longitude                   = gps_reading.get_longitude();
