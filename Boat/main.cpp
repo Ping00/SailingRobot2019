@@ -416,7 +416,7 @@ int main(int argc, char* argv[])
 			GPS_POSITION ph;
             debug_logger.publish_waypoint(gps_reading, ph, "[CHECKPOINT REACHED]");
             control_unit.update_journey();
-			debug_logger.publish_waypoint(control_unit.get_destination(), ph, "[NEXT DESTINATION]");
+			debug_logger.publish_waypoint(gps_reading, control_unit.get_destination(), "[NEXT DESTINATION]");
 
         }
 		else
