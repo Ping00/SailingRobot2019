@@ -83,7 +83,7 @@ double Calculation_Unit::calculate_sail_position(VEC2 vector)
 }
 
 double Calculation_Unit::calculate_angle_of_approach(double destination_bearing, double wind_bearing)
-
+{
     //Even if we are head on we want to move
     //slightly to the side for good measure
     const double upper_angle_discrepancy = 45.0;
