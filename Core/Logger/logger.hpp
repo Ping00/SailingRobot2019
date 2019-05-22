@@ -18,6 +18,6 @@ class Logger
         void log_data(LOG packet);
         void publish();
         void write(std::string message);
-        void publish_waypoint(GPS_DATA data, std::string message);
+        void publish_waypoint(GPS_DATA from, GPS_POSITION to, std::string message);
 };
 #endif//__LOGGER_HPP__
