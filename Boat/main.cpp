@@ -413,7 +413,8 @@ int main(int argc, char* argv[])
             std::cout << "CHECKPOINT REACHED" << std::endl;
             //Pops the top checkpoint off and turns itself off if at end.
             //TODO LOG EVENT
-            debug_logger.publish_waypoint(gps_reading, "[CHECKPOINT REACHED]");
+			GPS_POSITION ph;
+            debug_logger.publish_waypoint(gps_reading, ph, "[CHECKPOINT REACHED]");
             control_unit.update_journey();
 
         }
