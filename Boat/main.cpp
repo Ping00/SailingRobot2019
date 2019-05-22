@@ -427,7 +427,8 @@ int main(int argc, char* argv[])
 			{
 				std::cout << "TOO MUCH TIME HAS PASSED!" << std::endl;
 				//Set flag to false to generate new waypoint
-				debug_logger.publish_waypoint(gps_reading, "[Too much time has passed to reach waypoint]");
+				GPS_POSITION ph;
+				debug_logger.publish_waypoint(gps_reading, ph, "[Too much time has passed to reach waypoint]");
 				control_unit.set_waypoint_status(false);
 			}
 		}
