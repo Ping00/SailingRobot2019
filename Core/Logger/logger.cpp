@@ -52,9 +52,9 @@ void Logger::publish()
 
 void Logger::publish_waypoint(GPS_DATA from, GPS_POSITION to, std::string message)
 {
-      std::string timestamp = data.get_time();
-      double at_lat = data.get_latitude();
-      double at_lon = data.get_longitude();
+      std::string timestamp = from.get_time();
+      double at_lat = from.get_latitude();
+      double at_lon = from.get_longitude();
 
 	  double dest_lat = to.latitude;
 	  double dest_lon = to.longitude;

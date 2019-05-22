@@ -43,7 +43,7 @@ void IO::write_file(std::string data, std::string path)
     std::fstream log_info(path, std::ios::out | std::ios::app);
     if(log_info.is_open())
     {
-        std::cout << "SUCCESS!" << std::endl;
+        //std::cout << "SUCCESS!" << std::endl;
         log_info << data << std::endl;
         log_info.close();
     }

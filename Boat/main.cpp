@@ -89,10 +89,10 @@ void log_data(Logger& data_logger)
 {
     std::cout << "Starting Automatic Logger"<< std::endl;
     //Wait for initial time so we have time to do all setup beforehand
-    std::this_thread::sleep_for(std::chrono::milliseconds(5000));
+    std::this_thread::sleep_for(std::chrono::milliseconds(6000));
     while(true)
     {
-        std::cout << "Logging Data!" << std::endl;
+        //std::cout << "Logging Data!" << std::endl;
         data_logger.publish();
         std::this_thread::sleep_for(std::chrono::milliseconds(1500));
     }
@@ -237,7 +237,7 @@ int main(int argc, char* argv[])
         //GRAB A SET OF ITERATION DATA AT THIS MOMENT IN TIME
         GPS_DATA      gps_reading     = module_gps.get_reading();
         CMPS12_DATA   compass_reading = module_compass.get_reading();
-        //int           wind_reading    = module_wind.get_reading();
+        //int         wind_reading    = module_wind.get_reading();
 
 
         //Set a waypoint if there is none
@@ -320,7 +320,7 @@ int main(int argc, char* argv[])
 
             //Register Status in Journey LOG
             //TODO REGISTER
-            debug_logger.publish_waypoint(gps_reading, "[NEW WAYPOINT SET]");
+            debug_logger.publish_waypoint(gps_reading,new_waypoint, "[NEW WAYPOINT SET]");
             std::cout << "Waypoint set" << std::endl;
         }
 
@@ -356,7 +356,7 @@ int main(int argc, char* argv[])
 
         //Calculate the directional offset of our waypoint
         int waypoint_offset = waypoint_bearing - compass_bearing;
-	int wind_offset = compass_bearing - wind_bearing;
+		int wind_offset = compass_bearing - wind_bearing;
 
         std::cout << "!! Waypoint Offset: " << waypoint_offset << std::endl;
         std::cout << "!! Wind offset: " << wind_offset << std::endl;
@@ -392,7 +392,7 @@ int main(int argc, char* argv[])
             std::cout << "We Are close enough to our destination, grab a new waypoint" << std::endl;
             control_unit.set_waypoint_status(false);
             //TODO LOG EVENT
-            debug_logger.publish_waypoint(gps_reading, "[REACHED WAYPOINT, GRAB NEW ONE!]");
+            debug_logger.publish_waypoint(gps_reading, GPS_POSITION(0,0), "[REACHED WAYPOINT, GRAB NEW ONE!]");
             //Set our message in our custom logger to be "Waypoint Reached"
         }
 
@@ -416,17 +416,20 @@ int main(int argc, char* argv[])
             control_unit.update_journey();
 
         }
+		else
+		{
 
-        //HAS TOO MUCH TIME PASSED SINCE WE ESTABLISHED THE WAYPOINT
-        int gps_time = gps_reading.get_time_value();
-        std::cout << "GPS TIME: " << gps_time << std::endl;
-        if(control_unit.time_discrepency_reached(gps_time))
-        {
-            std::cout << "TOO MUCH TIME HAS PASSED!" << std::endl;
-            //Set flag to false to generate new waypoint
-            debug_logger.publish_waypoint(gps_reading, "[Too much time has passed to reach waypoint]");
-            control_unit.set_waypoint_status(false);
-        }
+			//HAS TOO MUCH TIME PASSED SINCE WE ESTABLISHED THE WAYPOINT
+			int gps_time = gps_reading.get_time_value();
+			std::cout << "GPS TIME: " << gps_time << std::endl;
+			if (control_unit.time_discrepency_reached(gps_time))
+			{
+				std::cout << "TOO MUCH TIME HAS PASSED!" << std::endl;
+				//Set flag to false to generate new waypoint
+				debug_logger.publish_waypoint(gps_reading, "[Too much time has passed to reach waypoint]");
+				control_unit.set_waypoint_status(false);
+			}
+		}
 
 
         //GENERATE LOG
