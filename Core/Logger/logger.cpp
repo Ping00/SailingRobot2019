@@ -61,15 +61,14 @@ void Logger::publish_waypoint(GPS_DATA from, GPS_POSITION to, std::string messag
 
 
       std::stringstream stream;
-	  stream << timestamp 
-		  << " : " << "[" 
-		  << std::setprecision(10) << at_lat 
-		  << "," 
-		  << std::setprecision(10) << at_lon 
-		  << "]" << " (->) " << "["
-		  << std::setprecision(10) << dest_lat 
-		  << std::setprecision(10) << dest_lon 
-		  << "]";
+	  stream << timestamp
+		  << " : "
+		  << std::setprecision(10) << at_lat
+		  << " "
+		  << std::setprecision(10) << at_lon
+		  << " (->) "
+		  << std::setprecision(10) << dest_lat
+		  << std::setprecision(10) << dest_lon;
       std::string output = stream.str();
 
       IO io;
