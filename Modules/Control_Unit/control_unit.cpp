@@ -123,10 +123,10 @@ void Control_Unit::update_journey()
         m_waypoint.latitude = 0;
         m_waypoint.longitude = 0;
     }
-    else
+    else if(m_destination.size() == 0)
     {
         std::cout << "JOURNEY COMPLETE!" << std::endl;
-        m_active = false;
+        //m_active = false;
     }
 }
 
