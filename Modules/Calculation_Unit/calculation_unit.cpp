@@ -71,16 +71,19 @@ double Calculation_Unit::calculate_sail_position(VEC2 vector)
     //Y AXIS DETERMINES HOW HARD WE NEED TO SWING OUR SAILS
     //-1 MIN
     //+1 MAX
-    double sail = vector.y;
 
-    double sail_power = Utilities::convert_coordinates(-1,1,0, 1, sail);
-    std::cout << "SAILS ARE AT: " << sail_power*100 << " Percentage" << std::endl;
+	//ADDING IN RESTRAINT TO SAIL AS WE DONT NEED ALL POWER (TOO WIDE IN LOWER ANGLES, 0-75%)
+    double sail = Utilities::convert_coordinates(-1, 1, 0, 0.75, vector.y);
+
+    double temp = Utilities::convert_coordinates(-1,1,0, 1, vector.y);
+	double sail_power = sail;
+	std::cout << "SAILS ARE AT: " << temp*100 << " Percentage" << std::endl;
     //POS NEG X IS IRRELEVANT AS SAIL CAN SWING AROUND TO OTHER SIDE
     return sail_power;
 }
 
 double Calculation_Unit::calculate_angle_of_approach(double destination_bearing, double wind_bearing)
-{
+
     //Even if we are head on we want to move
     //slightly to the side for good measure
     const double upper_angle_discrepancy = 45.0;
