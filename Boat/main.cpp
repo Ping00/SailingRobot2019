@@ -392,7 +392,8 @@ int main(int argc, char* argv[])
             std::cout << "We Are close enough to our destination, grab a new waypoint" << std::endl;
             control_unit.set_waypoint_status(false);
             //TODO LOG EVENT
-            debug_logger.publish_waypoint(gps_reading, GPS_POSITION(0,0), "[REACHED WAYPOINT, GRAB NEW ONE!]");
+			GPS_POSITION ph;
+            debug_logger.publish_waypoint(gps_reading, ph, "[REACHED WAYPOINT, GRAB NEW ONE!]");
             //Set our message in our custom logger to be "Waypoint Reached"
         }
 
