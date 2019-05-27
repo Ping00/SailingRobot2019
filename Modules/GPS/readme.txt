@@ -14,3 +14,10 @@
 	START GPSD WITH SELECTED SOCKET
 
 	pi@:~$ sudo gpsd /dev/ttyUSB0 -F /var/run/gpsd.sock
+	
+	
+	TO MAKE GPSD START ON BOOT, add:
+	
+        gpsd /dev/ttyUSB0 -F /var/run/gpsd.sock
+        
+    to rc.local (This code will then be run on boot, per default rc.local does nothing but print PI IP address)

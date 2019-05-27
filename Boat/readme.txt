@@ -3,7 +3,46 @@
 ##
     Each Hardware component is wrapped wihtin a module component, this wrapper ensures that all exceptions caused by hardware can be caught by the module
     without extensive fault checking by the user, and will be notified if something went wrong via the module.
+    
+    
+##
+##  HOWTO (SETUP) FRESH
+##
 
+    1.  Install Desired OS on Raspberry Pi 3 (Rasbian in this project via NOOBS)
+    
+    2.  Install I2C tools (Optional, determines if compass is properly working and connected)
+            
+            pi$ sudo apt-get install -y i2c-tools
+            
+    
+    3.  Turn on Following via:
+    
+            pi$ sudo raspi-config
+        
+            - I2C
+            - SPI
+            
+
+    4.  Install GPSD module (GPS Daemon will run the gps on activation)
+            
+            pi$ sudo apt-get install gpsd
+            
+            
+    5.0 Connect USB to Pi
+    
+        5.1 make sure that compass USB is connected the the pi.
+        
+        5.2 Make sure that the POLOLU MAESTRO is connected into the Pololu servo controller and pi USB
+    
+            - Make sure that paths are correct for both devices (Examine Hardware / Modules)
+    
+    6.  Install GPSMM to extract daemon data
+    
+            pi$ sudo apt-get install libgps-dev
+            
+            
+    7.  Activate GPSM daemon (Instructions found in GPS modules readme on how to make program run on boot)
 
 ##
 ##  HOWTO (SENSORS [MA3 (Wind), CMPS12 (Compass), GPS (gps))
