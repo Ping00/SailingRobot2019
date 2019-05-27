@@ -43,6 +43,8 @@
             
             
     7.  Activate GPSM daemon (Instructions found in GPS modules readme on how to make program run on boot)
+    
+    8.  Run primary program. all modules whould show [ OK ] and be ready to collect data/parse data.
 
 ##
 ##  HOWTO (SENSORS [MA3 (Wind), CMPS12 (Compass), GPS (gps))

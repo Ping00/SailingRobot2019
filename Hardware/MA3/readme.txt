@@ -30,7 +30,7 @@
             | O O |
             | R O |
             | G O |
-	    | B H |
+            | B H |
             -------
             
   	USB CONNECTORS
